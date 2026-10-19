@@ -1,0 +1,94 @@
+{
+ "settings": {
+  "banner": "Commandez depuis chez vous · Livré partout au Maroc",
+  "whatsapp": "06 54 29 09 60",
+  "phone2": "06 56 57 20 30",
+  "instagram": "nervina_maroc",
+  "heroTitle1": "Le mobilier marocain,",
+  "heroTitle2": "dessiné pour votre salon.",
+  "heroLead": "Tables, meubles TV, consoles et tables de chevet inspirés de l'artisanat marocain et pensés pour la vie d'aujourd'hui. Chaque pièce peut être adaptée à vos dimensions.",
+  "perks": [
+   "Savoir-faire marocain authentique",
+   "Design intemporel",
+   "Dimensions personnalisables"
+  ],
+  "trust": [
+   {
+    "t": "Livraison partout au Maroc",
+    "d": "Dans toutes les villes. Les frais sont annoncés avant la confirmation."
+   },
+   {
+    "t": "Paiement en deux temps",
+    "d": "30 % d'acompte à la commande, 70 % à la livraison."
+   },
+   {
+    "t": "Garantie qualité",
+    "d": "Un problème à la réception ? Écrivez-nous dans les 48 heures avec des photos."
+   }
+  ],
+  "featured": "",
+  "footerText": "Mobilier, décoration et menuiserie. Pièces fabriquées au Maroc, dimensions personnalisables.",
+  "legal": "© 2026 NERVINA MAROC · Auto-entrepreneur · ICE 003913889000095",
+  "productNote": "Livré partout au Maroc. Délai : 3 à 7 jours ouvrables pour les produits standard, 7 à 21 jours pour le sur mesure. Les frais de livraison sont confirmés avant la commande.",
+  "productDesc": "Pièce fabriquée au Maroc par Nervina. Les dimensions et la couleur peuvent être adaptées à votre intérieur : écrivez-nous pour une version sur mesure.",
+  "email": "nervina.maroc@gmail.com",
+  "depositPct": 30
+ },
+ "collections": [
+  {
+   "id": "tables",
+   "name": "Tables"
+  },
+  {
+   "id": "tv",
+   "name": "Meubles TV"
+  },
+  {
+   "id": "entree",
+   "name": "Meubles d'entrée"
+  },
+  {
+   "id": "chambres",
+   "name": "Chambres"
+  }
+ ],
+ "products": [],
+ "pages": {
+  "faq": {
+   "title": "Questions fréquentes",
+   "body": "Comment passer commande ?\nAjoutez vos pièces au panier, indiquez vos coordonnées et validez : votre commande nous arrive sur WhatsApp et nous confirmons les détails avec vous.\n\nComment se passe le paiement ?\nUn acompte de 30 % est demandé à la confirmation de la commande. Le solde de 70 % est réglé à la livraison.\n\nLivrez-vous dans tout le Maroc ?\nOui, nous livrons dans toutes les villes du Maroc. Les zones éloignées peuvent entraîner des frais supplémentaires, annoncés avant la confirmation de la commande.\n\nLivrez-vous hors du Maroc ?\nÉcrivez-nous avec votre destination : nous vous indiquerons les délais et les frais.\n\nQuels sont les délais ?\nProduits standard : 3 à 7 jours ouvrables. Produits sur mesure : 7 à 21 jours ouvrables selon la complexité du projet.\n\nPuis-je retourner un article ?\nVous avez 14 jours après la réception pour nous signaler un problème. Le détail est dans la politique de retour.\n\nMon produit est arrivé abîmé, que faire ?\nContactez-nous dans les 48 heures avec des photos du produit et de l'emballage.\n\nPuis-je modifier les dimensions ou la couleur ?\nOui, de nombreuses pièces sont réalisables sur mesure. Écrivez-nous avec vos dimensions et vos envies.\n\nComment vous contacter ?\nPar WhatsApp ou depuis la page Contact. Nous répondons au plus vite."
+  },
+  "retours": {
+   "title": "Politique de retour",
+   "body": "Vous disposez de 14 jours après la réception de votre commande pour nous signaler tout problème.\n\nConditions\nLe produit doit être inutilisé, dans son emballage d'origine, avec une preuve d'achat. Les articles personnalisés ou fabriqués sur commande ne peuvent pas être retournés, sauf en cas de défaut de fabrication.\n\nComment faire\nContactez-nous avec votre numéro de commande et le motif du retour. Si le produit est abîmé, joignez des photos. Nous vous répondons sous 48 heures avec la marche à suivre.\n\nRemboursement\nUne fois le retour accepté, le remboursement est effectué par le même moyen que le paiement. L'acompte de 30 % n'est remboursable que si le défaut du produit est constaté.\n\nFrais de retour\nLes frais de retour sont à votre charge, sauf si l'erreur vient de Nervina ou si le produit est défectueux."
+  },
+  "remboursement": {
+   "title": "Politique de remboursement",
+   "body": "La plupart de nos pièces sont fabriquées sur commande ou personnalisées. Une fois la commande confirmée et la fabrication lancée, elle ne peut plus être retournée.\n\nProduit abîmé ou défectueux\nContactez-nous dans les 48 heures suivant la livraison, avec des photos du problème.\n\nÉchange ou réparation\nNous proposons un échange ou une réparation en cas de dommage pendant le transport, de défaut de fabrication constaté à la réception, ou d'erreur sur le produit livré.\n\nRemboursement\nIl n'est accordé que si la pièce ne peut être ni réparée ni remplacée, ou si Nervina annule la commande avant le début de la fabrication. Il est versé par le moyen de paiement d'origine.\n\nPièces sur mesure\nLes pièces faites sur mesure, personnalisées ou à vos dimensions ne sont ni reprises ni remboursées, sauf défaut de fabrication vérifié."
+  },
+  "cgv": {
+   "title": "Conditions générales de vente",
+   "body": "Dernière mise à jour : juin 2026.\n\n1. Présentation\nNervina est une marque marocaine de décoration d'intérieur et de mobilier. Les présentes conditions régissent toutes les ventes réalisées sur cette boutique.\n\n2. Commandes\nPasser commande signifie accepter ces conditions. Nervina peut annuler une commande en cas de problème de disponibilité ou d'informations erronées.\n\n3. Prix\nLes prix sont indiqués en dirhams marocains (MAD). Nervina peut les modifier à tout moment, sans préavis.\n\n4. Paiement\nUn acompte de 30 % est dû à la confirmation de la commande, et le solde de 70 % à la livraison. L'acompte n'est remboursable qu'en cas de défaut avéré du produit ou d'annulation par Nervina.\n\n5. Livraison\nLes délais sont indicatifs. Nervina n'est pas responsable des retards causés par les transporteurs ou les douanes.\n\n6. Retours\nVous avez 14 jours après la réception pour signaler un problème, selon la politique de retour. Les articles personnalisés sont exclus du droit de retour.\n\n7. Responsabilité\nNervina n'est pas responsable des dommages indirects. Sa responsabilité est limitée à la valeur de la commande concernée.\n\n8. Propriété intellectuelle\nLes photos, textes et logos de la boutique appartiennent à Nervina et ne peuvent pas être reproduits sans autorisation préalable.\n\n9. Données personnelles\nLes informations recueillies lors des commandes servent uniquement à les traiter. Elles ne sont pas vendues à des tiers."
+  },
+  "a-propos": {
+   "title": "À propos de Nervina",
+   "body": "Nervina est une marque marocaine de décoration d'intérieur, fondée en 2020 par un jeune entrepreneur passionné de design.\n\nNotre mission : transformer chaque espace en un lieu unique, chaleureux et inspirant.\n\nPour nous, la décoration est une façon d'exprimer son identité et de raconter une histoire à travers les objets, les textures et les couleurs. Chaque pièce associe un savoir-faire artisanal marocain et un design contemporain.\n\nNous expédions depuis le Maroc. Rejoignez la communauté Nervina : écrivez-nous sur WhatsApp."
+  },
+  "livraison": {
+   "title": "Politique d'expédition",
+   "body": "Zone de livraison\nNous livrons dans toutes les villes du Maroc. Les zones éloignées peuvent entraîner des frais supplémentaires, annoncés avant la confirmation de la commande.\n\nDélais\nProduits standard : 3 à 7 jours ouvrables. Produits sur mesure : 7 à 21 jours ouvrables selon la complexité du projet. Ces délais sont des estimations : ils peuvent varier selon la charge de production, le transport ou d'autres facteurs hors de notre contrôle.\n\nFrais de livraison\nIls dépendent de la destination, des dimensions du produit et du mode de transport. Le montant exact vous est communiqué avant la finalisation de la commande.\n\nÀ la réception\nVérifiez le produit à la livraison. En cas de dommage visible, contactez-nous dans les 48 heures avec des photos du produit et de l'emballage.\n\nRetards\nNervina n'est pas responsable des retards dus aux transporteurs, à la météo, aux jours fériés ou à tout autre événement indépendant de sa volonté."
+  },
+  "conditions": {
+   "title": "Conditions d'utilisation",
+   "body": "En visitant la boutique ou en passant commande, vous acceptez ces conditions.\n\nProduits\nNervina fabrique et vend du mobilier, de la décoration d'intérieur et des aménagements sur mesure. Les couleurs, textures et finitions peuvent varier légèrement selon les écrans et les matériaux. Les dimensions sont approximatives.\n\nCommandes\nUne commande est ferme une fois validée et l'acompte confirmé. Nervina peut refuser ou annuler une commande en cas d'informations incomplètes, de suspicion de fraude ou de problème de paiement.\n\nProduits sur mesure\nIls sont réalisés selon vos indications. Une fois la fabrication commencée, la commande ne peut être ni modifiée ni annulée.\n\nPrix et paiement\nLes prix sont en dirhams marocains (MAD) et peuvent changer à tout moment. Les frais de livraison sont indiqués avant la commande. La commande n'est traitée qu'après confirmation de l'acompte.\n\nLivraison, retours et remboursements\nLes délais sont des estimations. Les retours et remboursements suivent la politique de retour et la politique de remboursement.\n\nPropriété intellectuelle\nLes textes, images, logos et créations de la boutique appartiennent à Nervina et ne peuvent pas être utilisés sans autorisation.\n\nResponsabilité\nNervina n'est pas responsable des dommages indirects liés à l'utilisation de la boutique ou de ses produits."
+  },
+  "confidentialite": {
+   "title": "Politique de confidentialité",
+   "body": "Cette page explique quelles informations nous recueillons quand vous utilisez la boutique, et pourquoi.\n\nCe que nous recueillons\nVotre nom, votre numéro de téléphone, votre ville, votre adresse de livraison et le contenu de vos messages, uniquement quand vous nous les envoyez par WhatsApp ou depuis la page Contact. La boutique n'enregistre aucune donnée de paiement.\n\nCe que nous en faisons\nNous les utilisons pour traiter vos commandes, vous répondre et organiser la livraison. Nous ne les vendons pas.\n\nAvec qui nous les partageons\nAvec les transporteurs, quand c'est nécessaire à la livraison, et avec WhatsApp, le service de messagerie par lequel vous nous écrivez. Nous pouvons aussi les communiquer aux autorités si la loi l'exige.\n\nSur votre appareil\nVotre panier est conservé dans le navigateur de votre appareil pour que vous le retrouviez à votre retour. Il n'est pas envoyé à un serveur.\n\nVos droits\nVous pouvez demander à accéder à vos informations, à les corriger ou à les supprimer en nous écrivant à l'adresse indiquée dans la page Coordonnées.\n\nMises à jour\nCette politique peut évoluer. La date de dernière mise à jour figure ci-dessous.\n\nDernière mise à jour : octobre 2026."
+  },
+  "coordonnees": {
+   "title": "Coordonnées",
+   "body": "Nervina Maroc, Casablanca.\n\nE-mail : nervina.maroc@gmail.com\nTéléphone et WhatsApp : 06 54 29 09 60 · 06 56 57 20 30\n\nÉcrivez-nous pour une commande, une livraison ou une question sur un produit. Nous répondons au plus vite."
+  }
+ }
+}
