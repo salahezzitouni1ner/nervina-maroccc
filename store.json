@@ -26,7 +26,7 @@
     "d": "Un problème à la réception ? Écrivez-nous dans les 48 heures avec des photos."
    }
   ],
-  "featured": "",
+  "featured": "table-basse-amazonica",
   "footerText": "Mobilier, décoration et menuiserie. Pièces fabriquées au Maroc, dimensions personnalisables.",
   "legal": "© 2026 NERVINA MAROC · Auto-entrepreneur · ICE 003913889000095",
   "productNote": "Livré partout au Maroc. Délai : 3 à 7 jours ouvrables pour les produits standard, 7 à 21 jours pour le sur mesure. Les frais de livraison sont confirmés avant la commande.",
@@ -52,7 +52,313 @@
    "name": "Chambres"
   }
  ],
- "products": [],
+ "products": [
+  {
+   "id": "table-basse-amazonica",
+   "title": "Table Basse Amazonica",
+   "price": 4500,
+   "old": 0,
+   "col": "tables",
+   "desc": "Table basse à deux plateaux : plateau en noyer et plateau pivotant en verre champagne, sur une base cannelée en noyer.",
+   "imgs": [
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/LTO-523-D-G-WLNT-CHMPGLAmazonicocoffeetablewithlargetopinwalnutsmalltopinChampagneglass10_9200ea14-6859-4b9b-aac6-b50e79c9b8c9.webp?v=1781457008",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/AmazonicomoderncoffeetablewithrotatingtopinChampagnecoloredglassandWalnutbaseandlargetop01.webp?v=1781457008"
+   ],
+   "hidden": false,
+   "star": true
+  },
+  {
+   "id": "table-basse-london",
+   "title": "Table Basse London",
+   "price": 8500,
+   "old": 0,
+   "col": "tables",
+   "desc": "Set de deux tables gigognes avec plateau en noyer, motif en soleil et anneau en bronze brossé.",
+   "imgs": [
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_7b80a727-643c-4704-b4ff-c803230f9ec5.png?v=1781453320",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/aston_london_1.png?v=1781453129",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_cc37130d-75fe-4419-ae9e-fce01cab2df8.png?v=1781453321",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/mesa-de-centro-london-2-jpg_20230705081238_1.png?v=1781453128"
+   ],
+   "hidden": false,
+   "star": true
+  },
+  {
+   "id": "table-de-chevet-canne",
+   "title": "Table de chevet Canne",
+   "price": 2300,
+   "old": 0,
+   "col": "chambres",
+   "desc": "Table de chevet cannelée avec plateau en verre fumé, structure laquée mate et tiroir intégré. Disponible en blanc, terracotta et vert sauge.",
+   "imgs": [
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/commercial-photo-lifestyle.png?v=1781174336",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/terracotta.png?v=1781174484",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/vert-sauge.png?v=1781174478",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/editorial-lifestyle.png?v=1781174390",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/bedroom-lifestyle.png?v=1781174365",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/white-background-studio.png?v=1781174384"
+   ],
+   "hidden": false,
+   "star": false
+  },
+  {
+   "id": "table-de-chevet-design-noyer-blanc-laiton",
+   "title": "Table de Chevet Design - Cadre Noyer, Surface Blanche & Tiroir Laiton",
+   "price": 4800,
+   "old": 0,
+   "col": "chambres",
+   "desc": "Table de chevet avec cadre en noyer, plateau laqué blanc mat, tiroir en noyer et poignée en laiton doré. Personnalisable.",
+   "imgs": [
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_45dedd5a-b9f8-448f-88ec-408de0105e84.png?v=1780679277",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/vue-de-dessus_22e272c9-d43d-4f51-875e-430b01dd3da7.png?v=1780679319",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/vue-trois-quarts-arri-re.png?v=1780679325",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/71fad2ce9b0c58232a03466ba93b7f87.jpg?v=1780679188"
+   ],
+   "hidden": false,
+   "star": false
+  },
+  {
+   "id": "meuble-tv-sur-pieds-noyer-creme",
+   "title": "Meuble TV sur Pieds Design - Plateau Noyer & Corps Blanc Crème",
+   "price": 6000,
+   "old": 0,
+   "col": "tv",
+   "desc": "Meuble TV long et bas : plateau en noyer, corps laqué blanc crème et pieds en métal sombre. Personnalisable.",
+   "imgs": [
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_9166b6ad-9473-4111-a495-6c3a6a179f5a.png?v=1780658038",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_289351fc-a5b6-4d16-afbd-1f1126a9142f.png?v=1780658038",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_05702bc0-9bf4-4c0c-8d87-a9f9a556452a.png?v=1780658038",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/c9fda3c086d8e194299ea46bf79670bf.jpg?v=1780657936"
+   ],
+   "hidden": false,
+   "star": true
+  },
+  {
+   "id": "meuble-tv-suspendu-design",
+   "title": "Meuble TV Suspendu Design",
+   "price": 4300,
+   "old": 4800,
+   "col": "tv",
+   "desc": "Meuble TV suspendu avec plateau en chêne et portes laquées blanc mat, livré avec kit de fixation murale. Personnalisable.",
+   "imgs": [
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/vue-fa-ade.png?v=1780657672",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_4575f75a-b31b-4b09-a545-522c3b1dbb49.png?v=1780657679",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/7ac0aebca7defe80d9650644be33c821.jpg?v=1780657607"
+   ],
+   "hidden": false,
+   "star": true
+  },
+  {
+   "id": "set-2-tables-basses-organiques",
+   "title": "Set de 2 Tables Basses Organiques - Bois Noyer & Noir Mat sur Pieds Métal",
+   "price": 3990,
+   "old": 4800,
+   "col": "tables",
+   "desc": "Deux tables en forme de goutte : l'une en noyer à marqueterie en chevrons, l'autre laquée noir mat, sur pieds en métal.",
+   "imgs": [
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_b2837a1e-6b5d-4535-a050-9352056f9241.png?v=1780657359",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/d-tail-bois-m-tal.png?v=1780657331",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/vue-salon-scandinave.png?v=1780657328",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/a5a9cd7805cf95cabc0ded99a05e7fbf.jpg?v=1780657275"
+   ],
+   "hidden": false,
+   "star": true
+  },
+  {
+   "id": "table-basse-ovale-design",
+   "title": "Table Basse Ovale Design",
+   "price": 4900,
+   "old": 0,
+   "col": "tables",
+   "desc": "Table basse ovale avec plateau en céramique effet marbre gris et base en métal bronze foncé.",
+   "imgs": [
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_d56e6895-2b9e-4e3a-bb8b-feb98a1e8ebe.png?v=1780656906",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_7c5d7f24-6a5e-425f-9b82-51fb932d8125.png?v=1780656906",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_fd78bade-0152-4b67-915f-6c2705341d0f.png?v=1780656906",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/e58137c6d2f2f535f9ac2b01393becd3.jpg?v=1780656791"
+   ],
+   "hidden": false,
+   "star": false
+  },
+  {
+   "id": "table-basse-ronde-luxe",
+   "title": "Table Basse Ronde Luxe",
+   "price": 5500,
+   "old": 0,
+   "col": "tables",
+   "desc": "Table basse ronde avec plateau en verre fumé et base en noyer sur deux niveaux.",
+   "imgs": [
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_ca07f635-65e6-445e-9a0b-6b20f5e8f2a7.png?v=1780656375",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_6774ea60-7a43-4e2b-a8b1-47f5c7c26d82.png?v=1780656375",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/e93da23eeaaa9f78bc1f21a6c87a4f5e.jpg?v=1780656308"
+   ],
+   "hidden": false,
+   "star": false
+  },
+  {
+   "id": "table-basse-ronde-noyer-metal-noir",
+   "title": "Table Basse Ronde Design - Bois de Noyer & Métal Noir",
+   "price": 6000,
+   "old": 0,
+   "col": "tables",
+   "desc": "Table basse ronde en noyer à motif en chevrons, avec une petite table d'appoint en verre fumé, sur cadre en métal noir.",
+   "imgs": [
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_1e8b8ad3-e83e-41be-b7d3-674a16308faa.png?v=1780655906",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_215157f8-d80e-4166-8dab-707f3514f2d7.png?v=1780655906",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_38d960ad-d528-4fae-9ef6-c6e7324b3d4b.png?v=1780655906",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/189c507430b1f8e8680039181b58bd6a_2de4c656-dded-4890-ad74-fb58d303985c.jpg?v=1780655828"
+   ],
+   "hidden": false,
+   "star": false
+  },
+  {
+   "id": "table-de-chevet-cloud-noyer",
+   "title": "Table de Chevet Cloud — Édition Noyer",
+   "price": 4000,
+   "old": 0,
+   "col": "chambres",
+   "desc": "Table de chevet à deux tiroirs arrondis et plateau en noyer massif.",
+   "imgs": [
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/d3170c867841ec13afeedb31ae96f67c.jpg?v=1780577443",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/vue-fond-blanc.png?v=1780577590",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/d-tail-gros-plan.png?v=1780577595",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/ambiance-chambre_af5c4f94-875b-416f-a604-afe7829bbfb4.png?v=1780577602"
+   ],
+   "hidden": false,
+   "star": false
+  },
+  {
+   "id": "table-a-manger-ronde-travertin-4-chaises",
+   "title": "Table à Manger Ronde Travertin + 4 Chaises",
+   "price": 12000,
+   "old": 0,
+   "col": "tables",
+   "desc": "Table à manger ronde en travertin sur base conique en noyer, avec quatre chaises rembourrées.",
+   "imgs": [
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_e987054b-d0c9-40ec-a113-ab90a4970d60.png?v=1780576561",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_c25eb26d-92de-473e-b24a-b2723ea0e808.png?v=1780576562",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/IMG_8586.jpg?v=1780576328",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_7d780aed-d17e-402d-8c30-a6d543a5289d.png?v=1780576158"
+   ],
+   "hidden": false,
+   "star": false
+  },
+  {
+   "id": "table-a-manger-ronde-4-chaises-mdf-noyer",
+   "title": "Table à Manger Ronde + 4 Chaises MDF Noyer",
+   "price": 13500,
+   "old": 0,
+   "col": "tables",
+   "desc": "Table à manger ronde en MDF noyer sur base conique, avec quatre chaises en bois et rotin.",
+   "imgs": [
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_12b99560-7179-40ea-9935-c31624446996.png?v=1780576157",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_e513e301-fb2c-4f8a-9f45-84e447b5650c.png?v=1780576157",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_7d780aed-d17e-402d-8c30-a6d543a5289d.png?v=1780576158",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/c61f72cb8c6d0e35d8f35b8c4b75e751.jpg?v=1780575937"
+   ],
+   "hidden": false,
+   "star": false
+  },
+  {
+   "id": "table-basse-ovale-noire-mdf",
+   "title": "Table Basse Ovale Noire MDF",
+   "price": 4500,
+   "old": 0,
+   "col": "tables",
+   "desc": "Table basse ovale en MDF noir sur une épaisse base cylindrique.",
+   "imgs": [
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/d-tail-base.png?v=1780575826",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/upscaled_instagram.jpg?v=1780575455",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/vue-du-dessus_a4a928d6-8783-4bce-9cbc-7428826410da.png?v=1780575836"
+   ],
+   "hidden": false,
+   "star": false
+  },
+  {
+   "id": "table-de-chevet-mdf-arrondie",
+   "title": "Table de Chevet MDF Arrondie - Couleur au Choix",
+   "price": 3500,
+   "old": 0,
+   "col": "chambres",
+   "desc": "Table de chevet arrondie en MDF, plateau noyer et deux tiroirs à poignées en bois. Couleur au choix.",
+   "imgs": [
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/152893fff438117940f5cb2c6f5ebc6f.png?v=1780574489",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/vue-du-dessus_c68dd586-aef2-488f-b508-6f7ab4e60f8e.png?v=1780574689",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/d-tail-c-t_47c3ee79-f059-4266-8a3d-a17b302ea41d.png?v=1780574694",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/ambiance-chambre.png?v=1780574701",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_856cd4c1-7596-4a33-ac26-2e7f8d335607.png?v=1780574828",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_949a8e7d-c53d-45ea-8f12-eb95564bd2ba.png?v=1780574828"
+   ],
+   "hidden": false,
+   "star": false
+  },
+  {
+   "id": "console-arche-miroirs-organiques",
+   "title": "Console Design Arche + Miroirs Organiques",
+   "price": 7000,
+   "old": 0,
+   "col": "entree",
+   "desc": "Console en MDF finition espresso avec arche sculptée et deux miroirs organiques asymétriques.",
+   "imgs": [
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/vue-de-face.png?v=1780573576",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/d-tail-c-t.png?v=1780573595",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/fond-blanc-studio_edc80603-b90a-4ca7-88fc-8b1c20bd5c49.png?v=1780573586",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/2347eb388b9f9a0565dde460e7822885.png?v=1780573520"
+   ],
+   "hidden": false,
+   "star": true
+  },
+  {
+   "id": "table-basse-ronde-marbre-bois",
+   "title": "Table Basse Ronde Marbre & Bois",
+   "price": 5800,
+   "old": 0,
+   "col": "tables",
+   "desc": "Table basse ronde, plateau en marbre blanc veiné sur base en bois espresso. Dimensions : 110 x 110 x 40 cm.",
+   "imgs": [
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/6b8084fd5177176f689c803d729e64e9.jpg?v=1780573074",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/vue-du-dessus_21a84862-3d2c-4ddf-88a7-f0ef0e71845c.png?v=1780573153",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/vue-corrig-e.png?v=1780573198",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/photo-dimensions-110x110x40cm.png?v=1780573271",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/fond-blanc-studio_96558373-c070-463a-ae8e-ac759213b821.png?v=1780573146"
+   ],
+   "hidden": false,
+   "star": true
+  },
+  {
+   "id": "table-de-chevet-arrondie-luxe",
+   "title": "Table de Chevet Arrondie Luxe",
+   "price": 4000,
+   "old": 0,
+   "col": "chambres",
+   "desc": "Table de chevet arrondie blanc crème avec plateau en bois foncé et deux tiroirs.",
+   "imgs": [
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/0c4a46e128bc82adc5e697cf7bec7a50.png?v=1780572717",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/vue-du-dessus.png?v=1780572866",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/fond-blanc-studio.png?v=1780572877",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/ambiance-nuit.png?v=1780572886"
+   ],
+   "hidden": false,
+   "star": false
+  },
+  {
+   "id": "meuble-tv-arrondis",
+   "title": "Meuble TV arrondis",
+   "price": 3000,
+   "old": 0,
+   "col": "tv",
+   "desc": "Meuble TV suspendu finition noyer, aux extrémités arrondies. Couleur personnalisable.",
+   "imgs": [
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/photocommercialslide.png?v=1780566936",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/ChatGPTImageJun1_2026_02_03_40PM.png?v=1780566936",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/ChatGPTImageJun1_2026_02_03_32PM.png?v=1780566939",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/ChatGPTImageJun1_2026_02_03_25PM.png?v=1780566936",
+    "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/ChatGPTImageJun1_2026_02_06_15PM.png?v=1780566936"
+   ],
+   "hidden": false,
+   "star": false
+  }
+ ],
  "pages": {
   "faq": {
    "title": "Questions fréquentes",
