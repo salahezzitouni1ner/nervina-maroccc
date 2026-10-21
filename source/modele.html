@@ -65,7 +65,12 @@
 
 <footer class="wrap" id="foot"></footer>
 <a class="btn wa-float" id="waf" href="#" target="_blank" rel="noopener">WhatsApp</a>
-<div id="layer"></div>
+<div id="layer" data-lenis-prevent></div>
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
+<script src="vendor/SplitText.min.js"></script>
+<script src="vendor/DrawSVGPlugin.min.js"></script>
+<script src="vendor/lenis.min.js"></script>
 <script type="application/json" id="seed">@@SEED@@</script>
 
 <script>
@@ -117,62 +122,111 @@ function chrome(){
 
 /* ---------- vues boutique ---------- */
 let filt='all',q='',sort='def';
-function heroSlides(){
-  const L=(S.settings.heroSlides||[]).map(s=>{const p=prod(s.p);return p&&!p.hidden&&p.imgs&&p.imgs.length?{p,img:p.imgs[Math.min(s.i||0,p.imgs.length-1)],pos:s.pos}:null}).filter(Boolean);
-  if(L.length)return L;
-  const f=prod(S.settings.featured)||vis()[0];return f&&f.imgs&&f.imgs[0]?[{p:f,img:f.imgs[0]}]:[]}
-const mbCap=s=>`<span class="mb-k">${esc(colName(s.p.col))}</span><span class="mb-n">${esc(s.p.title)}</span><span class="mb-p">${MAD(s.p.price)} <span class="mb-go">Voir la pièce <svg viewBox="0 0 16 10" aria-hidden="true"><path d="M0 5h14M10 1l4 4-4 4"/></svg></span></span>`;
-let MB=null;
-function mbInit(){
-  const root=$('#mb');if(!root)return;
-  const sl=heroSlides(),slides=[...root.querySelectorAll('.mb-slide')],bars=[...root.querySelectorAll('.mb-bar')],cap=$('#mbcap'),pp=$('#mbpp');
-  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const st={i:0,user:reduce,hover:false,hidden:document.hidden};
-  MB=st;
-  const paused=()=>st.user||st.hover||st.hidden;
-  const sync=()=>{root.classList.toggle('paused',paused());if(pp){pp.setAttribute('aria-label',st.user?"Lancer l'animation":"Mettre l'animation en pause");pp.classList.toggle('is-paused',st.user)}};
-  const go=n=>{
-    if(!slides.length)return;n=(n+slides.length)%slides.length;if(n===st.i&&slides[n].classList.contains('on'))return;
-    const prev=st.i;st.i=n;
-    slides.forEach((s,k)=>{s.classList.toggle('on',k===n);s.classList.toggle('was',k===prev&&k!==n)});
-    const im=slides[n].querySelector('img');im.loading='eager';
-    const nx=slides[(n+1)%slides.length];if(nx){nx.querySelector('img').loading='eager'}
-    bars.forEach((b,k)=>{b.classList.toggle('done',k<n);b.classList.remove('run');k===n?b.setAttribute('aria-current','true'):b.removeAttribute('aria-current')});
-    void root.offsetWidth;if(bars[n])bars[n].classList.add('run');
-    if(cap){cap.classList.add('out');setTimeout(()=>{cap.href='#p-'+sl[n].p.id;cap.innerHTML=mbCap(sl[n]);cap.classList.remove('out')},reduce?0:260)}
-  };
-  bars.forEach(b=>{b.onclick=()=>go(+b.dataset.go);b.addEventListener('animationend',e=>{if(e.animationName==='mb-tick'&&b.classList.contains('run'))go(st.i+1)})});
-  if(pp)pp.onclick=()=>{st.user=!st.user;sync()};
-  root.addEventListener('mouseenter',()=>{st.hover=true;sync()});root.addEventListener('mouseleave',()=>{st.hover=false;sync()});
-  root.addEventListener('focusin',()=>{st.hover=true;sync()});root.addEventListener('focusout',e=>{if(!root.contains(e.relatedTarget)){st.hover=false;sync()}});
-  let x0=null;root.addEventListener('touchstart',e=>{x0=e.touches[0].clientX},{passive:true});
-  root.addEventListener('touchend',e=>{if(x0==null)return;const dx=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(dx)>45)go(st.i+(dx<0?1:-1))},{passive:true});
-  root.addEventListener('keydown',e=>{if(e.target.closest('.mb-bars')&&(e.key==='ArrowRight'||e.key==='ArrowLeft')){e.preventDefault();go(st.i+(e.key==='ArrowRight'?1:-1));bars[st.i]&&bars[st.i].focus()}});
-  if(bars[0])bars[0].classList.add('run');
-  sync();
+/* ---------- défilement doux (Lenis) + bannière animée (GSAP) ---------- */
+const RM=matchMedia('(prefers-reduced-motion: reduce)');
+let LEN=null;
+(function(){
+  if(!window.Lenis||RM.matches)return;
+  LEN=new Lenis({autoRaf:!window.gsap,anchors:false,lerp:.1,smoothWheel:true});
+  if(window.gsap){if(window.ScrollTrigger){gsap.registerPlugin(ScrollTrigger);LEN.on('scroll',ScrollTrigger.update)}gsap.ticker.add(t=>LEN.raf(t*1000));gsap.ticker.lagSmoothing(0)}
+})();
+const toY=y=>{if(LEN)LEN.scrollTo(y,{immediate:true,force:true});else scrollTo(0,y)};
+let MG=null;
+function mgKill(){if(MG){try{MG.ctx&&MG.ctx.revert()}catch(e){}MG=null}}
+function mgGrain(){
+  if(mgGrain.u)return mgGrain.u;
+  try{const c=document.createElement('canvas');c.width=c.height=160;const x=c.getContext('2d'),d=x.createImageData(160,160);
+    for(let i=0;i<d.data.length;i+=4){const v=Math.random()*255|0;d.data[i]=d.data[i+1]=d.data[i+2]=v;d.data[i+3]=Math.random()*70|0}
+    x.putImageData(d,0,0);mgGrain.u=c.toDataURL()}catch(e){mgGrain.u=''}
+  return mgGrain.u}
+function mgSync(){
+  if(!MG)return;const on=MG.vis!==false&&!MG.user&&!document.hidden,root=$('#mg');
+  MG.L.forEach(t=>on?t.resume():t.pause());
+  if(root){root.classList.toggle('mg-paused',!on);const pp=$('#mgpp');if(pp){pp.classList.toggle('is-paused',!!MG.user);pp.setAttribute('aria-label',MG.user?"Lancer l'animation":"Mettre l'animation en pause")}}
 }
-document.addEventListener('visibilitychange',()=>{if(MB&&$('#mb')){MB.hidden=document.hidden;$('#mb').classList.toggle('paused',MB.user||MB.hover||MB.hidden)}});
+document.addEventListener('visibilitychange',mgSync);
+function mgInit(){
+  const root=$('#mg');if(!root)return;
+  const g=root.querySelector('.mg-grain');if(g){const u=mgGrain();if(u)g.style.backgroundImage=`url(${u})`}
+  const pp=$('#mgpp');
+  if(!window.gsap||!window.ScrollTrigger||!window.SplitText||RM.matches){root.classList.add('mg-static');if(pp)pp.hidden=true;return}
+  gsap.registerPlugin(ScrollTrigger,SplitText,...(window.DrawSVGPlugin?[DrawSVGPlugin]:[]));
+  MG={L:[],vis:true,user:false};
+  const st=MG;
+  MG.ctx=gsap.context(()=>{
+    const q1=s=>root.querySelector(s),qa=s=>[...root.querySelectorAll(s)];
+    const split=SplitText.create(q1('.mg-h1'),{type:'words',wordsClass:'mg-w'});
+    const tl=gsap.timeline({paused:true,defaults:{ease:'power3.out'}});
+    tl.from('.mg-glow',{opacity:0,scale:.5,duration:1.8},0)
+      .from('.mg-grain',{opacity:0,duration:1},0)
+      .from('.mg-line path',window.DrawSVGPlugin?{drawSVG:'50% 50%',duration:1.4,ease:'power2.inOut'}:{opacity:0,duration:1},.1)
+      .from('.mg-win',{clipPath:'inset(100% 0% 0% 0%)',duration:1.3,ease:'power4.inOut'},.45)
+      .from('.mg-win img',{scale:1.4,duration:2,ease:'power3.out'},.45)
+      .from('.mg-eye',{opacity:0,y:10,duration:.6},.5)
+      .from(split.words,{opacity:0,y:24,filter:'blur(12px)',stagger:.07,duration:.95},.65)
+      .from('.mg-em',{clipPath:'inset(0% 100% 0% 0%)',duration:1.1,ease:'power4.inOut'},1.05)
+      .from('.mg-table',{y:-170,opacity:0,rotation:-7,filter:'blur(10px)',duration:1.15,ease:'power4.out'},1.05)
+      .from('.mg-shadow',{scaleX:.15,opacity:0,duration:1.15},1.05)
+      .from('.mg-badge',{scale:0,rotation:-140,opacity:0,duration:1,ease:'back.out(1.6)'},1.3)
+      .from('.mg-chip',{y:16,scale:.7,opacity:0,stagger:.13,duration:.75,ease:'back.out(2)'},1.45)
+      .from('.mg-lead,.mg-cta,.mg-tag',{opacity:0,y:16,stagger:.1,duration:.7},1.35)
+      .from('.mg-mq',{opacity:0,y:12,duration:.8},1.6)
+      .from('.mg-pp',{opacity:0,duration:.6},1.8);
+    const imgs=qa('.mg-win img,.mg-table').map(i=>i.decode?i.decode().catch(()=>{}):Promise.resolve());
+    Promise.race([Promise.all(imgs),new Promise(r=>setTimeout(r,1400))]).then(()=>tl.play());
+    const L=st.L,loop=v=>(L.push(v),v);
+    loop(gsap.to('.mg-table',{y:-10,duration:2.7,ease:'sine.inOut',yoyo:true,repeat:-1,delay:2.3}));
+    loop(gsap.to('.mg-shadow',{scaleX:.84,opacity:.5,duration:2.7,ease:'sine.inOut',yoyo:true,repeat:-1,delay:2.3}));
+    const ring=loop(gsap.to('.mg-ring',{rotation:360,duration:20,ease:'none',repeat:-1,transformOrigin:'50% 50%'}));
+    qa('.mg-chip').forEach((c,i)=>loop(gsap.to(c,{y:i%2?8:-8,x:i%2?-5:5,duration:3+i*.7,ease:'sine.inOut',yoyo:true,repeat:-1,delay:2.2})));
+    loop(gsap.timeline({repeat:-1,delay:1.7}).fromTo('.mg-rip',{scale:1,opacity:.5},{scale:1.34,opacity:0,duration:3.3,ease:'power1.out',stagger:1.1,transformOrigin:'50% 100%'}));
+    loop(gsap.to('.mg-glow',{xPercent:14,yPercent:-10,scale:1.15,duration:7,ease:'sine.inOut',yoyo:true,repeat:-1}));
+    loop(gsap.fromTo('.mg-em',{backgroundPosition:'100% 0'},{backgroundPosition:'0% 0',duration:2.4,ease:'power2.inOut',repeat:-1,repeatDelay:3.2,delay:2.6}));
+    loop(gsap.to('.mg-track',{xPercent:-50,duration:30,ease:'none',repeat:-1}));
+    gsap.timeline({scrollTrigger:{trigger:root,start:'top top',end:'bottom top',scrub:.6}})
+      .to('.mg-par',{yPercent:12,scale:1.06,ease:'none'},0)
+      .to('.mg-obj',{y:-60,ease:'none'},0)
+      .to('.mg-archwrap',{y:36,ease:'none'},0)
+      .to('.mg-txt',{y:-28,ease:'none'},0);
+    ScrollTrigger.create({trigger:root,start:'top bottom',end:'bottom top',
+      onToggle:s=>{st.vis=s.isActive;mgSync()},
+      onUpdate:s=>{const v=Math.abs(s.getVelocity());if(v>60&&!st.user)gsap.to(ring,{timeScale:1+Math.min(v/250,7),duration:.15,overwrite:true,onComplete:()=>gsap.to(ring,{timeScale:1,duration:1.4})})}});
+  },root);
+  if(pp)pp.onclick=()=>{st.user=!st.user;mgSync()};
+  mgSync();
+}
 function perks(){return `<ul>${(S.settings.perks||[]).filter(Boolean).map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`}
 const VIEWS={
 accueil(){
   const st=S.settings,f=prod(st.featured)||vis()[0],best=vis().filter(p=>p.star).slice(0,4),L=vis();
   const ar=S.collections.slice(0,3).map((c,i)=>`<div class="arch">${ico(c.id)}</div>`).join('');
-  const sl=heroSlides(),c0=sl[0];
-  return `<section class="mb" id="mb" aria-roledescription="carrousel" aria-label="Nos pièces en situation">
-  <div class="mb-media" aria-hidden="true">${sl.map((s,i)=>`<div class="mb-slide${i?'':' on'}"><img src="${IMGURL(s.img)}" alt="" decoding="async"${i?' loading="lazy"':' fetchpriority="high"'} style="object-position:${esc(s.pos||'50% 50%')}"></div>`).join('')}<div class="mb-shade"></div></div>
-  <div class="mb-in">
-    <div class="mb-txt">
-      <p class="eyebrow mb-r" style="--d:0"><svg class="mb-arch" viewBox="0 0 24 30" aria-hidden="true"><path d="M3 29V12a9 9 0 0 1 18 0v17"/></svg>Mobilier · Décoration · Menuiserie</p>
-      <h1><span class="mb-l"><span class="mb-r" style="--d:1">${esc(st.heroTitle1)}</span></span> <span class="mb-l"><em class="mb-r" style="--d:2">${esc(st.heroTitle2)}</em></span></h1>
-      <p class="lead mb-r" style="--d:3">${esc(st.heroLead)}</p>
-      <div class="mb-cta mb-r" style="--d:4"><a class="btn mb-b1" href="#catalogue">Voir le catalogue</a><a class="btn mb-b2" href="#contact">Nous contacter</a></div>
+  const fp=prod('table-basse-amazonica');
+  const mq=['Tables','Meubles TV',"Meubles d'entrée",'Tables de chevet','Sur mesure','Fait main au Maroc'];
+  const mqh=mq.map(x=>`<span>${esc(x)}</span><svg viewBox="0 0 24 30"><path d="M3 29V12a9 9 0 0 1 18 0v17"/></svg>`).join('');
+  return `<section class="mg" id="mg" aria-label="Nervina Maroc">
+  <div class="mg-bg" aria-hidden="true"><div class="mg-glow"></div><div class="mg-grain"></div></div>
+  <div class="mg-scene" aria-hidden="true">
+    <div class="mg-archwrap">
+      <svg class="mg-ripples" viewBox="0 0 200 264" preserveAspectRatio="none"><path class="mg-rip" d="M6 262V102a94 94 0 0 1 188 0v160"/><path class="mg-rip" d="M6 262V102a94 94 0 0 1 188 0v160"/><path class="mg-rip" d="M6 262V102a94 94 0 0 1 188 0v160"/></svg>
+      <div class="mg-win"><div class="mg-par"><img src="images/meuble-tv-sur-pieds-noyer-creme-3.webp" alt="" fetchpriority="high" decoding="async"></div></div>
+      <svg class="mg-line" viewBox="0 0 200 264" preserveAspectRatio="none"><path d="M6 262V102a94 94 0 0 1 188 0v160"/></svg>
+      <div class="mg-badge"><svg class="mg-ring" viewBox="0 0 100 100"><defs><path id="mgc" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0"/></defs><text><textPath href="#mgc" textLength="236">FAIT MAIN AU MAROC · SUR MESURE ·</textPath></text></svg><svg class="mg-bi" viewBox="0 0 24 30"><path d="M3 29V12a9 9 0 0 1 18 0v17"/></svg></div>
     </div>
-    ${c0?`<div class="mb-foot mb-r" style="--d:5">
-      <a class="mb-cap" id="mbcap" href="#p-${esc(c0.p.id)}">${mbCap(c0)}</a>
-    </div>`:''}
-      ${sl.length>1?`<div class="mb-ctl mb-r" style="--d:6"><div class="mb-bars">${sl.map((s,i)=>`<button class="mb-bar" data-go="${i}" aria-label="Photo ${i+1} sur ${sl.length} : ${esc(s.p.title)}"${i?'':' aria-current="true"'}><i></i></button>`).join('')}</div>
-      <button class="mb-pp" id="mbpp" aria-label="Mettre l'animation en pause"><svg viewBox="0 0 20 20" aria-hidden="true"><path class="ic-pause" d="M6 4h3v12H6zM11 4h3v12h-3z"/><path class="ic-play" d="M6 4l10 6-10 6z"/></svg></button></div>`:''}
-  </div></section>`+`
+    <div class="mg-obj"><div class="mg-shadow"></div><img class="mg-table" src="images/hero/amazonica.webp" alt="" decoding="async"></div>
+    <span class="mg-chip c1"><i style="background:linear-gradient(135deg,#7a4b2c,#4a2b17)"></i>Noyer massif</span>
+    <span class="mg-chip c2"><i style="background:linear-gradient(135deg,#efdcc2,#c9a983)"></i>Verre champagne</span>
+    <span class="mg-chip c3"><i style="background:#D9B88F"></i>Sur mesure</span>
+  </div>
+  <div class="mg-txt">
+    <p class="eyebrow mg-eye">Mobilier · Décoration · Menuiserie</p>
+    <h1 class="mg-h"><span class="mg-h1">${esc(st.heroTitle1)}</span> <em class="mg-em">${esc(st.heroTitle2)}</em></h1>
+    <p class="lead mg-lead">${esc(st.heroLead)}</p>
+    <div class="mg-cta"><a class="btn mg-b1" href="#catalogue">Voir le catalogue</a><a class="btn mg-b2" href="#contact">Nous contacter</a></div>
+    ${fp&&!fp.hidden?`<a class="mg-tag" href="#p-${esc(fp.id)}"><span class="mg-k">En vedette</span><b>${esc(fp.title)}</b><span class="mg-p">${MAD(fp.price)} <svg viewBox="0 0 16 10" aria-hidden="true"><path d="M0 5h14M10 1l4 4-4 4"/></svg></span></a>`:''}
+  </div>
+  <div class="mg-mq" aria-hidden="true"><div class="mg-track"><div>${mqh}${mqh}</div><div>${mqh}${mqh}</div></div></div>
+  <button class="mg-pp" id="mgpp" aria-label="Mettre l'animation en pause"><svg viewBox="0 0 20 20" aria-hidden="true"><path class="ic-pause" d="M6 4h3v12H6zM11 4h3v12h-3z"/><path class="ic-play" d="M6 4l10 6-10 6z"/></svg></button>
+</section>`+`
   ${S.collections.length?`<section class="sec"><div class="sechead"><div><p class="eyebrow">Collections</p><h2>Magasiner par collection</h2></div></div>
     <div class="cols">${S.collections.map(c=>{const n=L.filter(p=>p.col===c.id).length;const cp=L.find(p=>p.col===c.id&&p.imgs&&p.imgs[0]);return `<a class="col" href="#c-${esc(c.id)}"><div class="arch" style="position:relative">${cp?`<img src="${IMGSM(cp.imgs[0])}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" loading="lazy">`:ico(c.id)}</div><span>${esc(c.name)}<small>${n} pièce${n>1?'s':''}</small></span></a>`}).join('')}</div></section>`:''}
   ${L.length?'':`<section class="sec"><p class="empty">Les premières pièces arrivent bientôt. Écrivez-nous sur WhatsApp pour un projet sur mesure.</p></section>`}
@@ -208,6 +262,7 @@ page(k){const pg=S.pages[k];if(!pg)return VIEWS.accueil();
   return `<section class="info"><p class="eyebrow">Informations</p><h1>${esc(pg.title)}</h1><div class="para">${paras(pg.body)||'<p>Cette page sera bientôt complétée.</p>'}</div></section>`}};
 
 function route(){
+  mgKill();
   let h=(location.hash||'#accueil').slice(1),html;
   if(h==='admin'){if(canEdit){renderAdmin();setNav(h);return}h='accueil'}
   if(h.startsWith('c-')){filt=h.slice(2);h='catalogue'}
@@ -215,12 +270,12 @@ function route(){
   else if(h==='catalogue')html=VIEWS.catalogue();
   else if(S.pages[h])html=VIEWS.page(h);
   else html=(VIEWS[h]||VIEWS.accueil)();
-  app.innerHTML=html;scrollTo(0,0);bind(h);setNav(h);
+  app.innerHTML=html;toY(0);bind(h);setNav(h);
 }
 function setNav(h){document.querySelectorAll('nav a').forEach(a=>a.toggleAttribute('aria-current',a.dataset.r===(h.startsWith('p-')?'catalogue':h)));
   $('#nav').classList.remove('open');$('#bg').setAttribute('aria-expanded','false')}
 function bind(h){
-  if(h==='accueil')mbInit();
+  if(h==='accueil')mgInit();
   if(h==='catalogue'){
     app.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{filt=b.dataset.f;rerender()});
     $('#q').oninput=e=>{q=e.target.value;const pos=e.target.selectionStart;rerender();const i=$('#q');i.focus();i.setSelectionRange(pos,pos)};
@@ -238,7 +293,7 @@ function bind(h){
   }
   app.querySelectorAll('[data-add]').forEach(b=>b.onclick=()=>add(b.dataset.add,1));
 }
-function rerender(){const k=scrollY;app.innerHTML=VIEWS.catalogue();bind('catalogue');scrollTo(0,k)}
+function rerender(){const k=scrollY;app.innerHTML=VIEWS.catalogue();bind('catalogue');toY(k)}
 
 /* ---------- panier ---------- */
 function add(id,n){cart[id]=Math.min(20,(cart[id]||0)+n);saveCart();updCnt();toast('Ajouté au panier')}
@@ -360,7 +415,7 @@ function bindA(){
     if(t.dataset.s==='featured'){}
   };
 }
-function refreshBody(){const y=scrollY;$('#abody').innerHTML=aBody();paintSt();scrollTo(0,y);bindA()}
+function refreshBody(){const y=scrollY;$('#abody').innerHTML=aBody();paintSt();toY(y);bindA()}
 function uniq(base,list=S.products){let id=slug(base),n=1;const has=x=>list.some(p=>p.id===x);while(has(id)){n++;id=slug(base)+'-'+n}return id}
 async function shrink(file){
   const url=URL.createObjectURL(file);

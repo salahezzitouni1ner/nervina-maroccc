@@ -40,7 +40,6 @@ os.makedirs(REPO+'/images/sm',exist_ok=True)
 for out in done.values():
     im=Image.open(REPO+'/'+out); im.thumbnail((640,640),Image.LANCZOS)
     im.save(REPO+'/'+out.replace('images/','images/sm/'),'WEBP',quality=80,method=6)
-s['settings'].setdefault('heroSlides',banner.SLIDES)
 json.dump(s,open(REPO+'/store.json','w'),ensure_ascii=False,indent=1)
 # 4. rebuild page; add a safety net: if a local photo is missing, show the Shopify copy
 m=open(BT+'/modele.html').read()
@@ -67,6 +66,7 @@ c=open(BT+'/styles.css').read()+'''
 /* la notification ne doit pas masquer le bouton de commande */
 @media (max-width:700px){.toast{bottom:auto;top:calc(76px + env(safe-area-inset-top,0px))}}
 '''
+banner.make_assets(REPO)
 m,c,s=banner.patch(m,c,s)
 open(SCR+'/styles.css','w').write(c)
 open(SCR+'/modele.html','w').write(m)
