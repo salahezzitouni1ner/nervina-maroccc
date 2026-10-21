@@ -364,6 +364,28 @@ html,body{overflow-x:clip}
   .sh .btn.ghost{width:100%}
   footer{padding-bottom:20px}
 }
+
+/* ===== Page produit : Commander maintenant ===== */
+.pd-bar{position:fixed;left:0;right:0;bottom:0;z-index:55;display:flex;align-items:center;gap:16px;
+  padding:10px max(16px,calc((100vw - 1200px)/2)) calc(10px + env(safe-area-inset-bottom,0px));background:var(--bg);border-top:1px solid var(--line);
+  box-shadow:0 -10px 30px rgba(0,0,0,.07);transform:translateY(110%);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.pd-bar.on{transform:none}
+.pd-bar-i{flex:1;min-width:0}
+.pd-bar-i b{display:block;font-weight:500;font-size:.92rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pd-bar-i .price{font-size:.92rem;margin:0}
+.pd-bar .btn{min-height:50px;padding-inline:30px;white-space:nowrap}
+body.has-pdbar #waf{transform:translateY(-80px)}
+.pd-rel .pc .add{display:none}
+#ad{min-height:52px}
+@media(max-width:760px){
+  .pd-bar{bottom:calc(58px + env(safe-area-inset-bottom,0px));padding:10px 16px;gap:12px;transform:none}
+  .pd-bar-i{flex:0 1 auto;max-width:44%}
+  .pd-bar .btn{flex:1 1 auto;padding-inline:14px}
+  #ad{display:none}
+  .buy{margin-bottom:10px}
+  body.has-pdbar{padding-bottom:calc(58px + 72px + env(safe-area-inset-bottom,0px))}
+}
+@media (prefers-reduced-motion:reduce){.pd-bar{transition:none}}
 /* aligne le contenu des sections pleine largeur sur la grille de la page */
 .hs-in,.usp-in,.promo-in,.big-in{max-width:none;padding-inline:max(20px,calc((100vw - 1200px)/2))}
 @media (prefers-reduced-motion:reduce){.hs-slide .hs-k,.hs-slide .hs-t,.hs-slide .hs-d,.hs-slide .hs-cta{opacity:1;transform:none;animation:none!important}.hs-slide.on .hs-img{animation:none}}
@@ -416,6 +438,20 @@ def patch(m, c, s):
     m = m.replace("function bind(h){\n", "function bind(h){\n  if(h==='accueil')mgInit();\n", 1)
     m = m.replace("function route(){\n", "function route(){\n  mgKill();\n", 1)
     m = m.replace('<div id="layer"></div>', '<div id="layer" data-lenis-prevent></div>', 1)
+
+    # page produit : « Commander maintenant » (bouton + barre collante), sans « Ajouter au panier »
+    a = '<button class="btn" id="ad" style="flex:1;min-width:180px">Ajouter au panier</button>'
+    assert a in m; m = m.replace(a, '<button class="btn" id="ad" style="flex:1;min-width:180px">Commander maintenant</button>')
+    a = '<section class="sec"><div class="sechead"><h2>Dans la même collection</h2></div>'
+    assert a in m
+    m = m.replace(a, '<div class="pd-bar" id="pdbar"><div class="pd-bar-i"><b>${esc(p.title)}</b>${priceH(p)}</div><button class="btn" id="ad2" type="button">Commander maintenant</button></div>\n  ' + a.replace('<section class="sec">', '<section class="sec pd-rel">'))
+    a = "$('#ad').onclick=()=>{add(id,n);openCart()};"
+    assert a in m
+    m = m.replace(a, "const buy=()=>{cart[id]=Math.min(20,(cart[id]||0)+n);saveCart();updCnt();openCart()};$('#ad').onclick=buy;$('#ad2').onclick=buy;document.body.classList.add('has-pdbar');"
+      "if('IntersectionObserver' in window){PDIO=new IntersectionObserver(es=>{const bar=$('#pdbar');if(bar)bar.classList.toggle('on',!es[0].isIntersecting)});PDIO.observe($('#ad'))}else{$('#pdbar').classList.add('on')}")
+    a = "function mgKill(){"
+    assert a in m
+    m = m.replace(a, "let PDIO=null;\nfunction mgKill(){document.body.classList.remove('has-pdbar');if(PDIO){PDIO.disconnect();PDIO=null}", 1)
     a = '<a class="btn wa-float" id="waf" href="#" target="_blank" rel="noopener">WhatsApp</a>'
     assert a in m; m = m.replace(a, a + '\n' + TB, 1)
     a = "function updCnt(){$('#cnt').textContent=Object.entries(cart).filter(([id])=>prod(id)).reduce((a,[,b])=>a+b,0)}"

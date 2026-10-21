@@ -148,7 +148,8 @@ function annSet(){
   ANN=setInterval(()=>{if(hold||document.hidden)return;const t=el.querySelector('.ann-t');t.classList.add('out');setTimeout(()=>{i=(i+1)%msgs.length;t.textContent=msgs[i];t.classList.remove('out')},350)},4200);
 }
 let MG=null;
-function mgKill(){document.body.classList.remove('hs-in');if(MG&&MG.io)MG.io.disconnect();if(MG){try{MG.ctx&&MG.ctx.revert()}catch(e){}MG=null}}
+let PDIO=null;
+function mgKill(){document.body.classList.remove('has-pdbar');if(PDIO){PDIO.disconnect();PDIO=null}document.body.classList.remove('hs-in');if(MG&&MG.io)MG.io.disconnect();if(MG){try{MG.ctx&&MG.ctx.revert()}catch(e){}MG=null}}
 document.addEventListener('visibilitychange',()=>{if(MG&&MG.sync)MG.sync()});
 function mgInit(){
   const root=$('#hs');
@@ -245,10 +246,11 @@ produit(id){
     ${ims.length>1?`<div class="gal">${ims.map((m,i)=>`<button data-gi="${i}" aria-label="Photo ${i+1}" aria-current="${i===0}"><img src="${IMGSM(m)}" alt="" loading="lazy" decoding="async"></button>`).join('')}</div>`:''}</div>
   <div><p class="eyebrow">${esc(colName(p.col))}</p><h1>${esc(p.title)}</h1>${priceH(p)}
   <p class="d">${esc(p.desc||S.settings.productDesc)}</p>${perks()}
-  <div class="buy"><div class="qty"><button id="m" aria-label="Moins">−</button><span id="n">1</span><button id="pl" aria-label="Plus">+</button></div><button class="btn" id="ad" style="flex:1;min-width:180px">Ajouter au panier</button></div>
+  <div class="buy"><div class="qty"><button id="m" aria-label="Moins">−</button><span id="n">1</span><button id="pl" aria-label="Plus">+</button></div><button class="btn" id="ad" style="flex:1;min-width:180px">Commander maintenant</button></div>
   <a class="btn ghost wide" href="${WAU('Bonjour, je suis intéressé par : '+p.title)}" target="_blank" rel="noopener">Poser une question sur WhatsApp</a>
   <p class="note" style="margin-top:14px">${esc(S.settings.productNote)}</p></div></section>
-  <section class="sec"><div class="sechead"><h2>Dans la même collection</h2></div><div class="grid">${vis().filter(x=>x.col===p.col&&x.id!==p.id).slice(0,4).map(card).join('')}</div></section>`},
+  <div class="pd-bar" id="pdbar"><div class="pd-bar-i"><b>${esc(p.title)}</b>${priceH(p)}</div><button class="btn" id="ad2" type="button">Commander maintenant</button></div>
+  <section class="sec pd-rel"><div class="sechead"><h2>Dans la même collection</h2></div><div class="grid">${vis().filter(x=>x.col===p.col&&x.id!==p.id).slice(0,4).map(card).join('')}</div></section>`},
 contact(){const st=S.settings,ig=String(st.instagram||'').replace(/^@/,'');
   return `<section class="info"><p class="eyebrow">Contact</p><h1>Parlons de votre projet.</h1><p>Le plus rapide : un message WhatsApp avec une photo et vos dimensions.</p>
   <div style="display:flex;gap:12px;flex-wrap:wrap;margin:22px 0"><a class="btn" href="${WAU('Bonjour, je suis intéressé par vos produits 😊')}" target="_blank" rel="noopener">Écrire sur WhatsApp</a>${ig?`<a class="btn ghost" href="https://www.instagram.com/${encodeURIComponent(ig)}/" target="_blank" rel="noopener">@${esc(ig)}</a>`:''}</div>
@@ -281,7 +283,7 @@ function bind(h){
   if(h.startsWith('p-')){
     let n=1;const id=h.slice(2);
     $('#m').onclick=()=>{n=Math.max(1,n-1);$('#n').textContent=n};$('#pl').onclick=()=>{n=Math.min(20,n+1);$('#n').textContent=n};
-    $('#ad').onclick=()=>{add(id,n);openCart()};
+    const buy=()=>{cart[id]=Math.min(20,(cart[id]||0)+n);saveCart();updCnt();openCart()};$('#ad').onclick=buy;$('#ad2').onclick=buy;document.body.classList.add('has-pdbar');if('IntersectionObserver' in window){PDIO=new IntersectionObserver(es=>{const bar=$('#pdbar');if(bar)bar.classList.toggle('on',!es[0].isIntersecting)});PDIO.observe($('#ad'))}else{$('#pdbar').classList.add('on')}
     app.querySelectorAll('[data-gi]').forEach(b=>b.onclick=()=>{const p=prod(id);$('#mi').src=IMGURL(p.imgs[+b.dataset.gi]);app.querySelectorAll('[data-gi]').forEach(x=>x.setAttribute('aria-current',x===b))});
   }
   if(h==='contact'){
