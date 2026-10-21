@@ -1,5 +1,5 @@
 import csv,json,os,re,urllib.parse,sys,importlib.util
-_sp=importlib.util.spec_from_file_location('banner',os.path.join(os.path.dirname(os.path.abspath(__file__)),'home_pro.py'));banner=importlib.util.module_from_spec(_sp);_sp.loader.exec_module(banner)
+_sp=importlib.util.spec_from_file_location('banner',os.path.join(os.path.dirname(os.path.abspath(__file__)),os.environ.get('HOMEMOD','home_pro.py')));banner=importlib.util.module_from_spec(_sp);_sp.loader.exec_module(banner)
 from PIL import Image, ImageOps
 SCR='/tmp/claude-0/-home-claude/ff2ae7a3-8d31-5e47-be59-c1e595b976e6/scratchpad'
 SRC='/mnt/user-data/uploads/jgus0t-ph-files-2026-10-21-102141'
@@ -73,5 +73,5 @@ open(SCR+'/modele.html','w').write(m)
 g=m.replace('@@CSS@@',c).replace('@@SEED@@',json.dumps(s,ensure_ascii=False).replace('</','<\\/')).replace(FB,"const IMGURL=id=>/[./]/.test(id)?id:'/_blob/'+id;")
 HEAD='<!doctype html>\n<html lang="fr">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<meta name="description" content="Nervina Maroc : tables, meubles TV, consoles et tables de chevet sur mesure. Livraison partout au Maroc, commande par WhatsApp.">\n'
 g=HEAD+g.replace('<meta name="claude:viewport-fit-sides" content="cover">\n','',1)
-open(REPO+'/index.html','w',encoding='utf-8').write(g)
+open(REPO+'/'+os.environ.get('OUT','index.html'),'w',encoding='utf-8').write(g)
 print(len(s['products']),len(done),sum(os.path.getsize(REPO+'/'+x) for x in done.values())//1024,'KB')
