@@ -192,6 +192,18 @@ input,select,textarea{border-radius:2px}
 .col img{transition:transform .4s}.col:hover img{transform:scale(1.03)}
 .card .ph img,.card:hover .ph img{transition:transform .4s}.card:hover .ph img{transform:scale(1.04)}
 
+/* UI/UX Pro Max : cibles tactiles de 44 px sur mobile et écrans tactiles */
+@media (pointer:coarse),(max-width:700px){
+  .ib{height:44px;min-width:44px}
+  .chip,.pc .add,.sf input,.sf select,input,select{min-height:44px}
+  .qty button,.li .qty button{height:44px;width:44px}
+  .rm{min-height:44px;padding:0 6px}
+  .chips{gap:8px}
+}
+.li .price{display:block}.li .qty{display:flex;width:max-content;margin-top:8px}
+/* la notification ne doit pas masquer le bouton de commande */
+@media (max-width:700px){.toast{bottom:auto;top:calc(76px + env(safe-area-inset-top,0px))}}
+
 /* administration */
 .adm{padding-block:28px 90px}
 .adm-top{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between;position:sticky;top:calc(env(safe-area-inset-top,0px) + 62px);z-index:25;background:var(--bg);padding-block:14px;border-bottom:1px solid var(--line)}
@@ -264,7 +276,8 @@ const MAD=n=>new Intl.NumberFormat('fr-FR').format(n).replace(/ /g,' ')+' dh
 const waNum=()=>{let d=String(S.settings.whatsapp||'').replace(/\D/g,'');if(d.startsWith('0'))d='212'+d.slice(1);return d};
 const WAU=(t)=>'https://wa.me/'+waNum()+(t?'?text='+encodeURIComponent(t):'');
 const IMGURL=id=>/[./]/.test(id)?id:'/_blob/'+id;
-document.addEventListener('error',e=>{const t=e.target;if(t&&t.tagName==='IMG'&&!t.dataset.fb){const u=(S.shopify||{})[t.getAttribute('src')];if(u){t.dataset.fb=1;t.src=u}}},true);
+const IMGSM=id=>/^images\//.test(id)?id.replace('images/','images/sm/'):IMGURL(id);
+document.addEventListener('error',e=>{const t=e.target;if(!t||t.tagName!=='IMG')return;const s=t.getAttribute('src')||'';if(s.includes('images/sm/')){t.src=s.replace('images/sm/','images/');return}if(!t.dataset.fb){const u=(S.shopify||{})[s];if(u){t.dataset.fb=1;t.src=u}}},true);
 const svg=(b)=>`<svg viewBox="0 0 100 70" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">${b}</svg>`;
 const ICO={
  tables:svg('<ellipse cx="50" cy="26" rx="40" ry="12"/><path d="M10 26v4c0 7 18 12 40 12s40-5 40-12v-4"/><path d="M32 40v18c0 5 8 8 18 8s18-3 18-8V40"/>'),
@@ -281,7 +294,7 @@ const saveCart=()=>{try{localStorage.setItem('nv-cart',JSON.stringify(cart))}cat
 let canEdit=false,artifact=null,assets=null,dirty=false,saving=false,stMsg='';
 
 function ph(p,cls=''){const im=p.imgs&&p.imgs[0];
-  return `<div class="ph ${cls}">${hasOld(p)?`<span class="badge">-${Math.round((1-p.price/p.old)*100)}%</span>`:''}${im?`<img src="${IMGURL(im)}" alt="${esc(p.title)}" loading="lazy">`:ico(p.col)}</div>`}
+  return `<div class="ph ${cls}">${hasOld(p)?`<span class="badge">-${Math.round((1-p.price/p.old)*100)}%</span>`:''}${im?`<img src="${IMGSM(im)}" alt="${esc(p.title)}" loading="lazy" decoding="async">`:ico(p.col)}</div>`}
 const priceH=p=>`<span class="price">${MAD(p.price)}${hasOld(p)?`<s>${MAD(p.old)}</s>`:''}</span>`;
 function card(p){return `<article class="pc"><a class="im" href="#p-${esc(p.id)}" aria-label="${esc(p.title)}">${ph(p)}</a><h3><a href="#p-${esc(p.id)}">${esc(p.title)}</a></h3>${priceH(p)}<button class="btn ghost add" data-add="${esc(p.id)}">Ajouter au panier</button></article>`}
 function toast(m){const t=document.createElement('div');t.className='toast';t.setAttribute('role','status');t.textContent=m;document.body.append(t);setTimeout(()=>t.remove(),1900)}
@@ -315,7 +328,7 @@ accueil(){
     <div style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn" href="#catalogue">Voir le catalogue</a><a class="btn ghost" href="#contact">Nous contacter</a></div></div>
     <div class="heroimg" aria-hidden="true">${f&&f.imgs&&f.imgs[0]?`<img src="${IMGURL(f.imgs[0])}" alt="">`:`<div class="arches">${ar}</div>`}</div></section>
   ${S.collections.length?`<section class="sec"><div class="sechead"><div><p class="eyebrow">Collections</p><h2>Magasiner par collection</h2></div></div>
-    <div class="cols">${S.collections.map(c=>{const n=L.filter(p=>p.col===c.id).length;const cp=L.find(p=>p.col===c.id&&p.imgs&&p.imgs[0]);return `<a class="col" href="#c-${esc(c.id)}"><div class="arch" style="position:relative">${cp?`<img src="${IMGURL(cp.imgs[0])}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" loading="lazy">`:ico(c.id)}</div><span>${esc(c.name)}<small>${n} pièce${n>1?'s':''}</small></span></a>`}).join('')}</div></section>`:''}
+    <div class="cols">${S.collections.map(c=>{const n=L.filter(p=>p.col===c.id).length;const cp=L.find(p=>p.col===c.id&&p.imgs&&p.imgs[0]);return `<a class="col" href="#c-${esc(c.id)}"><div class="arch" style="position:relative">${cp?`<img src="${IMGSM(cp.imgs[0])}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" loading="lazy">`:ico(c.id)}</div><span>${esc(c.name)}<small>${n} pièce${n>1?'s':''}</small></span></a>`}).join('')}</div></section>`:''}
   ${L.length?'':`<section class="sec"><p class="empty">Les premières pièces arrivent bientôt. Écrivez-nous sur WhatsApp pour un projet sur mesure.</p></section>`}
   ${f?`<section class="sec"><div class="feat"><div>${ph(f,'sq')}</div><div><p class="eyebrow">Notre coup de cœur</p><h2>${esc(f.title)}</h2>${perks()}<p class="price" style="font-size:1.4rem;margin:0 0 22px">${MAD(f.price)}</p><a class="btn" href="#p-${esc(f.id)}">Découvrir</a></div></div></section>`:''}
   ${best.length?`<section class="sec"><div class="sechead"><div><p class="eyebrow">Sélection</p><h2>Pièces les plus demandées</h2></div><a href="#catalogue" style="font-size:.9rem">Tout voir</a></div><div class="grid">${best.map(card).join('')}</div></section>`:''}
@@ -332,7 +345,7 @@ produit(id){
   const ims=p.imgs||[];
   return `<div class="crumb"><a href="#accueil">Accueil</a> / <a href="#catalogue">Catalogue</a> / ${esc(colName(p.col))}</div>
   <section class="pd"><div><div class="ph" id="main">${hasOld(p)?`<span class="badge">-${Math.round((1-p.price/p.old)*100)}%</span>`:''}${ims[0]?`<img id="mi" src="${IMGURL(ims[0])}" alt="${esc(p.title)}">`:ico(p.col)}</div>
-    ${ims.length>1?`<div class="gal">${ims.map((m,i)=>`<button data-gi="${i}" aria-label="Photo ${i+1}" aria-current="${i===0}"><img src="${IMGURL(m)}" alt=""></button>`).join('')}</div>`:''}</div>
+    ${ims.length>1?`<div class="gal">${ims.map((m,i)=>`<button data-gi="${i}" aria-label="Photo ${i+1}" aria-current="${i===0}"><img src="${IMGSM(m)}" alt="" loading="lazy" decoding="async"></button>`).join('')}</div>`:''}</div>
   <div><p class="eyebrow">${esc(colName(p.col))}</p><h1>${esc(p.title)}</h1>${priceH(p)}
   <p class="d">${esc(p.desc||S.settings.productDesc)}</p>${perks()}
   <div class="buy"><div class="qty"><button id="m" aria-label="Moins">−</button><span id="n">1</span><button id="pl" aria-label="Plus">+</button></div><button class="btn" id="ad" style="flex:1;min-width:180px">Ajouter au panier</button></div>
@@ -420,7 +433,7 @@ function aBody(){
   if(tab==='boutique')return aBoutique();
   return aPages();
 }
-const th=p=>`<div class="th">${p.imgs&&p.imgs[0]?`<img src="${IMGURL(p.imgs[0])}" alt="">`:ico(p.col)}</div>`;
+const th=p=>`<div class="th">${p.imgs&&p.imgs[0]?`<img src="${IMGSM(p.imgs[0])}" alt="">`:ico(p.col)}</div>`;
 function aProduits(){
   return `<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:8px"><p class="hint">${S.products.length?S.products.length+' produits. Utilisez les flèches pour changer l\'ordre d\'affichage.':'Aucun produit pour l\'instant. Cliquez sur « Ajouter un produit », remplissez le nom, le prix et les photos, puis décochez « masqué » pour le publier.'}</p><button class="btn" data-a="new">Ajouter un produit</button></div>
   ${S.products.map((p,i)=>`<div class="arow${p.hidden?' off':''}">${th(p)}<div><b>${esc(p.title)}</b><small>${MAD(p.price)} · ${esc(colName(p.col))}${p.hidden?' · masqué':''}${p.star?' · accueil':''}${p.imgs&&p.imgs.length?'':' · sans photo'}</small></div>

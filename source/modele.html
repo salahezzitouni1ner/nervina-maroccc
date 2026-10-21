@@ -1,0 +1,376 @@
+<title>Nervina Boutique</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap">
+<style>
+@@CSS@@
+/* administration */
+.adm{padding-block:28px 90px}
+.adm-top{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between;position:sticky;top:calc(env(safe-area-inset-top,0px) + 62px);z-index:25;background:var(--bg);padding-block:14px;border-bottom:1px solid var(--line)}
+.adm-top h1{font-size:1.6rem}
+.adm-top .act{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.st{font-size:.84rem;color:var(--muted)}.st.dirty{color:var(--sale)}.st.ok{color:var(--ok)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:22px 0}
+.tab{background:transparent;border:1px solid var(--line);color:var(--fg);border-radius:999px;padding:9px 18px;font-size:.88rem;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--btn-bg);color:var(--btn-fg);border-color:var(--btn-bg)}
+.arow{display:grid;grid-template-columns:56px 1fr auto;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.arow .th{width:56px;height:56px;border-radius:2px;background:var(--surface);overflow:hidden;display:grid;place-items:center;color:var(--accent-ink)}
+.arow .th img{width:100%;height:100%;object-fit:cover}.arow .th svg{width:60%}
+.arow b{font-weight:500;display:block;line-height:1.3}
+.arow small{color:var(--muted)}
+.arow.off{opacity:.5}
+.btns{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.sm{background:transparent;border:1px solid var(--line);color:var(--fg);border-radius:999px;padding:6px 12px;font-size:.78rem;cursor:pointer}
+.sm:hover{border-color:var(--fg)}.sm.danger{color:var(--sale)}
+.ed{background:var(--surface);border-radius:14px;padding:22px;margin:10px 0 18px;display:grid;gap:14px}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:640px){.f2{grid-template-columns:1fr}.arow{grid-template-columns:48px 1fr}.arow .btns{grid-column:1/-1;justify-content:flex-start}}
+.chk{display:flex;align-items:center;gap:10px;font-weight:400}
+.chk input{width:auto}
+.imgs{display:flex;flex-wrap:wrap;gap:10px}
+.im1{width:96px;position:relative}
+.im1 img{width:96px;height:120px;object-fit:cover;border-radius:48px 48px 6px 6px;background:var(--bg)}
+.im1 .btns{justify-content:center;margin-top:6px;gap:4px}
+.im1 span.main{position:absolute;top:6px;left:50%;transform:translateX(-50%);background:var(--btn-bg);color:var(--btn-fg);font-size:.62rem;padding:2px 8px;border-radius:999px}
+.hint{font-size:.82rem;color:var(--muted);margin:0}
+.warn{border:1px solid var(--sale);color:var(--sale);border-radius:10px;padding:12px 14px;font-size:.88rem}
+.gal{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+.gal button{border:1px solid var(--line);background:var(--surface);padding:0;width:72px;height:72px;border-radius:2px;overflow:hidden;cursor:pointer}
+.gal button[aria-current="true"]{border-color:var(--fg)}
+.gal img{width:100%;height:100%;object-fit:cover}
+.adm-link{display:none}
+.adm-link.on{display:inline-flex}
+.para p{margin:0 0 14px;color:var(--muted)}
+.para p.q{color:var(--fg);font-weight:500;margin:22px 0 4px}
+</style>
+
+<div class="ann" id="ann"></div>
+<header class="full">
+  <div class="hbar">
+    <div style="display:flex;gap:8px"><button class="ib burger" id="bg" aria-label="Menu" aria-expanded="false">Menu</button>
+    <nav id="nav" aria-label="Navigation"><a href="#accueil" data-r="accueil">Accueil</a><a href="#catalogue" data-r="catalogue">Catalogue</a><a href="#contact" data-r="contact">Contact</a></nav></div>
+    <a class="logo" href="#accueil" aria-label="Nervina, accueil">
+      <svg width="30" height="30" viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 27V13a10 10 0 0 1 20 0v14"/><path d="M9 25v-6h12v6M8 21h14" stroke-width="1.4"/></svg>
+      <div><b>NERVINA</b><small>MAROC</small></div>
+    </a>
+    <div class="tools">
+      <a class="ib adm-link" id="admb" href="#admin">Administration</a>
+      <button class="ib" id="th" aria-label="Changer de thème" title="Thème"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 1.5a6.5 6.5 0 0 1 0 13z" fill="currentColor"/></svg></button>
+      <button class="ib" id="cartb" aria-label="Ouvrir le panier"><span class="hide-m">Panier</span><span class="cnt" id="cnt">0</span></button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap" id="app"></main>
+
+<footer class="wrap" id="foot"></footer>
+<a class="btn wa-float" id="waf" href="#" target="_blank" rel="noopener">WhatsApp</a>
+<div id="layer"></div>
+<script type="application/json" id="seed">@@SEED@@</script>
+
+<script>
+let S=JSON.parse(document.getElementById('seed').textContent);
+const $=s=>document.querySelector(s),app=$('#app'),layer=$('#layer');
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const MAD=n=>new Intl.NumberFormat('fr-FR').format(n).replace(/ /g,' ')+' dh';
+const waNum=()=>{let d=String(S.settings.whatsapp||'').replace(/\D/g,'');if(d.startsWith('0'))d='212'+d.slice(1);return d};
+const WAU=(t)=>'https://wa.me/'+waNum()+(t?'?text='+encodeURIComponent(t):'');
+const IMGURL=id=>'/_blob/'+id;
+const IMGSM=id=>/^images\//.test(id)?id.replace('images/','images/sm/'):IMGURL(id);
+document.addEventListener('error',e=>{const t=e.target;if(!t||t.tagName!=='IMG')return;const s=t.getAttribute('src')||'';if(s.includes('images/sm/')){t.src=s.replace('images/sm/','images/');return}if(!t.dataset.fb){const u=(S.shopify||{})[s];if(u){t.dataset.fb=1;t.src=u}}},true);
+const svg=(b)=>`<svg viewBox="0 0 100 70" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">${b}</svg>`;
+const ICO={
+ tables:svg('<ellipse cx="50" cy="26" rx="40" ry="12"/><path d="M10 26v4c0 7 18 12 40 12s40-5 40-12v-4"/><path d="M32 40v18c0 5 8 8 18 8s18-3 18-8V40"/>'),
+ tv:svg('<rect x="8" y="18" width="84" height="28" rx="9"/><path d="M50 18v28M22 46v14M78 46v14"/>'),
+ entree:svg('<path d="M34 40V24a16 16 0 0 1 32 0v16"/><rect x="10" y="40" width="80" height="10" rx="3"/><path d="M18 50v14M82 50v14"/>'),
+ chambres:svg('<rect x="26" y="12" width="48" height="40" rx="12"/><path d="M26 30h48M50 36v4M34 52v12M66 52v12"/>')};
+const ico=c=>ICO[c]||ICO.tables;
+const colName=id=>(S.collections.find(c=>c.id===id)||{}).name||'';
+const prod=id=>S.products.find(p=>p.id===id);
+const vis=()=>S.products.filter(p=>!p.hidden);
+const hasOld=p=>p.old>p.price;
+let cart={};try{cart=JSON.parse(localStorage.getItem('nv-cart')||'{}')||{}}catch(e){}
+const saveCart=()=>{try{localStorage.setItem('nv-cart',JSON.stringify(cart))}catch(e){}};
+let canEdit=false,artifact=null,assets=null,dirty=false,saving=false,stMsg='';
+
+function ph(p,cls=''){const im=p.imgs&&p.imgs[0];
+  return `<div class="ph ${cls}">${hasOld(p)?`<span class="badge">-${Math.round((1-p.price/p.old)*100)}%</span>`:''}${im?`<img src="${IMGSM(im)}" alt="${esc(p.title)}" loading="lazy" decoding="async">`:ico(p.col)}</div>`}
+const priceH=p=>`<span class="price">${MAD(p.price)}${hasOld(p)?`<s>${MAD(p.old)}</s>`:''}</span>`;
+function card(p){return `<article class="pc"><a class="im" href="#p-${esc(p.id)}" aria-label="${esc(p.title)}">${ph(p)}</a><h3><a href="#p-${esc(p.id)}">${esc(p.title)}</a></h3>${priceH(p)}<button class="btn ghost add" data-add="${esc(p.id)}">Ajouter au panier</button></article>`}
+function toast(m){const t=document.createElement('div');t.className='toast';t.setAttribute('role','status');t.textContent=m;document.body.append(t);setTimeout(()=>t.remove(),1900)}
+function paras(body){return String(body||'').split(/\n\s*\n/).filter(x=>x.trim()).map(b=>{const l=b.split('\n');return l.length>1&&/\?\s*$/.test(l[0])?`<p class="q">${esc(l[0])}</p><p>${esc(l.slice(1).join(' '))}</p>`:`<p>${esc(b)}</p>`}).join('')}
+
+/* ---------- chrome (bandeau, pied, whatsapp) ---------- */
+function chrome(){
+  const st=S.settings;
+  $('#ann').textContent=st.banner||'';$('#ann').hidden=!st.banner;
+  $('#waf').href=WAU('Bonjour, je suis intéressé par vos produits 😊');
+  const ig=String(st.instagram||'').replace(/^@/,'');
+  $('#foot').innerHTML=`<div class="fg">
+    <div><h4>Nervina Maroc</h4><p>${esc(st.footerText)}</p></div>
+    <div><h4>Boutique</h4><a href="#catalogue">Catalogue</a>${S.collections.map(c=>`<a href="#c-${esc(c.id)}">${esc(c.name)}</a>`).join('')}</div>
+    <div><h4>Informations</h4><a href="#contact">Contact</a>${Object.entries(S.pages).map(([k,v])=>`<a href="#${esc(k)}">${esc(v.title)}</a>`).join('')}</div>
+    <div><h4>Nous joindre</h4><p>WhatsApp<br><strong style="color:var(--fg);font-weight:500">${esc(st.whatsapp)}</strong></p>${ig?`<p style="margin-top:10px"><a href="https://www.instagram.com/${encodeURIComponent(ig)}/" target="_blank" rel="noopener" style="padding:0">@${esc(ig)}</a></p>`:''}</div>
+  </div><div class="copy"><span>${esc(st.legal)}</span>${st.email?`<a href="mailto:${esc(st.email)}" style="color:inherit">${esc(st.email)}</a>`:''}</div>`;
+  $('#admb').classList.toggle('on',canEdit);
+}
+
+/* ---------- vues boutique ---------- */
+let filt='all',q='',sort='def';
+function perks(){return `<ul>${(S.settings.perks||[]).filter(Boolean).map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`}
+const VIEWS={
+accueil(){
+  const st=S.settings,f=prod(st.featured)||vis()[0],best=vis().filter(p=>p.star).slice(0,4),L=vis();
+  const ar=S.collections.slice(0,3).map((c,i)=>`<div class="arch">${ico(c.id)}</div>`).join('');
+  return `<section class="hero"><div><p class="eyebrow">Mobilier · Décoration · Menuiserie</p>
+    <h1>${esc(st.heroTitle1)} <em>${esc(st.heroTitle2)}</em></h1>
+    <p class="lead">${esc(st.heroLead)}</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn" href="#catalogue">Voir le catalogue</a><a class="btn ghost" href="#contact">Nous contacter</a></div></div>
+    <div class="heroimg" aria-hidden="true">${f&&f.imgs&&f.imgs[0]?`<img src="${IMGURL(f.imgs[0])}" alt="">`:`<div class="arches">${ar}</div>`}</div></section>
+  ${S.collections.length?`<section class="sec"><div class="sechead"><div><p class="eyebrow">Collections</p><h2>Magasiner par collection</h2></div></div>
+    <div class="cols">${S.collections.map(c=>{const n=L.filter(p=>p.col===c.id).length;const cp=L.find(p=>p.col===c.id&&p.imgs&&p.imgs[0]);return `<a class="col" href="#c-${esc(c.id)}"><div class="arch" style="position:relative">${cp?`<img src="${IMGSM(cp.imgs[0])}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" loading="lazy">`:ico(c.id)}</div><span>${esc(c.name)}<small>${n} pièce${n>1?'s':''}</small></span></a>`}).join('')}</div></section>`:''}
+  ${L.length?'':`<section class="sec"><p class="empty">Les premières pièces arrivent bientôt. Écrivez-nous sur WhatsApp pour un projet sur mesure.</p></section>`}
+  ${f?`<section class="sec"><div class="feat"><div>${ph(f,'sq')}</div><div><p class="eyebrow">Notre coup de cœur</p><h2>${esc(f.title)}</h2>${perks()}<p class="price" style="font-size:1.4rem;margin:0 0 22px">${MAD(f.price)}</p><a class="btn" href="#p-${esc(f.id)}">Découvrir</a></div></div></section>`:''}
+  ${best.length?`<section class="sec"><div class="sechead"><div><p class="eyebrow">Sélection</p><h2>Pièces les plus demandées</h2></div><a href="#catalogue" style="font-size:.9rem">Tout voir</a></div><div class="grid">${best.map(card).join('')}</div></section>`:''}
+  <section class="sec"><div class="trust">${(st.trust||[]).map(x=>`<div><b>${esc(x.t)}</b><p>${esc(x.d)}</p></div>`).join('')}</div></section>`},
+catalogue(){
+  let list=vis().filter(p=>(filt==='all'||p.col===filt)&&p.title.toLowerCase().includes(q.toLowerCase()));
+  if(sort==='asc')list=[...list].sort((a,b)=>a.price-b.price);if(sort==='desc')list=[...list].sort((a,b)=>b.price-a.price);
+  return `<section style="padding-block:44px 80px"><p class="eyebrow">Catalogue</p><h1 style="margin-bottom:28px">${filt==='all'?'Tous les produits':esc(colName(filt))}</h1>
+  <div class="bar2"><div class="chips" role="group" aria-label="Collections">${[{id:'all',name:'Tout'},...S.collections].map(c=>`<button class="chip" data-f="${esc(c.id)}" aria-pressed="${filt===c.id}">${esc(c.name)}</button>`).join('')}</div>
+  <div class="sf"><input id="q" type="search" placeholder="Rechercher" aria-label="Rechercher" value="${esc(q)}"><select id="so" aria-label="Trier"><option value="def">Trier</option><option value="asc"${sort==='asc'?' selected':''}>Prix croissant</option><option value="desc"${sort==='desc'?' selected':''}>Prix décroissant</option></select></div></div>
+  <div class="grid">${list.map(card).join('')||`<p class="empty">${vis().length?'Aucun produit ne correspond.':'Le catalogue sera bientôt rempli. Écrivez-nous sur WhatsApp pour un projet sur mesure.'}</p>`}</div></section>`},
+produit(id){
+  const p=prod(id);if(!p||p.hidden)return VIEWS.catalogue();
+  const ims=p.imgs||[];
+  return `<div class="crumb"><a href="#accueil">Accueil</a> / <a href="#catalogue">Catalogue</a> / ${esc(colName(p.col))}</div>
+  <section class="pd"><div><div class="ph" id="main">${hasOld(p)?`<span class="badge">-${Math.round((1-p.price/p.old)*100)}%</span>`:''}${ims[0]?`<img id="mi" src="${IMGURL(ims[0])}" alt="${esc(p.title)}">`:ico(p.col)}</div>
+    ${ims.length>1?`<div class="gal">${ims.map((m,i)=>`<button data-gi="${i}" aria-label="Photo ${i+1}" aria-current="${i===0}"><img src="${IMGSM(m)}" alt="" loading="lazy" decoding="async"></button>`).join('')}</div>`:''}</div>
+  <div><p class="eyebrow">${esc(colName(p.col))}</p><h1>${esc(p.title)}</h1>${priceH(p)}
+  <p class="d">${esc(p.desc||S.settings.productDesc)}</p>${perks()}
+  <div class="buy"><div class="qty"><button id="m" aria-label="Moins">−</button><span id="n">1</span><button id="pl" aria-label="Plus">+</button></div><button class="btn" id="ad" style="flex:1;min-width:180px">Ajouter au panier</button></div>
+  <a class="btn ghost wide" href="${WAU('Bonjour, je suis intéressé par : '+p.title)}" target="_blank" rel="noopener">Poser une question sur WhatsApp</a>
+  <p class="note" style="margin-top:14px">${esc(S.settings.productNote)}</p></div></section>
+  <section class="sec"><div class="sechead"><h2>Dans la même collection</h2></div><div class="grid">${vis().filter(x=>x.col===p.col&&x.id!==p.id).slice(0,4).map(card).join('')}</div></section>`},
+contact(){const st=S.settings,ig=String(st.instagram||'').replace(/^@/,'');
+  return `<section class="info"><p class="eyebrow">Contact</p><h1>Parlons de votre projet.</h1><p>Le plus rapide : un message WhatsApp avec une photo et vos dimensions.</p>
+  <div style="display:flex;gap:12px;flex-wrap:wrap;margin:22px 0"><a class="btn" href="${WAU('Bonjour, je suis intéressé par vos produits 😊')}" target="_blank" rel="noopener">Écrire sur WhatsApp</a>${ig?`<a class="btn ghost" href="https://www.instagram.com/${encodeURIComponent(ig)}/" target="_blank" rel="noopener">@${esc(ig)}</a>`:''}</div>
+  <p>${esc(st.whatsapp)}${st.phone2?' · '+esc(st.phone2):''}</p>
+  <form class="cform" onsubmit="return false"><label for="cn">Nom<input id="cn" autocomplete="name"></label><label for="ct">Téléphone<input id="ct" inputmode="tel" autocomplete="tel"></label><label for="cm">Message<textarea id="cm" rows="4" placeholder="Produit, dimensions, couleur…"></textarea></label>
+  <a class="btn" id="cw" href="#" target="_blank" rel="noopener">Envoyer sur WhatsApp</a><span class="note">Le bouton ouvre WhatsApp avec votre message déjà écrit. Rien n'est envoyé avant que vous validiez.</span></form></section>`},
+page(k){const pg=S.pages[k];if(!pg)return VIEWS.accueil();
+  return `<section class="info"><p class="eyebrow">Informations</p><h1>${esc(pg.title)}</h1><div class="para">${paras(pg.body)||'<p>Cette page sera bientôt complétée.</p>'}</div></section>`}};
+
+function route(){
+  let h=(location.hash||'#accueil').slice(1),html;
+  if(h==='admin'){if(canEdit){renderAdmin();setNav(h);return}h='accueil'}
+  if(h.startsWith('c-')){filt=h.slice(2);h='catalogue'}
+  if(h.startsWith('p-'))html=VIEWS.produit(h.slice(2));
+  else if(h==='catalogue')html=VIEWS.catalogue();
+  else if(S.pages[h])html=VIEWS.page(h);
+  else html=(VIEWS[h]||VIEWS.accueil)();
+  app.innerHTML=html;scrollTo(0,0);bind(h);setNav(h);
+}
+function setNav(h){document.querySelectorAll('nav a').forEach(a=>a.toggleAttribute('aria-current',a.dataset.r===(h.startsWith('p-')?'catalogue':h)));
+  $('#nav').classList.remove('open');$('#bg').setAttribute('aria-expanded','false')}
+function bind(h){
+  if(h==='catalogue'){
+    app.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{filt=b.dataset.f;rerender()});
+    $('#q').oninput=e=>{q=e.target.value;const pos=e.target.selectionStart;rerender();const i=$('#q');i.focus();i.setSelectionRange(pos,pos)};
+    $('#so').onchange=e=>{sort=e.target.value;rerender()};
+  }
+  if(h.startsWith('p-')){
+    let n=1;const id=h.slice(2);
+    $('#m').onclick=()=>{n=Math.max(1,n-1);$('#n').textContent=n};$('#pl').onclick=()=>{n=Math.min(20,n+1);$('#n').textContent=n};
+    $('#ad').onclick=()=>{add(id,n);openCart()};
+    app.querySelectorAll('[data-gi]').forEach(b=>b.onclick=()=>{const p=prod(id);$('#mi').src=IMGURL(p.imgs[+b.dataset.gi]);app.querySelectorAll('[data-gi]').forEach(x=>x.setAttribute('aria-current',x===b))});
+  }
+  if(h==='contact'){
+    const u=()=>{const t=`Bonjour Nervina, ${$('#cm').value.trim()||'je suis intéressé par vos produits.'}${$('#cn').value.trim()?'\nNom : '+$('#cn').value.trim():''}${$('#ct').value.trim()?'\nTéléphone : '+$('#ct').value.trim():''}`;$('#cw').href=WAU(t)};
+    ['cn','ct','cm'].forEach(i=>$('#'+i).oninput=u);u();
+  }
+  app.querySelectorAll('[data-add]').forEach(b=>b.onclick=()=>add(b.dataset.add,1));
+}
+function rerender(){const k=scrollY;app.innerHTML=VIEWS.catalogue();bind('catalogue');scrollTo(0,k)}
+
+/* ---------- panier ---------- */
+function add(id,n){cart[id]=Math.min(20,(cart[id]||0)+n);saveCart();updCnt();toast('Ajouté au panier')}
+function updCnt(){$('#cnt').textContent=Object.entries(cart).filter(([id])=>prod(id)).reduce((a,[,b])=>a+b,0)}
+const total=()=>Object.entries(cart).reduce((s,[id,n])=>s+(prod(id)?.price||0)*n,0);
+function openCart(){
+  const items=Object.entries(cart).filter(([id])=>prod(id));
+  layer.innerHTML=`<div class="veil" id="vl"></div><aside class="drawer" role="dialog" aria-modal="true" aria-label="Panier"><div class="dh"><h2>Votre panier</h2><button class="ib" id="cx">Fermer</button></div>
+  <div class="db">${items.length?items.map(([id,n])=>{const p=prod(id);return `<div class="li">${ph(p)}<div><b>${esc(p.title)}</b><span class="price" style="font-size:.88rem">${MAD(p.price)}</span><div class="qty"><button data-q="${esc(id)}" data-d="-1" aria-label="Moins">−</button><span>${n}</span><button data-q="${esc(id)}" data-d="1" aria-label="Plus">+</button></div></div><button class="rm" data-r="${esc(id)}">Retirer</button></div>`}).join(''):'<p class="empty">Votre panier est vide.</p>'}</div>
+  ${items.length?`<div class="df"><div class="tot"><span>Total</span><span>${MAD(total())}</span></div><span class="note">Livraison confirmée par WhatsApp avant toute validation.</span>
+  <input id="on" placeholder="Votre nom" autocomplete="name" aria-label="Nom"><div class="row2"><input id="ot" placeholder="Téléphone" inputmode="tel" autocomplete="tel" aria-label="Téléphone"><input id="ov" placeholder="Ville" autocomplete="address-level2" aria-label="Ville"></div><input id="oa" placeholder="Adresse de livraison" autocomplete="street-address" aria-label="Adresse">
+  <a class="btn wide" id="ow" href="#" target="_blank" rel="noopener">Commander sur WhatsApp</a></div>`:`<div class="df"><a class="btn wide" href="#catalogue" id="cc">Voir le catalogue</a></div>`}</aside>`;
+  const close=()=>{layer.innerHTML='';document.removeEventListener('keydown',k)};const k=e=>{if(e.key==='Escape')close()};document.addEventListener('keydown',k);
+  $('#vl').onclick=close;$('#cx').onclick=close;$('#cx').focus();if($('#cc'))$('#cc').onclick=close;
+  layer.querySelectorAll('[data-q]').forEach(b=>b.onclick=()=>{const id=b.dataset.q;cart[id]=(cart[id]||0)+ +b.dataset.d;if(cart[id]<=0)delete cart[id];if(cart[id]>20)cart[id]=20;saveCart();updCnt();openCart()});
+  layer.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{delete cart[b.dataset.r];saveCart();updCnt();openCart()});
+  if($('#ow')){const u=()=>{const l=items.map(([id,n])=>`• ${n} × ${prod(id).title} (${MAD(prod(id).price)})`).join('\n');
+    const t=`Bonjour Nervina, je souhaite commander :\n${l}\nTotal : ${MAD(total())}\n\nNom : ${$('#on').value.trim()}\nTéléphone : ${$('#ot').value.trim()}\nVille : ${$('#ov').value.trim()}\nAdresse : ${$('#oa').value.trim()}`;
+    $('#ow').href=WAU(t)};['on','ot','ov','oa'].forEach(i=>$('#'+i).oninput=u);u()}
+}
+
+/* ---------- administration ---------- */
+let tab='produits',editId=null,pageKey='faq',delAsk=null;
+const slug=t=>t.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,60)||'produit';
+function markDirty(){dirty=true;stMsg='';paintSt()}
+function paintSt(){const e=$('#ast');if(!e)return;e.className='st'+(dirty?' dirty':stMsg?' ok':'');e.textContent=saving?'Publication en cours…':dirty?'Modifications non publiées':stMsg;const b=$('#asave');if(b){b.disabled=!dirty||saving;b.style.opacity=b.disabled?.5:1}}
+function renderAdmin(){
+  const T=[['produits','Produits'],['collections','Collections'],['boutique','Boutique'],['pages','Pages']];
+  app.innerHTML=`<section class="adm"><div class="adm-top"><div><p class="eyebrow" style="margin:0 0 4px">Administration</p><h1>Gérer la boutique</h1></div>
+  <div class="act"><span id="ast" class="st"></span><a class="btn ghost" href="#accueil">Voir la boutique</a><button class="btn" id="asave">Publier les changements</button></div></div>
+  <div class="tabs" role="tablist">${T.map(([k,v])=>`<button class="tab" role="tab" data-tab="${k}" aria-selected="${tab===k}">${v}</button>`).join('')}</div>
+  <div id="abody">${aBody()}</div></section>`;
+  app.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{tab=b.dataset.tab;editId=null;renderAdmin()});
+  $('#asave').onclick=publish;paintSt();bindA();
+}
+function aBody(){
+  if(tab==='produits')return aProduits();
+  if(tab==='collections')return aCollections();
+  if(tab==='boutique')return aBoutique();
+  return aPages();
+}
+const th=p=>`<div class="th">${p.imgs&&p.imgs[0]?`<img src="${IMGSM(p.imgs[0])}" alt="">`:ico(p.col)}</div>`;
+function aProduits(){
+  return `<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:8px"><p class="hint">${S.products.length?S.products.length+' produits. Utilisez les flèches pour changer l\'ordre d\'affichage.':'Aucun produit pour l\'instant. Cliquez sur « Ajouter un produit », remplissez le nom, le prix et les photos, puis décochez « masqué » pour le publier.'}</p><button class="btn" data-a="new">Ajouter un produit</button></div>
+  ${S.products.map((p,i)=>`<div class="arow${p.hidden?' off':''}">${th(p)}<div><b>${esc(p.title)}</b><small>${MAD(p.price)} · ${esc(colName(p.col))}${p.hidden?' · masqué':''}${p.star?' · accueil':''}${p.imgs&&p.imgs.length?'':' · sans photo'}</small></div>
+  <div class="btns"><button class="sm" data-a="up" data-i="${i}" aria-label="Monter"${i?'':' disabled'}>↑</button><button class="sm" data-a="dn" data-i="${i}" aria-label="Descendre"${i<S.products.length-1?'':' disabled'}>↓</button><button class="sm" data-a="edit" data-id="${esc(p.id)}">${editId===p.id?'Fermer':'Modifier'}</button></div></div>
+  ${editId===p.id?aEdit(p):''}`).join('')}`;
+}
+function aEdit(p){
+  const ims=p.imgs||[];
+  return `<div class="ed" data-pid="${esc(p.id)}">
+  <label>Nom du produit<input data-k="title" value="${esc(p.title)}"></label>
+  <div class="f2"><label>Prix (dh)<input data-k="price" data-n="1" inputmode="numeric" value="${p.price}"></label><label>Ancien prix, si promotion (dh)<input data-k="old" data-n="1" inputmode="numeric" value="${p.old||''}" placeholder="vide = pas de promotion"></label></div>
+  <label>Collection<select data-k="col">${S.collections.map(c=>`<option value="${esc(c.id)}"${c.id===p.col?' selected':''}>${esc(c.name)}</option>`).join('')}</select></label>
+  <label>Description (facultatif)<textarea data-k="desc" rows="3" placeholder="Si vide, le texte par défaut de la boutique est utilisé">${esc(p.desc||'')}</textarea></label>
+  <div><b style="font-size:.82rem;font-weight:500">Photos</b><p class="hint" style="margin:4px 0 10px">La première photo sert de vignette. Format conseillé : vertical ou carré, minimum 1000 px.</p>
+  <div class="imgs">${ims.map((m,i)=>`<div class="im1"><img src="${IMGURL(m)}" alt="">${i?'':'<span class="main">Principale</span>'}<div class="btns"><button class="sm" data-a="imgl" data-i="${i}" aria-label="Avant"${i?'':' disabled'}>←</button><button class="sm" data-a="imgr" data-i="${i}" aria-label="Après"${i<ims.length-1?'':' disabled'}>→</button><button class="sm danger" data-a="imgx" data-i="${i}" aria-label="Retirer">✕</button></div></div>`).join('')}</div>
+  ${assets?`<div style="margin-top:12px"><label class="sm" style="display:inline-block;cursor:pointer">Ajouter des photos<input type="file" id="fi" accept="image/*" multiple hidden></label> <span class="hint" id="up"></span></div>`:'<p class="warn" style="margin-top:12px">L\'envoi de photos n\'est pas disponible dans cette vue.</p>'}</div>
+  <label class="chk"><input type="checkbox" data-k="star"${p.star?' checked':''}> Afficher dans « Pièces les plus demandées » sur l'accueil</label>
+  <label class="chk"><input type="checkbox" data-k="hidden"${p.hidden?' checked':''}> Masquer ce produit (invisible dans la boutique)</label>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">${delAsk===p.id?`<span class="warn" style="padding:8px 14px">Supprimer définitivement ce produit ?</span><button class="sm danger" data-a="delyes">Oui, supprimer</button><button class="sm" data-a="delno">Annuler</button>`:`<button class="sm danger" data-a="del">Supprimer ce produit</button>`}</div></div>`;
+}
+function aCollections(){
+  return `<p class="hint" style="margin-bottom:12px">Les collections regroupent vos produits dans le menu et sur l'accueil.</p>
+  ${S.collections.map((c,i)=>{const n=S.products.filter(p=>p.col===c.id).length;return `<div class="arow" style="grid-template-columns:1fr auto"><label style="gap:4px">Nom<input data-ck="${i}" value="${esc(c.name)}"></label><div class="btns"><span class="hint">${n} produit${n>1?'s':''}</span><button class="sm danger" data-a="colx" data-i="${i}"${n?' disabled title="Déplacez d\'abord ses produits"':''}>Supprimer</button></div></div>`}).join('')}
+  <div style="margin-top:16px"><button class="btn" data-a="colnew">Ajouter une collection</button></div>`;
+}
+function aBoutique(){
+  const s=S.settings,F=(k,l,t='input',r=3)=>t==='input'?`<label>${l}<input data-s="${k}" value="${esc(s[k])}"></label>`:`<label>${l}<textarea data-s="${k}" rows="${r}">${esc(s[k])}</textarea></label>`;
+  return `<div class="ed">${F('banner','Bandeau du haut')}
+  <div class="f2">${F('heroTitle1','Titre d\'accueil, début')}${F('heroTitle2','Titre d\'accueil, fin (en couleur)')}</div>${F('heroLead','Texte d\'accueil','ta')}</div>
+  <div class="ed"><div class="f2">${F('whatsapp','Numéro WhatsApp (reçoit les commandes)')}${F('phone2','Second numéro (affiché sur la page contact)')}</div>${F('instagram','Compte Instagram (sans @)')}
+  <p class="hint">Format accepté : 06 54 29 09 60. Il est converti automatiquement pour WhatsApp.</p></div>
+  <div class="ed"><b style="font-weight:500">Atouts affichés sur chaque produit</b>${[0,1,2].map(i=>`<label>Atout ${i+1}<input data-perk="${i}" value="${esc((s.perks||[])[i]||'')}"></label>`).join('')}
+  ${F('productDesc','Description par défaut des produits','ta')}${F('productNote','Note sous le bouton d\'achat')}</div>
+  <div class="ed"><b style="font-weight:500">Bandeau de réassurance (accueil)</b>${[0,1,2].map(i=>`<div class="f2"><label>Titre ${i+1}<input data-tt="${i}" value="${esc(((s.trust||[])[i]||{}).t||'')}"></label><label>Texte ${i+1}<input data-td="${i}" value="${esc(((s.trust||[])[i]||{}).d||'')}"></label></div>`).join('')}</div>
+  <div class="ed"><label>Produit « coup de cœur » de l'accueil<select data-s="featured"><option value="">Automatique (premier produit)</option>${S.products.map(p=>`<option value="${esc(p.id)}"${p.id===s.featured?' selected':''}>${esc(p.title)}</option>`).join('')}</select></label>
+  ${F('footerText','Texte du pied de page','ta',2)}${F('legal','Mentions en bas de page')}</div>`;
+}
+function aPages(){
+  const k=pageKey,pg=S.pages[k];
+  return `<div class="ed"><label>Page<select id="pk">${Object.entries(S.pages).map(([a,b])=>`<option value="${esc(a)}"${a===k?' selected':''}>${esc(b.title)}</option>`).join('')}</select></label>
+  <label>Titre<input data-pt="1" value="${esc(pg.title)}"></label>
+  <label>Texte<textarea data-pb="1" rows="12">${esc(pg.body)}</textarea></label>
+  <p class="hint">Séparez les paragraphes par une ligne vide. Pour la FAQ : une ligne de question terminée par « ? », puis la réponse en dessous.</p></div>`;
+}
+function bindA(){
+  const body=$('#abody');
+  body.onclick=e=>{const b=e.target.closest('[data-a]');if(!b)return;const a=b.dataset.a,i=+b.dataset.i,id=b.dataset.id;
+    if(a==='edit'){editId=editId===id?null:id;delAsk=null;return refreshBody()}
+    if(a==='new'){const nid=uniq('nouveau-produit');S.products.unshift({id:nid,title:'Nouveau produit',price:0,old:0,col:S.collections[0]?.id||'',desc:'',imgs:[],hidden:true,star:false});editId=nid;markDirty();return refreshBody()}
+    if(a==='up'||a==='dn'){const j=a==='up'?i-1:i+1;[S.products[i],S.products[j]]=[S.products[j],S.products[i]];markDirty();return refreshBody()}
+    if(a==='del'){delAsk=editId;return refreshBody()}
+    if(a==='delno'){delAsk=null;return refreshBody()}
+    if(a==='delyes'){S.products=S.products.filter(p=>p.id!==editId);if(S.settings.featured===editId)S.settings.featured=S.products[0]?.id||'';editId=null;delAsk=null;markDirty();return refreshBody()}
+    const p=prod(editId);
+    if(p&&(a==='imgl'||a==='imgr')){const j=a==='imgl'?i-1:i+1;[p.imgs[i],p.imgs[j]]=[p.imgs[j],p.imgs[i]];markDirty();return refreshBody()}
+    if(p&&a==='imgx'){p.imgs.splice(i,1);markDirty();return refreshBody()}
+    if(a==='colnew'){let n=uniq('collection',S.collections);S.collections.push({id:n,name:'Nouvelle collection'});markDirty();return refreshBody()}
+    if(a==='colx'){S.collections.splice(i,1);markDirty();return refreshBody()}
+  };
+  body.oninput=e=>{const t=e.target;
+    const w=t.closest('[data-pid]');
+    if(w&&t.dataset.k){const p=prod(w.dataset.pid);const k=t.dataset.k;
+      if(t.type==='checkbox')p[k]=t.checked;else if(t.dataset.n)p[k]=Math.max(0,parseInt(String(t.value).replace(/\D/g,''),10)||0);else p[k]=t.value;
+      markDirty();return}
+    if(t.dataset.ck!==undefined){S.collections[+t.dataset.ck].name=t.value;markDirty();return}
+    if(t.dataset.s){S.settings[t.dataset.s]=t.value;markDirty();return}
+    if(t.dataset.perk!==undefined){(S.settings.perks=S.settings.perks||[])[+t.dataset.perk]=t.value;markDirty();return}
+    if(t.dataset.tt!==undefined){const a=(S.settings.trust=S.settings.trust||[]);(a[+t.dataset.tt]=a[+t.dataset.tt]||{t:'',d:''}).t=t.value;markDirty();return}
+    if(t.dataset.td!==undefined){const a=(S.settings.trust=S.settings.trust||[]);(a[+t.dataset.td]=a[+t.dataset.td]||{t:'',d:''}).d=t.value;markDirty();return}
+    if(t.dataset.pt){S.pages[pageKey].title=t.value;markDirty();return}
+    if(t.dataset.pb){S.pages[pageKey].body=t.value;markDirty();return}
+  };
+  body.onchange=async e=>{const t=e.target;
+    if(t.id==='pk'){pageKey=t.value;return refreshBody()}
+    if(t.dataset.k==='col'||t.dataset.k==='hidden'||t.dataset.k==='star'){if(t.dataset.k!=='col')return;}
+    if(t.id==='fi'&&t.files.length){await upload(t)}
+    if(t.dataset.s==='featured'){}
+  };
+}
+function refreshBody(){const y=scrollY;$('#abody').innerHTML=aBody();paintSt();scrollTo(0,y);bindA()}
+function uniq(base,list=S.products){let id=slug(base),n=1;const has=x=>list.some(p=>p.id===x);while(has(id)){n++;id=slug(base)+'-'+n}return id}
+async function shrink(file){
+  const url=URL.createObjectURL(file);
+  try{const im=await new Promise((ok,ko)=>{const i=new Image();i.onload=()=>ok(i);i.onerror=ko;i.src=url});
+    const M=1600,r=Math.min(1,M/Math.max(im.naturalWidth,im.naturalHeight));
+    const c=document.createElement('canvas');c.width=Math.round(im.naturalWidth*r);c.height=Math.round(im.naturalHeight*r);
+    const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.drawImage(im,0,0,c.width,c.height);
+    return await new Promise(ok=>c.toBlob(ok,'image/jpeg',.86));
+  }finally{URL.revokeObjectURL(url)}
+}
+async function upload(inp){
+  const p=prod(editId),files=[...inp.files],u=$('#up');let ok=0;
+  for(const f of files){
+    if(u)u.textContent=`Envoi ${ok+1}/${files.length}…`;
+    try{const blob=await shrink(f);const r=await assets.upload(blob,{type:'image/jpeg'});p.imgs=p.imgs||[];p.imgs.push(r.id);ok++;markDirty()}
+    catch(e){if(u)u.textContent='Échec de l\'envoi'+(e&&e.code?' ('+e.code+')':'')+'.';break}
+  }
+  refreshBody();
+}
+async function publish(){
+  if(saving||!dirty)return;saving=true;paintSt();
+  const json=JSON.stringify(S);
+  try{
+    if(!artifact)throw {code:'capability_disabled'};
+    await artifact.publish({'store.json':json});
+    dirty=false;stMsg='Publié. Les visiteurs voient les changements.';
+  }catch(e){
+    const c=e&&e.code;
+    if(c==='conflict')stMsg='Une autre version a été publiée. Rechargez la page puis refaites vos changements.';
+    else if(c==='not_writer'||c==='not_granted')stMsg='Vous n\'avez pas le droit de publier.';
+    else if(c==='capability_disabled')stMsg='Publication directe indisponible ici.';
+    else if(c==='rate_limited')stMsg='Trop de publications, attendez un instant.';
+    else stMsg='La publication a échoué. Réessayez.';
+    if(c==='capability_disabled'||c==='upstream_error')offerFile(json);
+  }
+  saving=false;paintSt();
+}
+async function offerFile(json){
+  try{const d=await claude.use('downloads');if(!d)return;
+    stMsg+=' Vos données vont être proposées en téléchargement.';paintSt();
+    await d.save({filename:'store.json',data:json});
+  }catch(e){}
+}
+
+/* ---------- init ---------- */
+$('#cartb').onclick=openCart;
+$('#bg').onclick=()=>{const o=$('#nav').classList.toggle('open');$('#bg').setAttribute('aria-expanded',o)};
+$('#th').onclick=()=>{const r=document.documentElement,d=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;r.dataset.theme=d?'light':'dark'};
+addEventListener('hashchange',route);
+addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue=''}});
+chrome();updCnt();route();
+// données publiées (store.json), puis outils d'administration pour les éditeurs
+(async()=>{
+  try{const r=await fetch('store.json',{cache:'no-store'});if(r.ok){const j=await r.json();if(j&&j.products){S=j;chrome();updCnt();if(!dirty&&(location.hash||'#accueil')!=='#admin')route()}}}catch(e){}
+  try{if(window.claude&&claude.use){
+    const u=await claude.use('user');canEdit=u?await u.canEdit():false;
+    if(canEdit){artifact=await claude.use('artifact');assets=await claude.use('assets');chrome();if(location.hash==='#admin')route()}
+  }}catch(e){}
+})();
+</script>
