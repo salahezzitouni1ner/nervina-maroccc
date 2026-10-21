@@ -167,6 +167,26 @@ footer{border-top:1px solid var(--line);padding-block:44px 36px;margin-top:24px}
 .wa-float{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:35}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 
+/* Habillage sobre : cadres rectangulaires, angles francs */
+.ph,.ph.sq,.li .ph,.pd .ph,.feat .ph{border-radius:2px}
+.ph{aspect-ratio:1/1}.pd .ph{aspect-ratio:1/1;max-width:none}
+.ph img{object-fit:cover}
+.badge{left:12px;top:12px;transform:none;border-radius:2px}
+.arch,.col .arch{border-radius:2px;aspect-ratio:4/5}
+.arch:nth-child(2){aspect-ratio:3/5}
+.heroimg{align-self:stretch;min-height:320px;border-radius:2px;overflow:hidden;background:var(--surface);position:relative}
+.heroimg>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.heroimg .arches{height:100%;align-items:stretch}
+.btn,.chip,.ib,.sf input,.sf select,.qty,.toast,.cnt{border-radius:2px}
+.cnt{border-radius:999px}
+input,select,textarea{border-radius:2px}
+.cform,.todo{border-radius:2px}
+.gal button,.gal img{border-radius:2px}
+.col .arch{transition:none}
+.col:hover .arch{background:var(--surface);color:var(--accent-ink)}
+.col img{transition:transform .4s}.col:hover img{transform:scale(1.03)}
+.card .ph img,.card:hover .ph img{transition:transform .4s}.card:hover .ph img{transform:scale(1.04)}
+
 /* administration */
 .adm{padding-block:28px 90px}
 .adm-top{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between;position:sticky;top:calc(env(safe-area-inset-top,0px) + 62px);z-index:25;background:var(--bg);padding-block:14px;border-bottom:1px solid var(--line)}
@@ -177,7 +197,7 @@ footer{border-top:1px solid var(--line);padding-block:44px 36px;margin-top:24px}
 .tab{background:transparent;border:1px solid var(--line);color:var(--fg);border-radius:999px;padding:9px 18px;font-size:.88rem;cursor:pointer}
 .tab[aria-selected="true"]{background:var(--btn-bg);color:var(--btn-fg);border-color:var(--btn-bg)}
 .arow{display:grid;grid-template-columns:56px 1fr auto;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
-.arow .th{width:56px;height:56px;border-radius:28px 28px 6px 6px;background:var(--surface);overflow:hidden;display:grid;place-items:center;color:var(--accent-ink)}
+.arow .th{width:56px;height:56px;border-radius:2px;background:var(--surface);overflow:hidden;display:grid;place-items:center;color:var(--accent-ink)}
 .arow .th img{width:100%;height:100%;object-fit:cover}.arow .th svg{width:60%}
 .arow b{font-weight:500;display:block;line-height:1.3}
 .arow small{color:var(--muted)}
@@ -198,7 +218,7 @@ footer{border-top:1px solid var(--line);padding-block:44px 36px;margin-top:24px}
 .hint{font-size:.82rem;color:var(--muted);margin:0}
 .warn{border:1px solid var(--sale);color:var(--sale);border-radius:10px;padding:12px 14px;font-size:.88rem}
 .gal{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
-.gal button{border:1px solid var(--line);background:var(--surface);padding:0;width:64px;height:80px;border-radius:32px 32px 6px 6px;overflow:hidden;cursor:pointer}
+.gal button{border:1px solid var(--line);background:var(--surface);padding:0;width:72px;height:72px;border-radius:2px;overflow:hidden;cursor:pointer}
 .gal button[aria-current="true"]{border-color:var(--fg)}
 .gal img{width:100%;height:100%;object-fit:cover}
 .adm-link{display:none}
@@ -287,7 +307,7 @@ accueil(){
     <h1>${esc(st.heroTitle1)} <em>${esc(st.heroTitle2)}</em></h1>
     <p class="lead">${esc(st.heroLead)}</p>
     <div style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn" href="#catalogue">Voir le catalogue</a><a class="btn ghost" href="#contact">Nous contacter</a></div></div>
-    <div class="arches" aria-hidden="true">${ar}</div></section>
+    <div class="heroimg" aria-hidden="true">${f&&f.imgs&&f.imgs[0]?`<img src="${IMGURL(f.imgs[0])}" alt="">`:`<div class="arches">${ar}</div>`}</div></section>
   ${S.collections.length?`<section class="sec"><div class="sechead"><div><p class="eyebrow">Collections</p><h2>Magasiner par collection</h2></div></div>
     <div class="cols">${S.collections.map(c=>{const n=L.filter(p=>p.col===c.id).length;const cp=L.find(p=>p.col===c.id&&p.imgs&&p.imgs[0]);return `<a class="col" href="#c-${esc(c.id)}"><div class="arch" style="position:relative">${cp?`<img src="${IMGURL(cp.imgs[0])}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" loading="lazy">`:ico(c.id)}</div><span>${esc(c.name)}<small>${n} pièce${n>1?'s':''}</small></span></a>`}).join('')}</div></section>`:''}
   ${L.length?'':`<section class="sec"><p class="empty">Les premières pièces arrivent bientôt. Écrivez-nous sur WhatsApp pour un projet sur mesure.</p></section>`}
