@@ -32,7 +32,39 @@
   "productNote": "Livré partout au Maroc. Délai : 3 à 7 jours ouvrables pour les produits standard, 7 à 21 jours pour le sur mesure. Les frais de livraison sont confirmés avant la commande.",
   "productDesc": "Pièce fabriquée au Maroc par Nervina. Les dimensions et la couleur peuvent être adaptées à votre intérieur : écrivez-nous pour une version sur mesure.",
   "email": "nervina.maroc@gmail.com",
-  "depositPct": 30
+  "depositPct": 30,
+  "heroSlides": [
+   {
+    "p": "table-basse-amazonica",
+    "i": 1,
+    "pos": "60% 55%"
+   },
+   {
+    "p": "table-basse-ronde-luxe",
+    "i": 1,
+    "pos": "55% 60%"
+   },
+   {
+    "p": "table-a-manger-ronde-4-chaises-mdf-noyer",
+    "i": 1,
+    "pos": "60% 55%"
+   },
+   {
+    "p": "table-de-chevet-cloud-noyer",
+    "i": 3,
+    "pos": "62% 50%"
+   },
+   {
+    "p": "console-arche-miroirs-organiques",
+    "i": 0,
+    "pos": "50% 88%"
+   },
+   {
+    "p": "meuble-tv-sur-pieds-noyer-creme",
+    "i": 2,
+    "pos": "55% 55%"
+   }
+  ]
  },
  "collections": [
   {

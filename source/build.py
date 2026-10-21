@@ -1,4 +1,5 @@
-import csv,json,os,re,urllib.parse,sys
+import csv,json,os,re,urllib.parse,sys,importlib.util
+_sp=importlib.util.spec_from_file_location('banner',os.path.join(os.path.dirname(os.path.abspath(__file__)),'banner.py'));banner=importlib.util.module_from_spec(_sp);_sp.loader.exec_module(banner)
 from PIL import Image, ImageOps
 SCR='/tmp/claude-0/-home-claude/ff2ae7a3-8d31-5e47-be59-c1e595b976e6/scratchpad'
 SRC='/mnt/user-data/uploads/jgus0t-ph-files-2026-10-21-102141'
@@ -39,6 +40,7 @@ os.makedirs(REPO+'/images/sm',exist_ok=True)
 for out in done.values():
     im=Image.open(REPO+'/'+out); im.thumbnail((640,640),Image.LANCZOS)
     im.save(REPO+'/'+out.replace('images/','images/sm/'),'WEBP',quality=80,method=6)
+s['settings'].setdefault('heroSlides',banner.SLIDES)
 json.dump(s,open(REPO+'/store.json','w'),ensure_ascii=False,indent=1)
 # 4. rebuild page; add a safety net: if a local photo is missing, show the Shopify copy
 m=open(BT+'/modele.html').read()
@@ -65,7 +67,9 @@ c=open(BT+'/styles.css').read()+'''
 /* la notification ne doit pas masquer le bouton de commande */
 @media (max-width:700px){.toast{bottom:auto;top:calc(76px + env(safe-area-inset-top,0px))}}
 '''
+m,c,s=banner.patch(m,c,s)
 open(SCR+'/styles.css','w').write(c)
+open(SCR+'/modele.html','w').write(m)
 g=m.replace('@@CSS@@',c).replace('@@SEED@@',json.dumps(s,ensure_ascii=False).replace('</','<\\/')).replace(FB,"const IMGURL=id=>/[./]/.test(id)?id:'/_blob/'+id;")
 HEAD='<!doctype html>\n<html lang="fr">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<meta name="description" content="Nervina Maroc : tables, meubles TV, consoles et tables de chevet sur mesure. Livraison partout au Maroc, commande par WhatsApp.">\n'
 g=HEAD+g.replace('<meta name="claude:viewport-fit-sides" content="cover">\n','',1)
