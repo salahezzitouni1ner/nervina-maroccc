@@ -204,118 +204,165 @@ input,select,textarea{border-radius:2px}
 /* la notification ne doit pas masquer le bouton de commande */
 @media (max-width:700px){.toast{bottom:auto;top:calc(76px + env(safe-area-inset-top,0px))}}
 
-/* ===== Bannière plein écran : pièce signature ===== */
+/* ================= Accueil pro ================= */
 html.lenis{scroll-behavior:auto}
 html.lenis,html.lenis body{height:auto}
 .lenis:not(.lenis-autoToggle).lenis-stopped{overflow:clip}
 .lenis [data-lenis-prevent]{overscroll-behavior:contain}
-@property --glow{syntax:'<number>';inherits:true;initial-value:1}
-@property --ring{syntax:'<number>';inherits:true;initial-value:0}
-.sg{--ink:#F3F0E6;--sand:#D9B88F;--led:255,200,135;position:relative;overflow:hidden;isolation:isolate;color:var(--ink);background:#0f0d0b;
-  display:flex;flex-direction:column;min-height:calc(100svh - var(--top,128px));margin-inline:calc(-1*max(16px,env(safe-area-inset-left,0px)));padding:18px 20px 0}
-.sg-bg{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none;
-  background:radial-gradient(120% 70% at 50% 52%,#2c231b 0%,#191410 50%,#0d0b09 100%)}
-.sg-wash{position:absolute;left:50%;top:44%;width:150%;max-width:1500px;aspect-ratio:2.2;translate:-50% -50%;
-  background:radial-gradient(closest-side,rgba(var(--led),.16),rgba(var(--led),.05) 55%,rgba(0,0,0,0) 80%)}
-.sg-vig{position:absolute;inset:0;background:radial-gradient(130% 90% at 50% 50%,rgba(0,0,0,0) 55%,rgba(0,0,0,.55) 100%)}
-.mg-grain{position:absolute;inset:-60%;background-size:160px;opacity:.45;mix-blend-mode:overlay;animation:mg-grain .9s steps(6) infinite}
-@keyframes mg-grain{0%{transform:translate(0,0)}20%{transform:translate(-6%,4%)}40%{transform:translate(5%,-3%)}60%{transform:translate(-3%,-6%)}80%{transform:translate(6%,5%)}100%{transform:translate(0,0)}}
-.mg-paused .mg-grain{animation-play-state:paused}
-/* en-tête */
-.sg-head{position:relative;z-index:2}
-.sg-eye{display:flex;align-items:center;gap:10px;margin:0 0 12px;font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--sand);font-weight:500}
-.sg-dot{width:6px;height:6px;border-radius:50%;background:rgb(var(--led));box-shadow:0 0 12px 2px rgba(var(--led),.7)}
-.sg-h{font-size:clamp(2.3rem,11vw,3.1rem);font-weight:300;line-height:.98;letter-spacing:-.035em;color:var(--ink);margin:0}
-.sg-line{padding-bottom:.06em}
-.sg-sub{margin:8px 0 0;color:rgba(243,240,230,.72);font-size:.92rem;letter-spacing:.02em}
-/* scène */
-.sg-stage{position:relative;flex:1 1 auto;min-height:200px;display:grid;align-items:center;margin-inline:-20px;overflow:visible}
-.sg-rig{width:max-content;margin-inline:auto;padding:46px 0 62px;will-change:transform}
-.sg-unit{position:relative;width:150vw;max-width:1100px;transform-origin:50% 60%}
-.sg-img{position:relative;z-index:2;display:block;width:100%;height:auto;filter:drop-shadow(0 30px 30px rgba(0,0,0,.55))}
-.sg-sheen{position:absolute;inset:0;z-index:3;pointer-events:none;mix-blend-mode:soft-light;
-  background:linear-gradient(105deg,rgba(255,255,255,0) 35%,rgba(255,240,215,.75) 50%,rgba(255,255,255,0) 65%) no-repeat;background-size:250% 100%;background-position:130% 0;
-  -webkit-mask:url(images/hero/meuble-tv-arrondis.webp) center/100% 100% no-repeat;mask:url(images/hero/meuble-tv-arrondis.webp) center/100% 100% no-repeat}
-.sg-led{position:absolute;z-index:1;left:7%;width:88%;top:98%;height:4px;opacity:var(--glow);transform-origin:0 50%;rotate:-4.56deg}
-.sg-led i{position:absolute;inset:0;border-radius:4px;background:rgb(255,226,180);box-shadow:0 0 10px 2px rgba(var(--led),.9),0 0 34px 8px rgba(var(--led),.55)}
-.sg-led::after{content:"";position:absolute;left:-6%;right:-6%;top:0;height:clamp(90px,28vw,260px);
-  background:radial-gradient(60% 100% at 50% 0%,rgba(var(--led),.55),rgba(var(--led),.22) 38%,rgba(var(--led),0) 72%);filter:blur(6px)}
-.sg-led::before{content:"";position:absolute;left:8%;right:8%;top:-18px;height:30px;background:radial-gradient(50% 50% at 50% 100%,rgba(var(--led),.35),rgba(var(--led),0));filter:blur(4px)}
-/* cotes */
-.sg-dim{position:absolute;z-index:3;overflow:visible;fill:none;stroke:var(--sand);stroke-width:1;vector-effect:non-scaling-stroke;pointer-events:none}
-.sg-dim path{vector-effect:non-scaling-stroke}
-.sg-dim-w{left:0;right:0;width:100%;top:-46px;height:22px}
-.sg-dim-h{right:-30px;top:0;height:100%;width:16px}
-.sg-dl{position:absolute;z-index:4;font-size:.7rem;letter-spacing:.14em;color:var(--sand);background:#16120f;padding:2px 8px;white-space:nowrap}
-.sg-dl b{font-weight:500;font-variant-numeric:tabular-nums}
-.sg-dl-w{left:50%;top:-46px;translate:-50% 0;line-height:22px;padding-block:0}
-.sg-dl-h{right:-30px;top:50%;translate:50% -50%;rotate:90deg}
-/* points d'intérêt */
-.sg-hs{position:absolute;z-index:5;left:var(--x);top:var(--y);width:0;height:0}
-.sg-hs i{position:absolute;left:-5px;top:-5px;width:10px;height:10px;border-radius:50%;background:var(--ink);box-shadow:0 0 0 3px rgba(243,240,230,.25)}
-.sg-hs i::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:1px solid var(--ink);opacity:calc(1 - var(--ring));transform:scale(calc(1 + var(--ring)*2.2))}
-.sg-hs span{position:absolute;left:0;white-space:nowrap;font-size:.72rem;font-weight:500;letter-spacing:.04em;padding:6px 10px;color:var(--ink);
-  background:rgba(15,13,11,.6);border:1px solid rgba(243,240,230,.22);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
-.sg-hs span::before{content:"";position:absolute;left:0;width:1px;height:34px;background:linear-gradient(rgba(243,240,230,.7),rgba(243,240,230,.15))}
-.sg-hs.up span{bottom:44px}.sg-hs.up span::before{top:100%}
-.sg-hs.dn span{top:32px}.sg-hs.dn span::before{bottom:100%;height:22px}
-.sg-hs.r span{left:auto;right:0}.sg-hs.r span::before{left:auto;right:0}
-/* pied */
-.sg-foot{position:relative;z-index:2;display:grid;gap:12px;padding-bottom:14px}
-.sg-specs{display:grid;grid-template-columns:repeat(3,1fr);margin:0;border-top:1px solid rgba(243,240,230,.16);border-bottom:1px solid rgba(243,240,230,.16)}
-.sg-specs>div{padding:8px 0 8px 12px;border-left:1px solid rgba(243,240,230,.16)}
-.sg-specs>div:first-child{border-left:0;padding-left:0}
-.sg-specs dt{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(243,240,230,.6)}
-.sg-specs dd{margin:2px 0 0;font-size:1.05rem;font-weight:300}.sg-specs dd b{font-weight:400;font-size:1.35rem;font-variant-numeric:tabular-nums}
-.sg-price{margin:0 0 10px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
-.sg-price span{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(243,240,230,.6)}
-.sg-price b{font-size:1.5rem;font-weight:500;color:var(--ink)}
-.sg-price small{display:none;font-size:.78rem;color:rgba(243,240,230,.6)}
-.sg-cta{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.sg-cta .btn{min-height:48px;padding-inline:8px;font-size:.8rem;text-align:center;white-space:nowrap}
-.sg .sg-b1{background:var(--ink);color:#111213}
-.sg .sg-b2{background:transparent;color:var(--ink);border:1px solid rgba(243,240,230,.5)}
-.sg .sg-b2:hover{border-color:var(--ink);background:rgba(243,240,230,.08)}
-.sg :focus-visible{outline-color:var(--sand)}
-/* défilant + pause */
-.mg-mq{margin:0 -20px;border-top:1px solid rgba(243,240,230,.12);overflow:hidden;padding:10px 0;flex:none;position:relative;z-index:2}
-.mg-track{display:flex;width:max-content;will-change:transform}
-.mg-track>div{display:flex;align-items:center;gap:18px;padding-right:18px}
-.mg-track span{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(243,240,230,.66);white-space:nowrap}
-.mg-track svg{width:10px;height:13px;fill:none;stroke:var(--sand);stroke-width:2;flex:none}
-.mg-pp{position:absolute;top:10px;right:8px;z-index:6;width:44px;height:44px;display:grid;place-items:center;background:transparent;border:0;color:rgba(243,240,230,.75);cursor:pointer}
-.mg-pp svg{width:15px;height:15px;fill:currentColor}.mg-pp .ic-play{display:none}
-.mg-pp.is-paused .ic-play{display:block}.mg-pp.is-paused .ic-pause{display:none}
-.mg-pp:hover{color:var(--ink)}.mg-pp[hidden]{display:none}
-#waf{transition:opacity .3s,visibility .3s}
-body.sg-in #waf{opacity:0;visibility:hidden}
-/* mouvement réduit / sans JS : tout visible, cadré au centre */
-.sg-static .sg-unit{width:100vw;max-width:1100px}
-@media (min-width:600px) and (max-width:899px){.sg-unit{width:130vw}.sg-h{font-size:clamp(3rem,9vw,4.4rem)}}
-@media (min-width:900px){
-  .sg{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto 1fr auto auto;margin-inline:calc(-1*max(16px,env(safe-area-inset-left,0px)));padding:clamp(28px,4vw,56px) clamp(32px,5vw,80px) 0;
-    min-height:calc(100svh - var(--top,104px))}
-  .sg-head{grid-column:1/-1;grid-row:1;display:grid;grid-template-columns:1fr auto;align-items:end;gap:4px 40px}
-  .sg-eye{grid-column:1/-1}
-  .sg-h{font-size:clamp(3rem,6vw,5.6rem);white-space:nowrap}
-  .sg-sub{margin:0 0 .6em;text-align:right}
-  .sg-stage{grid-column:1/-1;grid-row:2;margin:0;min-height:300px}
-  .sg-rig{padding:70px 40px 90px}
-  .sg-unit{width:min(62vw,1000px,calc((100svh - var(--top,104px) - 380px)*3.4))}
-  .sg-foot{grid-column:1/-1;grid-row:3;grid-template-columns:auto 1fr;align-items:end;gap:40px;padding-bottom:28px}
-  .sg-specs{min-width:420px;border-bottom:0}
-  .sg-buy{display:flex;align-items:end;justify-content:flex-end;gap:32px}
-  .sg-price{margin:0;flex-direction:column;gap:2px;align-items:flex-end;text-align:right}
-  .sg-price small{flex-basis:auto;display:block}
-  .sg-cta{display:flex}.sg-cta .btn{padding-inline:26px;font-size:.9rem}
-  .sg-hs.dn span{top:40px}.sg-hs.dn span::before{height:30px}
-  .mg-mq{grid-column:1/-1;grid-row:4;margin:0 calc(-1*clamp(32px,5vw,80px))}
-  .mg-pp{top:16px;right:16px}
-  .sg-hs span{font-size:.78rem;padding:7px 12px}
+html,body{overflow-x:clip}
+.ann{margin-inline:calc(50% - 50vw)!important}
+.bleed{margin-inline:calc(50% - 50vw)}
+#waf{transition:opacity .3s,visibility .3s}body.hs-in #waf{opacity:0;visibility:hidden}
+.ic{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.ic.sm{width:14px;height:14px}
+/* bandeau annonces */
+.ann{overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.ann-t{display:inline-block;transition:opacity .35s,transform .35s}
+.ann-t.out{opacity:0;transform:translateY(-8px)}
+@media(max-width:520px){.ann{font-size:.7rem;letter-spacing:.04em;padding:8px 12px}}
+/* ---- slider ---- */
+.hs{position:relative;overflow:hidden;background:#111213;color:#F3F0E6;height:clamp(560px,calc(100svh - 104px),860px)}
+.hs-slide{position:absolute;inset:0;opacity:0;transition:opacity 1.1s cubic-bezier(.4,0,.2,1);z-index:0}
+.hs-slide.on{opacity:1;z-index:2}.hs-slide.was{z-index:1}
+.hs-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--pos);transform:scale(1.04)}
+.hs-slide.on .hs-img{animation:hs-kb 9s ease-out forwards}
+@keyframes hs-kb{from{transform:scale(1.12)}to{transform:scale(1.02)}}
+.hs-slide::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(12,11,10,.78) 0%,rgba(12,11,10,.45) 42%,rgba(12,11,10,.05) 75%),linear-gradient(0deg,rgba(12,11,10,.55),rgba(12,11,10,0) 40%)}
+.hs-cap{position:absolute;inset:0;z-index:2;display:flex;align-items:center}
+.hs-in{width:100%;max-width:1200px;margin-inline:auto;padding-inline:max(16px,env(safe-area-inset-left,0px))}
+.hs-cap .hs-in>*{max-width:600px}
+.hs-k{font-size:.76rem;letter-spacing:.24em;text-transform:uppercase;color:#D9B88F;font-weight:500;margin:0 0 14px}
+.hs-t{font-size:clamp(2.3rem,5.6vw,4.8rem);font-weight:300;line-height:1.02;letter-spacing:-.03em;margin:0;color:#F3F0E6}
+.hs-d{font-size:clamp(.98rem,1.3vw,1.12rem);color:rgba(243,240,230,.86);margin:18px 0 28px;line-height:1.6;max-width:46ch}
+.hs-d b{color:#F3F0E6;font-weight:500;white-space:nowrap}
+.hs-cta{display:flex;gap:12px;flex-wrap:wrap}
+.hs .hs-b1{background:#F3F0E6;color:#111213;min-height:50px;padding-inline:30px}
+.hs .hs-b2{background:transparent;color:#F3F0E6;border:1px solid rgba(243,240,230,.6);min-height:50px;padding-inline:26px}
+.hs .hs-b2:hover{background:rgba(243,240,230,.1);border-color:#F3F0E6}
+.hs :focus-visible{outline-color:#D9B88F}
+.hs-slide .hs-k,.hs-slide .hs-t,.hs-slide .hs-d,.hs-slide .hs-cta{opacity:0;transform:translateY(26px)}
+.hs-slide.on .hs-k{animation:hs-up .8s .25s cubic-bezier(.2,.7,.2,1) forwards}
+.hs-slide.on .hs-t{animation:hs-up .9s .38s cubic-bezier(.2,.7,.2,1) forwards}
+.hs-slide.on .hs-d{animation:hs-up .9s .52s cubic-bezier(.2,.7,.2,1) forwards}
+.hs-slide.on .hs-cta{animation:hs-up .9s .64s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes hs-up{to{opacity:1;transform:none}}
+.hs-ui{position:absolute;left:0;right:0;bottom:0;z-index:3;padding-bottom:26px}
+.hs-row{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.hs-dots{display:flex;gap:18px;flex:1;max-width:620px}
+.hs-dot{flex:1;min-width:44px;background:none;border:0;color:rgba(243,240,230,.6);padding:8px 0;cursor:pointer;text-align:left;font:500 .74rem var(--font);letter-spacing:.12em}
+.hs-dot span{display:block;margin-bottom:8px}
+.hs-dot[aria-current] {color:#F3F0E6}
+.hs-dot i{display:block;height:2px;background:rgba(243,240,230,.25);position:relative;overflow:hidden}
+.hs-dot i::after{content:"";position:absolute;inset:0;background:#F3F0E6;transform:scaleX(0);transform-origin:left}
+.hs-dot.done i::after{transform:scaleX(1)}
+.hs-dot.run i::after{animation:hs-fill 7s linear forwards}
+@keyframes hs-fill{to{transform:scaleX(1)}}
+.hs.paused .hs-dot.run i::after,.hs.paused .hs-slide.on .hs-img{animation-play-state:paused}
+.hs-nav{display:flex;gap:8px}
+.hs-btn{width:48px;height:48px;display:grid;place-items:center;background:rgba(17,18,19,.35);color:#F3F0E6;border:1px solid rgba(243,240,230,.35);cursor:pointer;border-radius:2px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.hs-btn:hover{background:rgba(243,240,230,.12);border-color:#F3F0E6}
+.hs-btn .ic-play{display:none}.hs-btn.is-paused .ic-play{display:block}.hs-btn.is-paused .ic-pause{display:none}
+@media(max-width:760px){
+  .hs{height:clamp(540px,calc(100svh - 128px),760px)}
+  .hs-slide::after{background:linear-gradient(0deg,rgba(12,11,10,.92) 0%,rgba(12,11,10,.72) 42%,rgba(12,11,10,.15) 72%,rgba(12,11,10,.1) 100%)}
+  .hs-cap{align-items:flex-end;padding-bottom:104px}
+  .hs-in{padding-inline:20px}
+  .hs-t{font-size:clamp(2.1rem,9.6vw,2.8rem)}
+  .hs-img{object-position:var(--posm)}
+  .hs-d{margin:12px 0 20px;font-size:.95rem}
+  .hs-cta .btn{flex:1;min-height:48px;padding-inline:14px}
+  .hs-ui{padding-bottom:18px}
+  .hs-dots{gap:8px}.hs-dot span{display:none}.hs-dot{padding:20px 0}
+  .hs-btn{width:44px;height:44px}
+  .hs-nav [data-step]{display:none}
 }
-@media (max-width:899px) and (max-height:790px){.sg{padding-top:12px}.sg-eye{margin-bottom:8px}.sg-h{font-size:2.05rem}.sg-sub{font-size:.85rem}.sg-rig{padding:38px 0 54px}.sg-unit{width:140vw}.sg-specs dd b{font-size:1.15rem}.sg-price{margin-bottom:8px}.sg-price b{font-size:1.3rem}.mg-mq{padding:8px 0}}
-@media (max-width:380px){.sg-cta{grid-template-columns:auto 1fr;gap:8px}.sg-cta .btn{font-size:.74rem;padding-inline:10px}}
-@media (prefers-reduced-motion:reduce){.mg-grain{animation:none}}
+/* ---- réassurance ---- */
+.usp{background:var(--surface);border-bottom:1px solid var(--line)}
+.usp-in{max-width:1200px;margin-inline:auto;padding:22px max(16px,env(safe-area-inset-left,0px));display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.usp-i{display:flex;align-items:center;gap:14px;color:var(--fg)}
+.usp-i .ic{width:30px;height:30px;color:var(--accent-ink);stroke-width:1.3}
+.usp-i b{display:block;font-weight:500;font-size:.92rem}.usp-i span{display:block;font-size:.8rem;color:var(--muted)}
+@media(max-width:900px){.usp-in{grid-template-columns:1fr 1fr;gap:18px 14px;padding-block:20px}.usp-i{align-items:flex-start}.usp-i .ic{width:26px;height:26px}.usp-i b{font-size:.86rem}.usp-i span{font-size:.75rem}}
+/* ---- sections ---- */
+.sec2{padding-block:clamp(44px,6vw,80px)}
+.sh{display:flex;justify-content:space-between;align-items:flex-end;gap:16px 24px;flex-wrap:wrap;margin-bottom:clamp(22px,3vw,36px)}
+.sh h2{font-size:clamp(1.7rem,3.4vw,2.6rem)}
+.sh-r{display:flex;align-items:center;gap:18px}
+.lnk{font-size:.9rem;font-weight:500;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:2px}
+.lnk:hover{color:var(--accent-ink)}
+/* univers */
+.cats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.cat{position:relative;display:block;aspect-ratio:3/4;overflow:hidden;background:var(--surface);color:#F3F0E6;text-decoration:none;border-radius:2px}
+.cat img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.cat::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(12,11,10,.75),rgba(12,11,10,0) 55%)}
+.cat:hover img{transform:scale(1.06)}
+.cat-cap{position:absolute;left:0;right:0;bottom:0;z-index:1;padding:20px;display:grid;gap:2px}
+.cat-cap b{font-size:1.25rem;font-weight:400;letter-spacing:-.01em}
+.cat-cap small{font-size:.8rem;color:rgba(243,240,230,.75)}
+.cat-cap em{font-style:normal;font-size:.82rem;font-weight:500;margin-top:8px;display:inline-flex;align-items:center;gap:6px}
+.cat:hover .cat-cap em .ic{transform:translateX(4px)}.cat-cap em .ic{transition:transform .3s}
+@media(max-width:900px){.cats{grid-template-columns:1fr 1fr;gap:10px}.cat-cap{padding:14px}.cat-cap b{font-size:1.05rem}}
+/* carrousels */
+.rail{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 3*20px)/4);gap:28px 20px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;padding-bottom:4px}
+.rail::-webkit-scrollbar{display:none}
+.rail>.pc{scroll-snap-align:start}
+.rail-nav{display:flex;gap:8px}
+.rn{width:44px;height:44px;display:grid;place-items:center;background:transparent;border:1px solid var(--line);color:var(--fg);cursor:pointer;border-radius:2px}
+.rn:hover:not(:disabled){border-color:var(--fg)}.rn:disabled{opacity:.35;cursor:default}
+@media(max-width:1000px){.rail{grid-auto-columns:calc((100% - 2*16px)/3);gap:24px 16px}}
+@media(max-width:700px){.rail{grid-auto-columns:72%;gap:20px 12px;margin-inline:-16px;padding-inline:16px;scroll-padding-inline:16px}.rail-nav{display:none}}
+/* cartes produit */
+.pc .im{position:relative}
+.pc .alt{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s ease;border-radius:2px;aspect-ratio:1/1}
+@media(hover:hover){.pc:hover .alt{opacity:1}}
+.pc .tag{position:absolute;left:10px;top:10px;z-index:2;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500;padding:5px 8px;background:var(--bg);color:var(--fg);border-radius:2px}
+.pc .badge~.tag,.pc .ph:has(.badge)~.tag{top:44px}
+.pc-c{margin:14px 0 0;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.pc h3{margin-top:4px}
+/* bannière promo */
+.promo{background:var(--card);border-block:1px solid var(--line)}
+.promo-in{max-width:1200px;margin-inline:auto;display:grid;grid-template-columns:1.15fr 1fr;align-items:center;gap:clamp(28px,5vw,72px);padding:clamp(40px,6vw,80px) max(16px,env(safe-area-inset-left,0px))}
+.promo-img{position:relative;overflow:hidden;aspect-ratio:3/2;border-radius:2px;background:var(--surface)}
+.promo-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.promo-badge{position:absolute;left:14px;top:14px;background:#111213;color:#F3F0E6;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;padding:7px 10px;font-weight:500}
+.promo-txt h2{font-size:clamp(1.9rem,3.6vw,3rem);margin-bottom:14px}
+.promo-d{color:var(--muted);margin:0 0 18px;max-width:46ch}
+.promo-l{list-style:none;padding:0;margin:0 0 22px;display:grid;grid-template-columns:1fr 1fr;gap:10px 18px}
+.promo-l li{display:flex;gap:10px;align-items:center;font-size:.92rem}
+.promo-l li::before{content:"";width:6px;height:6px;background:var(--accent);flex:none}
+.promo-p{font-size:1.6rem;font-weight:500;margin:0 0 20px}.promo-p span{font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:400;margin-right:6px}
+.promo-cta{display:flex;gap:12px;flex-wrap:wrap}
+@media(max-width:860px){.promo-in{grid-template-columns:1fr}.promo-l{grid-template-columns:1fr}.promo-cta .btn{flex:1}}
+/* bannière sur mesure */
+.big{position:relative;overflow:hidden;min-height:clamp(440px,70vh,640px);display:flex;align-items:center;color:#F3F0E6;background:#111213}
+.big-img{position:absolute;left:0;right:0;top:-12%;height:124%;width:100%;object-fit:cover}
+.big::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(12,11,10,.82),rgba(12,11,10,.35) 60%,rgba(12,11,10,.15))}
+.big-in{position:relative;z-index:1;width:100%;max-width:1200px;margin-inline:auto;padding:56px max(16px,env(safe-area-inset-left,0px))}
+.big-in>*{max-width:560px}
+.big .eyebrow{color:#D9B88F}
+.big h2{font-size:clamp(2rem,4.4vw,3.6rem);color:#F3F0E6;margin-bottom:16px}
+.big p{color:rgba(243,240,230,.85);margin:0 0 26px}
+.big .big-b1{background:#F3F0E6;color:#111213;min-height:52px;padding-inline:26px;gap:10px}
+@media(max-width:700px){.big::after{background:linear-gradient(0deg,rgba(12,11,10,.9),rgba(12,11,10,.55) 60%,rgba(12,11,10,.3))}.big{align-items:flex-end}.big .big-b1{width:100%}}
+/* étapes */
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;counter-reset:s}
+.steps li{position:relative;padding:26px 22px;border:1px solid var(--line);background:var(--card);border-radius:2px}
+.steps .ic{width:30px;height:30px;color:var(--accent-ink);stroke-width:1.3;margin-bottom:14px}
+.steps b{display:block;font-weight:500;margin-bottom:6px}.steps p{margin:0;color:var(--muted);font-size:.9rem}
+.st-n{position:absolute;right:18px;top:18px;font-size:.75rem;letter-spacing:.14em;color:var(--muted)}
+@media(max-width:900px){.steps{grid-template-columns:1fr 1fr;gap:10px}.steps li{padding:18px 16px}}
+@media(max-width:480px){.steps{grid-template-columns:1fr}}
+/* instagram */
+.igg{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.igt{position:relative;display:block;aspect-ratio:1;overflow:hidden;background:var(--surface);border-radius:2px}
+.igt img{width:100%;height:100%;object-fit:cover;transition:transform .7s}
+.igt span{position:absolute;inset:0;display:grid;place-items:center;color:#fff;background:rgba(12,11,10,.35);opacity:0;transition:opacity .3s}
+.igt:hover img{transform:scale(1.06)}.igt:hover span,.igt:focus-visible span{opacity:1}
+@media(max-width:700px){.igg{grid-template-columns:repeat(3,1fr);gap:4px}}
+.sh .btn.ghost{gap:8px}
+/* aligne le contenu des sections pleine largeur sur la grille de la page */
+.hs-in,.usp-in,.promo-in,.big-in{max-width:none;padding-inline:max(20px,calc((100vw - 1200px)/2))}
+@media (prefers-reduced-motion:reduce){.hs-slide .hs-k,.hs-slide .hs-t,.hs-slide .hs-d,.hs-slide .hs-cta{opacity:1;transform:none;animation:none!important}.hs-slide.on .hs-img{animation:none}}
 
 /* administration */
 .adm{padding-block:28px 90px}
@@ -381,8 +428,6 @@ body.sg-in #waf{opacity:0;visibility:hidden}
 <div id="layer" data-lenis-prevent></div>
 <script src="vendor/gsap.min.js"></script>
 <script src="vendor/ScrollTrigger.min.js"></script>
-<script src="vendor/SplitText.min.js"></script>
-<script src="vendor/DrawSVGPlugin.min.js"></script>
 <script src="vendor/lenis.min.js"></script>
 <script type="application/json" id="seed">{"settings": {"banner": "Commandez depuis chez vous · Livré partout au Maroc", "whatsapp": "06 54 29 09 60", "phone2": "06 56 57 20 30", "instagram": "nervina_maroc", "heroTitle1": "Le mobilier marocain,", "heroTitle2": "dessiné pour votre salon.", "heroLead": "Tables, meubles TV, consoles et tables de chevet inspirés de l'artisanat marocain et pensés pour la vie d'aujourd'hui. Chaque pièce peut être adaptée à vos dimensions.", "perks": ["Savoir-faire marocain authentique", "Design intemporel", "Dimensions personnalisables"], "trust": [{"t": "Livraison partout au Maroc", "d": "Dans toutes les villes. Les frais sont annoncés avant la confirmation."}, {"t": "Paiement en deux temps", "d": "30 % d'acompte à la commande, 70 % à la livraison."}, {"t": "Garantie qualité", "d": "Un problème à la réception ? Écrivez-nous dans les 48 heures avec des photos."}], "featured": "table-basse-amazonica", "footerText": "Mobilier, décoration et menuiserie. Pièces fabriquées au Maroc, dimensions personnalisables.", "legal": "© 2026 NERVINA MAROC · Auto-entrepreneur · ICE 003913889000095", "productNote": "Livré partout au Maroc. Délai : 3 à 7 jours ouvrables pour les produits standard, 7 à 21 jours pour le sur mesure. Les frais de livraison sont confirmés avant la commande.", "productDesc": "Pièce fabriquée au Maroc par Nervina. Les dimensions et la couleur peuvent être adaptées à votre intérieur : écrivez-nous pour une version sur mesure.", "email": "nervina.maroc@gmail.com", "depositPct": 30}, "collections": [{"id": "tables", "name": "Tables"}, {"id": "tv", "name": "Meubles TV"}, {"id": "entree", "name": "Meubles d'entrée"}, {"id": "chambres", "name": "Chambres"}], "products": [{"id": "table-basse-amazonica", "title": "Table Basse Amazonica", "price": 4500, "old": 0, "col": "tables", "desc": "Table basse à deux plateaux : plateau en noyer et plateau pivotant en verre champagne, sur une base cannelée en noyer.", "imgs": ["images/table-basse-amazonica-1.webp", "images/table-basse-amazonica-2.webp"], "hidden": false, "star": true}, {"id": "table-basse-london", "title": "Table Basse London", "price": 8500, "old": 0, "col": "tables", "desc": "Set de deux tables gigognes avec plateau en noyer, motif en soleil et anneau en bronze brossé.", "imgs": ["images/table-basse-london-1.webp", "images/table-basse-london-2.webp", "images/table-basse-london-3.webp", "images/table-basse-london-4.webp"], "hidden": false, "star": true}, {"id": "table-de-chevet-canne", "title": "Table de chevet Canne", "price": 2300, "old": 0, "col": "chambres", "desc": "Table de chevet cannelée avec plateau en verre fumé, structure laquée mate et tiroir intégré. Disponible en blanc, terracotta et vert sauge.", "imgs": ["images/table-de-chevet-canne-1.webp", "images/table-de-chevet-canne-2.webp", "images/table-de-chevet-canne-3.webp", "images/table-de-chevet-canne-4.webp", "images/table-de-chevet-canne-5.webp", "images/table-de-chevet-canne-6.webp"], "hidden": false, "star": false}, {"id": "table-de-chevet-design-noyer-blanc-laiton", "title": "Table de Chevet Design - Cadre Noyer, Surface Blanche & Tiroir Laiton", "price": 4800, "old": 0, "col": "chambres", "desc": "Table de chevet avec cadre en noyer, plateau laqué blanc mat, tiroir en noyer et poignée en laiton doré. Personnalisable.", "imgs": ["images/table-de-chevet-design-noyer-blanc-laiton-1.webp", "images/table-de-chevet-design-noyer-blanc-laiton-2.webp", "images/table-de-chevet-design-noyer-blanc-laiton-3.webp", "images/table-de-chevet-design-noyer-blanc-laiton-4.webp"], "hidden": false, "star": false}, {"id": "meuble-tv-sur-pieds-noyer-creme", "title": "Meuble TV sur Pieds Design - Plateau Noyer & Corps Blanc Crème", "price": 6000, "old": 0, "col": "tv", "desc": "Meuble TV long et bas : plateau en noyer, corps laqué blanc crème et pieds en métal sombre. Personnalisable.", "imgs": ["images/meuble-tv-sur-pieds-noyer-creme-1.webp", "images/meuble-tv-sur-pieds-noyer-creme-2.webp", "images/meuble-tv-sur-pieds-noyer-creme-3.webp", "images/meuble-tv-sur-pieds-noyer-creme-4.webp"], "hidden": false, "star": true}, {"id": "meuble-tv-suspendu-design", "title": "Meuble TV Suspendu Design", "price": 4300, "old": 4800, "col": "tv", "desc": "Meuble TV suspendu avec plateau en chêne et portes laquées blanc mat, livré avec kit de fixation murale. Personnalisable.", "imgs": ["images/meuble-tv-suspendu-design-1.webp", "images/meuble-tv-suspendu-design-2.webp", "images/meuble-tv-suspendu-design-3.webp"], "hidden": false, "star": true}, {"id": "set-2-tables-basses-organiques", "title": "Set de 2 Tables Basses Organiques - Bois Noyer & Noir Mat sur Pieds Métal", "price": 3990, "old": 4800, "col": "tables", "desc": "Deux tables en forme de goutte : l'une en noyer à marqueterie en chevrons, l'autre laquée noir mat, sur pieds en métal.", "imgs": ["images/set-2-tables-basses-organiques-1.webp", "images/set-2-tables-basses-organiques-2.webp", "images/set-2-tables-basses-organiques-3.webp", "images/set-2-tables-basses-organiques-4.webp"], "hidden": false, "star": true}, {"id": "table-basse-ovale-design", "title": "Table Basse Ovale Design", "price": 4900, "old": 0, "col": "tables", "desc": "Table basse ovale avec plateau en céramique effet marbre gris et base en métal bronze foncé.", "imgs": ["images/table-basse-ovale-design-1.webp", "images/table-basse-ovale-design-2.webp", "images/table-basse-ovale-design-3.webp", "images/table-basse-ovale-design-4.webp"], "hidden": false, "star": false}, {"id": "table-basse-ronde-luxe", "title": "Table Basse Ronde Luxe", "price": 5500, "old": 0, "col": "tables", "desc": "Table basse ronde avec plateau en verre fumé et base en noyer sur deux niveaux.", "imgs": ["images/table-basse-ronde-luxe-1.webp", "images/table-basse-ronde-luxe-2.webp", "images/table-basse-ronde-luxe-3.webp"], "hidden": false, "star": false}, {"id": "table-basse-ronde-noyer-metal-noir", "title": "Table Basse Ronde Design - Bois de Noyer & Métal Noir", "price": 6000, "old": 0, "col": "tables", "desc": "Table basse ronde en noyer à motif en chevrons, avec une petite table d'appoint en verre fumé, sur cadre en métal noir.", "imgs": ["images/table-basse-ronde-noyer-metal-noir-1.webp", "images/table-basse-ronde-noyer-metal-noir-2.webp", "images/table-basse-ronde-noyer-metal-noir-3.webp", "images/table-basse-ronde-noyer-metal-noir-4.webp"], "hidden": false, "star": false}, {"id": "table-de-chevet-cloud-noyer", "title": "Table de Chevet Cloud — Édition Noyer", "price": 4000, "old": 0, "col": "chambres", "desc": "Table de chevet à deux tiroirs arrondis et plateau en noyer massif.", "imgs": ["images/table-de-chevet-cloud-noyer-1.webp", "images/table-de-chevet-cloud-noyer-2.webp", "images/table-de-chevet-cloud-noyer-3.webp", "images/table-de-chevet-cloud-noyer-4.webp"], "hidden": false, "star": false}, {"id": "table-a-manger-ronde-travertin-4-chaises", "title": "Table à Manger Ronde Travertin + 4 Chaises", "price": 12000, "old": 0, "col": "tables", "desc": "Table à manger ronde en travertin sur base conique en noyer, avec quatre chaises rembourrées.", "imgs": ["images/table-a-manger-ronde-travertin-4-chaises-1.webp", "images/table-a-manger-ronde-travertin-4-chaises-2.webp", "images/table-a-manger-ronde-travertin-4-chaises-3.webp", "images/table-a-manger-ronde-travertin-4-chaises-4.webp"], "hidden": false, "star": false}, {"id": "table-a-manger-ronde-4-chaises-mdf-noyer", "title": "Table à Manger Ronde + 4 Chaises MDF Noyer", "price": 13500, "old": 0, "col": "tables", "desc": "Table à manger ronde en MDF noyer sur base conique, avec quatre chaises en bois et rotin.", "imgs": ["images/table-a-manger-ronde-4-chaises-mdf-noyer-1.webp", "images/table-a-manger-ronde-4-chaises-mdf-noyer-2.webp", "images/table-a-manger-ronde-travertin-4-chaises-4.webp", "images/table-a-manger-ronde-4-chaises-mdf-noyer-4.webp"], "hidden": false, "star": false}, {"id": "table-basse-ovale-noire-mdf", "title": "Table Basse Ovale Noire MDF", "price": 4500, "old": 0, "col": "tables", "desc": "Table basse ovale en MDF noir sur une épaisse base cylindrique.", "imgs": ["images/table-basse-ovale-noire-mdf-1.webp", "images/table-basse-ovale-noire-mdf-2.webp", "images/table-basse-ovale-noire-mdf-3.webp"], "hidden": false, "star": false}, {"id": "table-de-chevet-mdf-arrondie", "title": "Table de Chevet MDF Arrondie - Couleur au Choix", "price": 3500, "old": 0, "col": "chambres", "desc": "Table de chevet arrondie en MDF, plateau noyer et deux tiroirs à poignées en bois. Couleur au choix.", "imgs": ["images/table-de-chevet-mdf-arrondie-1.webp", "images/table-de-chevet-mdf-arrondie-2.webp", "images/table-de-chevet-mdf-arrondie-3.webp", "images/table-de-chevet-mdf-arrondie-4.webp", "images/table-de-chevet-mdf-arrondie-5.webp", "images/table-de-chevet-mdf-arrondie-6.webp"], "hidden": false, "star": false}, {"id": "console-arche-miroirs-organiques", "title": "Console Design Arche + Miroirs Organiques", "price": 7000, "old": 0, "col": "entree", "desc": "Console en MDF finition espresso avec arche sculptée et deux miroirs organiques asymétriques.", "imgs": ["images/console-arche-miroirs-organiques-1.webp", "images/console-arche-miroirs-organiques-2.webp", "images/console-arche-miroirs-organiques-3.webp", "images/console-arche-miroirs-organiques-4.webp"], "hidden": false, "star": true}, {"id": "table-basse-ronde-marbre-bois", "title": "Table Basse Ronde Marbre & Bois", "price": 5800, "old": 0, "col": "tables", "desc": "Table basse ronde, plateau en marbre blanc veiné sur base en bois espresso. Dimensions : 110 x 110 x 40 cm.", "imgs": ["images/table-basse-ronde-marbre-bois-1.webp", "images/table-basse-ronde-marbre-bois-2.webp", "images/table-basse-ronde-marbre-bois-3.webp", "images/table-basse-ronde-marbre-bois-4.webp", "images/table-basse-ronde-marbre-bois-5.webp"], "hidden": false, "star": true}, {"id": "table-de-chevet-arrondie-luxe", "title": "Table de Chevet Arrondie Luxe", "price": 4000, "old": 0, "col": "chambres", "desc": "Table de chevet arrondie blanc crème avec plateau en bois foncé et deux tiroirs.", "imgs": ["images/table-de-chevet-arrondie-luxe-1.webp", "images/table-de-chevet-arrondie-luxe-2.webp", "images/table-de-chevet-arrondie-luxe-3.webp", "images/table-de-chevet-arrondie-luxe-4.webp"], "hidden": false, "star": false}, {"id": "meuble-tv-arrondis", "title": "Meuble TV arrondis", "price": 3000, "old": 0, "col": "tv", "desc": "Meuble TV suspendu finition noyer, aux extrémités arrondies. Couleur personnalisable.", "imgs": ["images/meuble-tv-arrondis-1.webp", "images/meuble-tv-arrondis-2.webp", "images/meuble-tv-arrondis-3.webp", "images/meuble-tv-arrondis-4.webp", "images/meuble-tv-arrondis-5.webp", "images/meuble-tv-arrondis-6.webp", "images/meuble-tv-arrondis-7.webp", "images/meuble-tv-arrondis-8.webp", "images/meuble-tv-arrondis-9.webp"], "hidden": false, "star": false}, {"id": "table-de-chevet-duo-curve", "title": "Table de Chevet Duo Curve", "price": 3500, "old": 0, "col": "chambres", "desc": "Table de chevet aux bords arrondis, deux tiroirs, finition vert sauge et effet noyer. Fabriquée sur mesure, livrée montée. Couleur au choix.", "imgs": ["images/table-de-chevet-duo-curve-1.webp", "images/table-de-chevet-duo-curve-2.webp", "images/table-de-chevet-duo-curve-3.webp"], "hidden": false, "star": false}], "pages": {"faq": {"title": "Questions fréquentes", "body": "Comment passer commande ?\nAjoutez vos pièces au panier, indiquez vos coordonnées et validez : votre commande nous arrive sur WhatsApp et nous confirmons les détails avec vous.\n\nComment se passe le paiement ?\nUn acompte de 30 % est demandé à la confirmation de la commande. Le solde de 70 % est réglé à la livraison.\n\nLivrez-vous dans tout le Maroc ?\nOui, nous livrons dans toutes les villes du Maroc. Les zones éloignées peuvent entraîner des frais supplémentaires, annoncés avant la confirmation de la commande.\n\nLivrez-vous hors du Maroc ?\nÉcrivez-nous avec votre destination : nous vous indiquerons les délais et les frais.\n\nQuels sont les délais ?\nProduits standard : 3 à 7 jours ouvrables. Produits sur mesure : 7 à 21 jours ouvrables selon la complexité du projet.\n\nPuis-je retourner un article ?\nVous avez 14 jours après la réception pour nous signaler un problème. Le détail est dans la politique de retour.\n\nMon produit est arrivé abîmé, que faire ?\nContactez-nous dans les 48 heures avec des photos du produit et de l'emballage.\n\nPuis-je modifier les dimensions ou la couleur ?\nOui, de nombreuses pièces sont réalisables sur mesure. Écrivez-nous avec vos dimensions et vos envies.\n\nComment vous contacter ?\nPar WhatsApp ou depuis la page Contact. Nous répondons au plus vite."}, "retours": {"title": "Politique de retour", "body": "Vous disposez de 14 jours après la réception de votre commande pour nous signaler tout problème.\n\nConditions\nLe produit doit être inutilisé, dans son emballage d'origine, avec une preuve d'achat. Les articles personnalisés ou fabriqués sur commande ne peuvent pas être retournés, sauf en cas de défaut de fabrication.\n\nComment faire\nContactez-nous avec votre numéro de commande et le motif du retour. Si le produit est abîmé, joignez des photos. Nous vous répondons sous 48 heures avec la marche à suivre.\n\nRemboursement\nUne fois le retour accepté, le remboursement est effectué par le même moyen que le paiement. L'acompte de 30 % n'est remboursable que si le défaut du produit est constaté.\n\nFrais de retour\nLes frais de retour sont à votre charge, sauf si l'erreur vient de Nervina ou si le produit est défectueux."}, "remboursement": {"title": "Politique de remboursement", "body": "La plupart de nos pièces sont fabriquées sur commande ou personnalisées. Une fois la commande confirmée et la fabrication lancée, elle ne peut plus être retournée.\n\nProduit abîmé ou défectueux\nContactez-nous dans les 48 heures suivant la livraison, avec des photos du problème.\n\nÉchange ou réparation\nNous proposons un échange ou une réparation en cas de dommage pendant le transport, de défaut de fabrication constaté à la réception, ou d'erreur sur le produit livré.\n\nRemboursement\nIl n'est accordé que si la pièce ne peut être ni réparée ni remplacée, ou si Nervina annule la commande avant le début de la fabrication. Il est versé par le moyen de paiement d'origine.\n\nPièces sur mesure\nLes pièces faites sur mesure, personnalisées ou à vos dimensions ne sont ni reprises ni remboursées, sauf défaut de fabrication vérifié."}, "cgv": {"title": "Conditions générales de vente", "body": "Dernière mise à jour : juin 2026.\n\n1. Présentation\nNervina est une marque marocaine de décoration d'intérieur et de mobilier. Les présentes conditions régissent toutes les ventes réalisées sur cette boutique.\n\n2. Commandes\nPasser commande signifie accepter ces conditions. Nervina peut annuler une commande en cas de problème de disponibilité ou d'informations erronées.\n\n3. Prix\nLes prix sont indiqués en dirhams marocains (MAD). Nervina peut les modifier à tout moment, sans préavis.\n\n4. Paiement\nUn acompte de 30 % est dû à la confirmation de la commande, et le solde de 70 % à la livraison. L'acompte n'est remboursable qu'en cas de défaut avéré du produit ou d'annulation par Nervina.\n\n5. Livraison\nLes délais sont indicatifs. Nervina n'est pas responsable des retards causés par les transporteurs ou les douanes.\n\n6. Retours\nVous avez 14 jours après la réception pour signaler un problème, selon la politique de retour. Les articles personnalisés sont exclus du droit de retour.\n\n7. Responsabilité\nNervina n'est pas responsable des dommages indirects. Sa responsabilité est limitée à la valeur de la commande concernée.\n\n8. Propriété intellectuelle\nLes photos, textes et logos de la boutique appartiennent à Nervina et ne peuvent pas être reproduits sans autorisation préalable.\n\n9. Données personnelles\nLes informations recueillies lors des commandes servent uniquement à les traiter. Elles ne sont pas vendues à des tiers."}, "a-propos": {"title": "À propos de Nervina", "body": "Nervina est une marque marocaine de décoration d'intérieur, fondée en 2020 par un jeune entrepreneur passionné de design.\n\nNotre mission : transformer chaque espace en un lieu unique, chaleureux et inspirant.\n\nPour nous, la décoration est une façon d'exprimer son identité et de raconter une histoire à travers les objets, les textures et les couleurs. Chaque pièce associe un savoir-faire artisanal marocain et un design contemporain.\n\nNous expédions depuis le Maroc. Rejoignez la communauté Nervina : écrivez-nous sur WhatsApp."}, "livraison": {"title": "Politique d'expédition", "body": "Zone de livraison\nNous livrons dans toutes les villes du Maroc. Les zones éloignées peuvent entraîner des frais supplémentaires, annoncés avant la confirmation de la commande.\n\nDélais\nProduits standard : 3 à 7 jours ouvrables. Produits sur mesure : 7 à 21 jours ouvrables selon la complexité du projet. Ces délais sont des estimations : ils peuvent varier selon la charge de production, le transport ou d'autres facteurs hors de notre contrôle.\n\nFrais de livraison\nIls dépendent de la destination, des dimensions du produit et du mode de transport. Le montant exact vous est communiqué avant la finalisation de la commande.\n\nÀ la réception\nVérifiez le produit à la livraison. En cas de dommage visible, contactez-nous dans les 48 heures avec des photos du produit et de l'emballage.\n\nRetards\nNervina n'est pas responsable des retards dus aux transporteurs, à la météo, aux jours fériés ou à tout autre événement indépendant de sa volonté."}, "conditions": {"title": "Conditions d'utilisation", "body": "En visitant la boutique ou en passant commande, vous acceptez ces conditions.\n\nProduits\nNervina fabrique et vend du mobilier, de la décoration d'intérieur et des aménagements sur mesure. Les couleurs, textures et finitions peuvent varier légèrement selon les écrans et les matériaux. Les dimensions sont approximatives.\n\nCommandes\nUne commande est ferme une fois validée et l'acompte confirmé. Nervina peut refuser ou annuler une commande en cas d'informations incomplètes, de suspicion de fraude ou de problème de paiement.\n\nProduits sur mesure\nIls sont réalisés selon vos indications. Une fois la fabrication commencée, la commande ne peut être ni modifiée ni annulée.\n\nPrix et paiement\nLes prix sont en dirhams marocains (MAD) et peuvent changer à tout moment. Les frais de livraison sont indiqués avant la commande. La commande n'est traitée qu'après confirmation de l'acompte.\n\nLivraison, retours et remboursements\nLes délais sont des estimations. Les retours et remboursements suivent la politique de retour et la politique de remboursement.\n\nPropriété intellectuelle\nLes textes, images, logos et créations de la boutique appartiennent à Nervina et ne peuvent pas être utilisés sans autorisation.\n\nResponsabilité\nNervina n'est pas responsable des dommages indirects liés à l'utilisation de la boutique ou de ses produits."}, "confidentialite": {"title": "Politique de confidentialité", "body": "Cette page explique quelles informations nous recueillons quand vous utilisez la boutique, et pourquoi.\n\nCe que nous recueillons\nVotre nom, votre numéro de téléphone, votre ville, votre adresse de livraison et le contenu de vos messages, uniquement quand vous nous les envoyez par WhatsApp ou depuis la page Contact. La boutique n'enregistre aucune donnée de paiement.\n\nCe que nous en faisons\nNous les utilisons pour traiter vos commandes, vous répondre et organiser la livraison. Nous ne les vendons pas.\n\nAvec qui nous les partageons\nAvec les transporteurs, quand c'est nécessaire à la livraison, et avec WhatsApp, le service de messagerie par lequel vous nous écrivez. Nous pouvons aussi les communiquer aux autorités si la loi l'exige.\n\nSur votre appareil\nVotre panier est conservé dans le navigateur de votre appareil pour que vous le retrouviez à votre retour. Il n'est pas envoyé à un serveur.\n\nVos droits\nVous pouvez demander à accéder à vos informations, à les corriger ou à les supprimer en nous écrivant à l'adresse indiquée dans la page Coordonnées.\n\nMises à jour\nCette politique peut évoluer. La date de dernière mise à jour figure ci-dessous.\n\nDernière mise à jour : octobre 2026."}, "coordonnees": {"title": "Coordonnées", "body": "Nervina Maroc, Casablanca.\n\nE-mail : nervina.maroc@gmail.com\nTéléphone et WhatsApp : 06 54 29 09 60 · 06 56 57 20 30\n\nÉcrivez-nous pour une commande, une livraison ou une question sur un produit. Nous répondons au plus vite."}}, "shopify": {"images/table-basse-amazonica-1.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/LTO-523-D-G-WLNT-CHMPGLAmazonicocoffeetablewithlargetopinwalnutsmalltopinChampagneglass10_9200ea14-6859-4b9b-aac6-b50e79c9b8c9.webp?v=1781457008", "images/table-basse-amazonica-2.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/AmazonicomoderncoffeetablewithrotatingtopinChampagnecoloredglassandWalnutbaseandlargetop01.webp?v=1781457008", "images/table-basse-london-1.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_7b80a727-643c-4704-b4ff-c803230f9ec5.png?v=1781453320", "images/table-basse-london-2.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/aston_london_1.png?v=1781453129", "images/table-basse-london-3.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_cc37130d-75fe-4419-ae9e-fce01cab2df8.png?v=1781453321", "images/table-basse-london-4.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/mesa-de-centro-london-2-jpg_20230705081238_1.png?v=1781453128", "images/table-de-chevet-canne-1.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/commercial-photo-lifestyle.png?v=1781174336", "images/table-de-chevet-canne-2.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/terracotta.png?v=1781174484", "images/table-de-chevet-canne-3.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/vert-sauge.png?v=1781174478", "images/table-de-chevet-canne-4.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/editorial-lifestyle.png?v=1781174390", "images/table-de-chevet-canne-5.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/bedroom-lifestyle.png?v=1781174365", "images/table-de-chevet-canne-6.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/white-background-studio.png?v=1781174384", "images/table-de-chevet-design-noyer-blanc-laiton-1.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_45dedd5a-b9f8-448f-88ec-408de0105e84.png?v=1780679277", "images/table-de-chevet-design-noyer-blanc-laiton-2.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/vue-de-dessus_22e272c9-d43d-4f51-875e-430b01dd3da7.png?v=1780679319", "images/table-de-chevet-design-noyer-blanc-laiton-3.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/vue-trois-quarts-arri-re.png?v=1780679325", "images/table-de-chevet-design-noyer-blanc-laiton-4.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/71fad2ce9b0c58232a03466ba93b7f87.jpg?v=1780679188", "images/meuble-tv-sur-pieds-noyer-creme-1.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_9166b6ad-9473-4111-a495-6c3a6a179f5a.png?v=1780658038", "images/meuble-tv-sur-pieds-noyer-creme-2.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_289351fc-a5b6-4d16-afbd-1f1126a9142f.png?v=1780658038", "images/meuble-tv-sur-pieds-noyer-creme-3.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_05702bc0-9bf4-4c0c-8d87-a9f9a556452a.png?v=1780658038", "images/meuble-tv-sur-pieds-noyer-creme-4.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/c9fda3c086d8e194299ea46bf79670bf.jpg?v=1780657936", "images/meuble-tv-suspendu-design-1.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/vue-fa-ade.png?v=1780657672", "images/meuble-tv-suspendu-design-2.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_4575f75a-b31b-4b09-a545-522c3b1dbb49.png?v=1780657679", "images/meuble-tv-suspendu-design-3.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/7ac0aebca7defe80d9650644be33c821.jpg?v=1780657607", "images/set-2-tables-basses-organiques-1.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_b2837a1e-6b5d-4535-a050-9352056f9241.png?v=1780657359", "images/set-2-tables-basses-organiques-2.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/d-tail-bois-m-tal.png?v=1780657331", "images/set-2-tables-basses-organiques-3.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/vue-salon-scandinave.png?v=1780657328", "images/set-2-tables-basses-organiques-4.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/a5a9cd7805cf95cabc0ded99a05e7fbf.jpg?v=1780657275", "images/table-basse-ovale-design-1.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_d56e6895-2b9e-4e3a-bb8b-feb98a1e8ebe.png?v=1780656906", "images/table-basse-ovale-design-2.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_7c5d7f24-6a5e-425f-9b82-51fb932d8125.png?v=1780656906", "images/table-basse-ovale-design-3.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_fd78bade-0152-4b67-915f-6c2705341d0f.png?v=1780656906", "images/table-basse-ovale-design-4.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/e58137c6d2f2f535f9ac2b01393becd3.jpg?v=1780656791", "images/table-basse-ronde-luxe-1.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_ca07f635-65e6-445e-9a0b-6b20f5e8f2a7.png?v=1780656375", "images/table-basse-ronde-luxe-2.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_6774ea60-7a43-4e2b-a8b1-47f5c7c26d82.png?v=1780656375", "images/table-basse-ronde-luxe-3.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/e93da23eeaaa9f78bc1f21a6c87a4f5e.jpg?v=1780656308", "images/table-basse-ronde-noyer-metal-noir-1.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_1e8b8ad3-e83e-41be-b7d3-674a16308faa.png?v=1780655906", "images/table-basse-ronde-noyer-metal-noir-2.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_215157f8-d80e-4166-8dab-707f3514f2d7.png?v=1780655906", "images/table-basse-ronde-noyer-metal-noir-3.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_38d960ad-d528-4fae-9ef6-c6e7324b3d4b.png?v=1780655906", "images/table-basse-ronde-noyer-metal-noir-4.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/189c507430b1f8e8680039181b58bd6a_2de4c656-dded-4890-ad74-fb58d303985c.jpg?v=1780655828", "images/table-de-chevet-cloud-noyer-1.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/d3170c867841ec13afeedb31ae96f67c.jpg?v=1780577443", "images/table-de-chevet-cloud-noyer-2.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/vue-fond-blanc.png?v=1780577590", "images/table-de-chevet-cloud-noyer-3.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/d-tail-gros-plan.png?v=1780577595", "images/table-de-chevet-cloud-noyer-4.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/ambiance-chambre_af5c4f94-875b-416f-a604-afe7829bbfb4.png?v=1780577602", "images/table-a-manger-ronde-travertin-4-chaises-1.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_e987054b-d0c9-40ec-a113-ab90a4970d60.png?v=1780576561", "images/table-a-manger-ronde-travertin-4-chaises-2.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_c25eb26d-92de-473e-b24a-b2723ea0e808.png?v=1780576562", "images/table-a-manger-ronde-travertin-4-chaises-3.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/IMG_8586.jpg?v=1780576328", "images/table-a-manger-ronde-travertin-4-chaises-4.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_7d780aed-d17e-402d-8c30-a6d543a5289d.png?v=1780576158", "images/table-a-manger-ronde-4-chaises-mdf-noyer-1.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_12b99560-7179-40ea-9935-c31624446996.png?v=1780576157", "images/table-a-manger-ronde-4-chaises-mdf-noyer-2.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_e513e301-fb2c-4f8a-9f45-84e447b5650c.png?v=1780576157", "images/table-a-manger-ronde-4-chaises-mdf-noyer-4.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/c61f72cb8c6d0e35d8f35b8c4b75e751.jpg?v=1780575937", "images/table-basse-ovale-noire-mdf-1.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/d-tail-base.png?v=1780575826", "images/table-basse-ovale-noire-mdf-2.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/upscaled_instagram.jpg?v=1780575455", "images/table-basse-ovale-noire-mdf-3.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/vue-du-dessus_a4a928d6-8783-4bce-9cbc-7428826410da.png?v=1780575836", "images/table-de-chevet-mdf-arrondie-1.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/152893fff438117940f5cb2c6f5ebc6f.png?v=1780574489", "images/table-de-chevet-mdf-arrondie-2.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/vue-du-dessus_c68dd586-aef2-488f-b508-6f7ab4e60f8e.png?v=1780574689", "images/table-de-chevet-mdf-arrondie-3.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/d-tail-c-t_47c3ee79-f059-4266-8a3d-a17b302ea41d.png?v=1780574694", "images/table-de-chevet-mdf-arrondie-4.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/ambiance-chambre.png?v=1780574701", "images/table-de-chevet-mdf-arrondie-5.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_856cd4c1-7596-4a33-ac26-2e7f8d335607.png?v=1780574828", "images/table-de-chevet-mdf-arrondie-6.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/image_949a8e7d-c53d-45ea-8f12-eb95564bd2ba.png?v=1780574828", "images/console-arche-miroirs-organiques-1.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/vue-de-face.png?v=1780573576", "images/console-arche-miroirs-organiques-2.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/d-tail-c-t.png?v=1780573595", "images/console-arche-miroirs-organiques-3.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/fond-blanc-studio_edc80603-b90a-4ca7-88fc-8b1c20bd5c49.png?v=1780573586", "images/console-arche-miroirs-organiques-4.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/2347eb388b9f9a0565dde460e7822885.png?v=1780573520", "images/table-basse-ronde-marbre-bois-1.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/6b8084fd5177176f689c803d729e64e9.jpg?v=1780573074", "images/table-basse-ronde-marbre-bois-2.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/vue-du-dessus_21a84862-3d2c-4ddf-88a7-f0ef0e71845c.png?v=1780573153", "images/table-basse-ronde-marbre-bois-3.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/vue-corrig-e.png?v=1780573198", "images/table-basse-ronde-marbre-bois-4.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/photo-dimensions-110x110x40cm.png?v=1780573271", "images/table-basse-ronde-marbre-bois-5.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/fond-blanc-studio_96558373-c070-463a-ae8e-ac759213b821.png?v=1780573146", "images/table-de-chevet-arrondie-luxe-1.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/0c4a46e128bc82adc5e697cf7bec7a50.png?v=1780572717", "images/table-de-chevet-arrondie-luxe-2.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/vue-du-dessus.png?v=1780572866", "images/table-de-chevet-arrondie-luxe-3.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/fond-blanc-studio.png?v=1780572877", "images/table-de-chevet-arrondie-luxe-4.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/ambiance-nuit.png?v=1780572886", "images/meuble-tv-arrondis-1.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/photocommercialslide.png?v=1780566936", "images/meuble-tv-arrondis-2.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/ChatGPTImageJun1_2026_02_03_40PM.png?v=1780566936", "images/meuble-tv-arrondis-3.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/ChatGPTImageJun1_2026_02_03_32PM.png?v=1780566939", "images/meuble-tv-arrondis-4.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/ChatGPTImageJun1_2026_02_03_25PM.png?v=1780566936", "images/meuble-tv-arrondis-5.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/ChatGPTImageJun1_2026_02_06_15PM.png?v=1780566936", "images/meuble-tv-arrondis-6.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/ChatGPTImageJun1_2026_02_07_27PM.png?v=1780566938", "images/meuble-tv-arrondis-7.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/ChatGPTImageJun1_2026_02_08_35PM.png?v=1780566936", "images/meuble-tv-arrondis-8.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/ChatGPTImageJun1_2026_02_09_55PM.png?v=1780566937", "images/meuble-tv-arrondis-9.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/ChatGPTImageJun1_2026_02_11_12PM.png?v=1780566936", "images/table-de-chevet-duo-curve-1.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/15143746_1300x_f7661a30-ae61-431f-b37d-9583b256b557.png?v=1780307623", "images/table-de-chevet-duo-curve-2.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/15143745_1300x_bcb69c9f-da7b-453a-a770-a684ad1de04d.png?v=1780307623", "images/table-de-chevet-duo-curve-3.webp": "https://cdn.shopify.com/s/files/1/0989/6647/1019/files/15143744_1300x_1.png?v=1780307623"}}</script>
 
@@ -414,14 +459,14 @@ let canEdit=false,artifact=null,assets=null,dirty=false,saving=false,stMsg='';
 function ph(p,cls=''){const im=p.imgs&&p.imgs[0];
   return `<div class="ph ${cls}">${hasOld(p)?`<span class="badge">-${Math.round((1-p.price/p.old)*100)}%</span>`:''}${im?`<img src="${IMGSM(im)}" alt="${esc(p.title)}" loading="lazy" decoding="async">`:ico(p.col)}</div>`}
 const priceH=p=>`<span class="price">${MAD(p.price)}${hasOld(p)?`<s>${MAD(p.old)}</s>`:''}</span>`;
-function card(p){return `<article class="pc"><a class="im" href="#p-${esc(p.id)}" aria-label="${esc(p.title)}">${ph(p)}</a><h3><a href="#p-${esc(p.id)}">${esc(p.title)}</a></h3>${priceH(p)}<button class="btn ghost add" data-add="${esc(p.id)}">Ajouter au panier</button></article>`}
+function card(p){const i2=p.imgs&&p.imgs[1];return `<article class="pc"><a class="im" href="#p-${esc(p.id)}" aria-label="${esc(p.title)}">${ph(p)}${i2?`<img class="alt" src="${IMGSM(i2)}" alt="" loading="lazy" decoding="async">`:''}<span class="tag">Sur mesure</span></a><p class="pc-c">${esc(colName(p.col))}</p><h3><a href="#p-${esc(p.id)}">${esc(p.title)}</a></h3>${priceH(p)}<button class="btn ghost add" data-add="${esc(p.id)}">Ajouter au panier</button></article>`}
 function toast(m){const t=document.createElement('div');t.className='toast';t.setAttribute('role','status');t.textContent=m;document.body.append(t);setTimeout(()=>t.remove(),1900)}
 function paras(body){return String(body||'').split(/\n\s*\n/).filter(x=>x.trim()).map(b=>{const l=b.split('\n');return l.length>1&&/\?\s*$/.test(l[0])?`<p class="q">${esc(l[0])}</p><p>${esc(l.slice(1).join(' '))}</p>`:`<p>${esc(b)}</p>`}).join('')}
 
 /* ---------- chrome (bandeau, pied, whatsapp) ---------- */
 function chrome(){
   const st=S.settings;
-  $('#ann').textContent=st.banner||'';$('#ann').hidden=!st.banner;
+  annSet();
   $('#waf').href=WAU('Bonjour, je suis intéressé par vos produits 😊');
   const ig=String(st.instagram||'').replace(/^@/,'');
   $('#foot').innerHTML=`<div class="fg">
@@ -435,7 +480,7 @@ function chrome(){
 
 /* ---------- vues boutique ---------- */
 let filt='all',q='',sort='def';
-/* ---------- défilement doux (Lenis) + bannière plein écran (GSAP) ---------- */
+/* ---------- Lenis + GSAP + accueil pro ---------- */
 const RM=matchMedia('(prefers-reduced-motion: reduce)');
 let LEN=null;
 (function(){
@@ -444,126 +489,112 @@ let LEN=null;
   if(window.gsap){if(window.ScrollTrigger){gsap.registerPlugin(ScrollTrigger);LEN.on('scroll',ScrollTrigger.update)}gsap.ticker.add(t=>LEN.raf(t*1000));gsap.ticker.lagSmoothing(0)}
 })();
 const toY=y=>{if(LEN)LEN.scrollTo(y,{immediate:true,force:true});else scrollTo(0,y)};
-let MG=null;
-function mgKill(){document.body.classList.remove('sg-in');if(MG){try{MG.ctx&&MG.ctx.revert()}catch(e){}removeEventListener('resize',MG.fit);MG=null}}
-function mgGrain(){
-  if(mgGrain.u)return mgGrain.u;
-  try{const c=document.createElement('canvas');c.width=c.height=160;const x=c.getContext('2d'),d=x.createImageData(160,160);
-    for(let i=0;i<d.data.length;i+=4){const v=Math.random()*255|0;d.data[i]=d.data[i+1]=d.data[i+2]=v;d.data[i+3]=Math.random()*70|0}
-    x.putImageData(d,0,0);mgGrain.u=c.toDataURL()}catch(e){mgGrain.u=''}
-  return mgGrain.u}
-function mgSync(){
-  if(!MG||!MG.L)return;const on=MG.vis!==false&&!MG.user&&!document.hidden,root=$('#mg');
-  MG.L.forEach(t=>on?t.resume():t.pause());
-  if(root){root.classList.toggle('mg-paused',!on);const pp=$('#mgpp');if(pp){pp.classList.toggle('is-paused',!!MG.user);pp.setAttribute('aria-label',MG.user?"Lancer l'animation":"Mettre l'animation en pause")}}
+/* bandeau d'annonces qui défile */
+let ANN=null;
+function annSet(){
+  const el=$('#ann'),st=S.settings;if(!el)return;
+  const msgs=[st.banner,...(st.annMsgs||['Paiement : 30 % à la commande, 70 % à la livraison','Fabrication artisanale et sur mesure au Maroc'])].filter(Boolean);
+  el.hidden=!msgs.length;if(!msgs.length)return;
+  el.innerHTML=`<span class="ann-t">${esc(msgs[0])}</span>`;
+  clearInterval(ANN);if(msgs.length<2||RM.matches)return;
+  let i=0,hold=false;el.onmouseenter=()=>hold=true;el.onmouseleave=()=>hold=false;
+  ANN=setInterval(()=>{if(hold||document.hidden)return;const t=el.querySelector('.ann-t');t.classList.add('out');setTimeout(()=>{i=(i+1)%msgs.length;t.textContent=msgs[i];t.classList.remove('out')},350)},4200);
 }
-document.addEventListener('visibilitychange',mgSync);
+let MG=null;
+function mgKill(){document.body.classList.remove('hs-in');if(MG&&MG.io)MG.io.disconnect();if(MG){try{MG.ctx&&MG.ctx.revert()}catch(e){}MG=null}}
+document.addEventListener('visibilitychange',()=>{if(MG&&MG.sync)MG.sync()});
 function mgInit(){
-  const root=$('#mg');if(!root)return;
-  const fit=()=>{const r=root.getBoundingClientRect();root.style.setProperty('--top',Math.max(0,r.top+scrollY)+'px')};
-  fit();addEventListener('resize',fit);
-  const g=root.querySelector('.mg-grain');if(g){const u=mgGrain();if(u)g.style.backgroundImage=`url(${u})`}
-  const pp=$('#mgpp');
-  if(!window.gsap||!window.ScrollTrigger||!window.SplitText||RM.matches){root.classList.add('sg-static');if(pp)pp.hidden=true;MG={fit};return}
-  gsap.registerPlugin(ScrollTrigger,SplitText,...(window.DrawSVGPlugin?[DrawSVGPlugin]:[]));
-  MG={L:[],vis:true,user:false,fit};
+  const root=$('#hs');
+  MG={user:RM.matches,hover:false};
   const st=MG;
-  MG.ctx=gsap.context(()=>{
-    const q1=s=>root.querySelector(s),qa=s=>[...root.querySelectorAll(s)];
-    const split=SplitText.create(q1('.sg-h'),{type:'lines,chars',linesClass:'sg-line',charsClass:'sg-ch',mask:'lines'});
-    const nums=qa('[data-n]');nums.forEach(n=>n.textContent='0');
-    const tl=gsap.timeline({paused:true,defaults:{ease:'power3.out'}});
-    tl.from('.sg-bg',{opacity:0,duration:1.2,ease:'power1.out'},0)
-      .from('.sg-img',{opacity:0,y:26,filter:'brightness(.12) blur(6px)',duration:1.3},.2)
-      .to('.sg-img',{filter:'brightness(1) blur(0px)',duration:1.4,ease:'power2.out'},1.05)
-      .fromTo('.sg-led',{opacity:0},{keyframes:[{opacity:.9,duration:.06},{opacity:.15,duration:.08},{opacity:1,duration:.05},{opacity:.35,duration:.12},{opacity:1,duration:.5}],ease:'none'},.95)
-      .from('.sg-led i',{scaleX:.2,duration:1,ease:'power3.out'},.95)
-      .from('.sg-wash',{opacity:0,scale:.7,duration:1.6},1.05)
-      .from('.sg-eye',{opacity:0,y:10,duration:.6},.6)
-      .from(split.chars,{yPercent:110,duration:.9,stagger:.025,ease:'power4.out'},.75)
-      .from('.sg-sub',{opacity:0,y:12,duration:.7},1.15)
-      .from('.sg-dim path',window.DrawSVGPlugin?{drawSVG:'0%',duration:1.1,ease:'power2.inOut'}:{opacity:0,duration:.8},1.6)
-      .from('.sg-dl',{opacity:0,y:6,duration:.5,stagger:.1},2)
-      .from('.sg-hs',{opacity:0,scale:.6,duration:.6,stagger:.15,ease:'back.out(2)'},2.1)
-      .from('.sg-specs>div,.sg-price,.sg-cta',{opacity:0,y:18,duration:.7,stagger:.08},1.7)
-      .from('.mg-mq,.mg-pp',{opacity:0,duration:.8},2.2);
-    nums.forEach(n=>{const o={v:0},to=+n.dataset.n;tl.to(o,{v:to,duration:1.4,ease:'power2.out',onUpdate:()=>n.textContent=Math.round(o.v)},1.8)});
-    const im=q1('.sg-img');
-    Promise.race([im.decode?im.decode().catch(()=>{}):Promise.resolve(),new Promise(r=>setTimeout(r,1500))]).then(()=>tl.play());
-    const L=st.L,loop=v=>(L.push(v),v);
-    loop(gsap.to('.sg-led',{'--glow':.78,duration:2.8,ease:'sine.inOut',yoyo:true,repeat:-1,delay:2.6}));
-    loop(gsap.fromTo('.sg-sheen',{backgroundPosition:'130% 0'},{backgroundPosition:'-30% 0',duration:2.6,ease:'power2.inOut',repeat:-1,repeatDelay:3.5,delay:3}));
-    loop(gsap.to('.sg-wash',{scale:1.08,opacity:.8,duration:5,ease:'sine.inOut',yoyo:true,repeat:-1,delay:2.6}));
-    loop(gsap.to('.mg-track',{xPercent:-50,duration:34,ease:'none',repeat:-1}));
-    qa('.sg-hs i').forEach((d,i)=>loop(gsap.fromTo(d,{'--ring':0},{'--ring':1,duration:2,ease:'power1.out',repeat:-1,delay:2.8+i*.5})));
-    const mm=gsap.matchMedia();
-    mm.add('(max-width:899px)',()=>{
-      const rig=q1('.sg-rig'),unit=q1('.sg-unit');const span=()=>Math.max(0,(unit.offsetWidth-root.clientWidth)/2+14);
-      gsap.set(rig,{x:()=>span()});
-      loop(gsap.to(rig,{x:()=>-span(),duration:11,ease:'sine.inOut',yoyo:true,repeat:-1,delay:2.4,invalidateOnRefresh:true}));
+  /* carrousels produits */
+  app.querySelectorAll('[data-rail]').forEach(b=>b.onclick=()=>{const r=$('#'+b.dataset.rail);if(r)r.scrollBy({left:(+b.dataset.d)*r.clientWidth*.9,behavior:RM.matches?'auto':'smooth'})});
+  const railUpd=r=>{const nav=app.querySelectorAll(`[data-rail="${r.id}"]`);if(nav.length<2)return;nav[0].disabled=r.scrollLeft<8;nav[1].disabled=r.scrollLeft+r.clientWidth>=r.scrollWidth-8};
+  app.querySelectorAll('.rail').forEach(r=>{railUpd(r);r.addEventListener('scroll',()=>railUpd(r),{passive:true})});
+  /* slider */
+  if(root){
+    const slides=[...root.querySelectorAll('.hs-slide')],dots=[...root.querySelectorAll('.hs-dot')],pp=$('#hspp');let cur=0;
+    st.sync=()=>{const p=st.user||st.hover||document.hidden;root.classList.toggle('paused',p);if(pp){pp.classList.toggle('is-paused',st.user);pp.setAttribute('aria-label',st.user?'Lancer le diaporama':'Mettre le diaporama en pause')}};
+    const go=n=>{if(!slides.length)return;n=(n+slides.length)%slides.length;if(n===cur)return;
+      slides.forEach((s,k)=>{const on=k===n;s.classList.toggle('on',on);s.classList.toggle('was',k===cur);if(on){s.removeAttribute('aria-hidden');s.inert=false;const im=s.querySelector('img');im.loading='eager'}else{s.setAttribute('aria-hidden','true');s.inert=true}});
+      const nx=slides[(n+1)%slides.length];if(nx)nx.querySelector('img').loading='eager';
+      dots.forEach((d,k)=>{d.classList.toggle('done',k<n);d.classList.remove('run');k===n?d.setAttribute('aria-current','true'):d.removeAttribute('aria-current')});
+      void root.offsetWidth;if(dots[n])dots[n].classList.add('run');cur=n};
+    dots.forEach(d=>{d.onclick=()=>go(+d.dataset.go);d.addEventListener('animationend',e=>{if(e.animationName==='hs-fill'&&d.classList.contains('run'))go(cur+1)})});
+    root.querySelectorAll('[data-step]').forEach(b=>b.onclick=()=>go(cur+(+b.dataset.step)));
+    if(pp)pp.onclick=()=>{st.user=!st.user;st.sync()};
+    root.addEventListener('mouseenter',()=>{st.hover=true;st.sync()});root.addEventListener('mouseleave',()=>{st.hover=false;st.sync()});
+    root.addEventListener('focusin',()=>{st.hover=true;st.sync()});root.addEventListener('focusout',e=>{if(!root.contains(e.relatedTarget)){st.hover=false;st.sync()}});
+    let x0=null,y0=null;root.addEventListener('touchstart',e=>{x0=e.touches[0].clientX;y0=e.touches[0].clientY},{passive:true});
+    root.addEventListener('touchend',e=>{if(x0==null)return;const dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;x0=null;if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy))go(cur+(dx<0?1:-1))},{passive:true});
+    root.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){if(e.target.closest('.hs-ui')){e.preventDefault();go(cur+(e.key==='ArrowRight'?1:-1))}}});
+    if(dots[0])dots[0].classList.add('run');
+    st.sync();
+    if('IntersectionObserver' in window){st.io=new IntersectionObserver(es=>document.body.classList.toggle('hs-in',es[0].isIntersecting&&es[0].intersectionRatio>.25),{threshold:[0,.25,.5]});st.io.observe(root)}
+  }
+  /* apparitions au défilement */
+  if(window.gsap&&window.ScrollTrigger&&!RM.matches){
+    gsap.registerPlugin(ScrollTrigger);
+    st.ctx=gsap.context(()=>{
+      gsap.set('.rv',{opacity:0,y:34});
+      ScrollTrigger.batch('.rv',{start:'top 90%',once:true,onEnter:els=>gsap.to(els,{opacity:1,y:0,duration:.9,ease:'power3.out',stagger:.09,overwrite:true})});
+      gsap.utils.toArray('.rail').forEach(r=>gsap.from(r.children,{opacity:0,x:40,duration:.8,ease:'power3.out',stagger:.07,scrollTrigger:{trigger:r,start:'top 88%',once:true}}));
+      const big=document.querySelector('.big-img');if(big)gsap.fromTo(big,{yPercent:-10},{yPercent:10,ease:'none',scrollTrigger:{trigger:'.big',start:'top bottom',end:'bottom top',scrub:true}});
+      const pimg=document.querySelector('.promo-img img');if(pimg)gsap.fromTo(pimg,{scale:1.12},{scale:1,ease:'none',scrollTrigger:{trigger:'.promo',start:'top bottom',end:'center center',scrub:true}});
+      requestAnimationFrame(()=>ScrollTrigger.refresh());
     });
-    gsap.timeline({scrollTrigger:{trigger:root,start:'top top',end:'bottom top',scrub:.6}})
-      .to('.sg-unit',{scale:1.1,y:-30,ease:'none'},0)
-      .to('.sg-head',{y:-50,opacity:.25,ease:'none'},0)
-      .to('.sg-wash',{yPercent:-12,ease:'none'},0);
-    ScrollTrigger.create({trigger:root,start:'top bottom',end:'bottom top',onToggle:s=>{st.vis=s.isActive;mgSync()}});
-    ScrollTrigger.create({trigger:root,start:'top bottom',end:'bottom 70%',onToggle:s=>document.body.classList.toggle('sg-in',s.isActive)});
-  },root);
-  if(pp)pp.onclick=()=>{st.user=!st.user;mgSync()};
-  mgSync();
+  }
 }
 function perks(){return `<ul>${(S.settings.perks||[]).filter(Boolean).map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`}
 const VIEWS={
 accueil(){
-  const st=S.settings,f=prod(st.featured)||vis()[0],best=vis().filter(p=>p.star).slice(0,4),L=vis();
-  const ar=S.collections.slice(0,3).map((c,i)=>`<div class="arch">${ico(c.id)}</div>`).join('');
-  const fp=prod('meuble-tv-arrondis')||vis()[0];
-  const mq=['Meuble TV Arrondis','Noyer naturel','LED intégrée','Fixation invisible','Sur mesure','Fait main au Maroc'];
-  const mqh=mq.map(x=>`<span>${esc(x)}</span><svg viewBox="0 0 24 30"><path d="M3 29V12a9 9 0 0 1 18 0v17"/></svg>`).join('');
-  const wa=WAU(`Bonjour Nervina, je suis intéressé(e) par le ${fp.title} (${MAD(fp.price)}).`);
-  return `<section class="sg" id="mg" aria-label="${esc(fp.title)}, pièce signature">
-  <div class="sg-bg" aria-hidden="true"><div class="sg-wash"></div><div class="mg-grain"></div><div class="sg-vig"></div></div>
-  <div class="sg-head">
-    <p class="sg-eye"><span class="sg-dot"></span>Pièce signature · ${esc(colName(fp.col))}</p>
-    <h1 class="sg-h">${esc(fp.title)}</h1>
-    <p class="sg-sub">Noyer naturel · LED intégrée · Suspendu</p>
-  </div>
-  <div class="sg-stage" aria-hidden="true">
-    <div class="sg-rig">
-      <div class="sg-unit">
-        <svg class="sg-dim sg-dim-w" viewBox="0 0 1000 40" preserveAspectRatio="none"><path d="M500 20H4M4 8v24M500 20h492M996 8v24"/></svg>
-        <span class="sg-dl sg-dl-w"><b data-n="200">200</b> cm</span>
-        <svg class="sg-dim sg-dim-h" viewBox="0 0 40 1000" preserveAspectRatio="none"><path d="M20 500V4M8 4h24M20 500v492M8 996h24"/></svg>
-        <span class="sg-dl sg-dl-h"><b data-n="30">30</b> cm</span>
-        <div class="sg-led"><i></i></div>
-        <img class="sg-img" src="images/hero/meuble-tv-arrondis.webp" alt="" fetchpriority="high" decoding="async">
-        <div class="sg-sheen"></div>
-        <div class="sg-hs up" style="--x:5%;--y:46%"><i></i><span>Angles arrondis</span></div>
-        <div class="sg-hs up r" style="--x:62%;--y:40%"><i></i><span>Noyer naturel</span></div>
-        <div class="sg-hs dn" style="--x:34%;--y:93%"><i></i><span>LED intégrée</span></div>
-      </div>
-    </div>
-  </div>
-  <div class="sg-foot">
-    <dl class="sg-specs">
-      <div><dt>Longueur</dt><dd><b data-n="200">200</b> cm</dd></div>
-      <div><dt>Hauteur</dt><dd><b data-n="30">30</b> cm</dd></div>
-      <div><dt>Profondeur</dt><dd><b data-n="30">30</b> cm</dd></div>
-    </dl>
-    <div class="sg-buy">
-      <p class="sg-price"><span>À partir de</span><b>${MAD(fp.price)}</b><small>Dimensions et teinte sur mesure</small></p>
-      <div class="sg-cta"><a class="btn sg-b1" href="#p-${esc(fp.id)}">Découvrir le meuble</a><a class="btn sg-b2" href="${wa}" target="_blank" rel="noopener">Commander sur WhatsApp</a></div>
-    </div>
-  </div>
-  <div class="mg-mq" aria-hidden="true"><div class="mg-track"><div>${mqh}${mqh}</div><div>${mqh}${mqh}</div></div></div>
-  <button class="mg-pp" id="mgpp" aria-label="Mettre l'animation en pause"><svg viewBox="0 0 20 20" aria-hidden="true"><path class="ic-pause" d="M6 4h3v12H6zM11 4h3v12h-3z"/><path class="ic-play" d="M6 4l10 6-10 6z"/></svg></button>
-</section>`+`
-  ${S.collections.length?`<section class="sec"><div class="sechead"><div><p class="eyebrow">Collections</p><h2>Magasiner par collection</h2></div></div>
-    <div class="cols">${S.collections.map(c=>{const n=L.filter(p=>p.col===c.id).length;const cp=L.find(p=>p.col===c.id&&p.imgs&&p.imgs[0]);return `<a class="col" href="#c-${esc(c.id)}"><div class="arch" style="position:relative">${cp?`<img src="${IMGSM(cp.imgs[0])}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" loading="lazy">`:ico(c.id)}</div><span>${esc(c.name)}<small>${n} pièce${n>1?'s':''}</small></span></a>`}).join('')}</div></section>`:''}
-  ${L.length?'':`<section class="sec"><p class="empty">Les premières pièces arrivent bientôt. Écrivez-nous sur WhatsApp pour un projet sur mesure.</p></section>`}
-  ${f?`<section class="sec"><div class="feat"><div>${ph(f,'sq')}</div><div><p class="eyebrow">Notre coup de cœur</p><h2>${esc(f.title)}</h2>${perks()}<p class="price" style="font-size:1.4rem;margin:0 0 22px">${MAD(f.price)}</p><a class="btn" href="#p-${esc(f.id)}">Découvrir</a></div></div></section>`:''}
-  ${best.length?`<section class="sec"><div class="sechead"><div><p class="eyebrow">Sélection</p><h2>Pièces les plus demandées</h2></div><a href="#catalogue" style="font-size:.9rem">Tout voir</a></div><div class="grid">${best.map(card).join('')}</div></section>`:''}
-  <section class="sec"><div class="trust">${(st.trust||[]).map(x=>`<div><b>${esc(x.t)}</b><p>${esc(x.d)}</p></div>`).join('')}</div></section>`},
+  const L=vis(),H={"slides": [{"img": "images/home/slide-meuble-tv.webp", "imgm": "images/home/slide-meuble-tv-m.webp", "pos": "58% 60%", "posm": "62% 88%", "k": "Pièce signature", "t": "Meuble TV Arrondis", "d": "Noyer naturel, LED intégrée, suspendu. Fabriqué sur mesure à vos dimensions.", "cta": "Découvrir", "href": "#p-meuble-tv-arrondis", "cta2": "Voir la collection", "href2": "#c-tv", "pid": "meuble-tv-arrondis", "alt": "Meuble TV Arrondis en noyer avec LED, dans un salon"}, {"img": "images/home/slide-tables.webp", "pos": "55% 70%", "posm": "50% 75%", "k": "Collection Tables", "t": "Des tables basses sculpturales", "d": "Noyer, verre champagne, marbre et travertin, pour un salon qui a du caractère.", "cta": "Voir les tables", "href": "#c-tables", "cta2": "Amazonica", "href2": "#p-table-basse-amazonica", "alt": "Table basse Amazonica en noyer et verre dans un salon"}, {"img": "images/home/slide-chambres.webp", "pos": "60% 55%", "k": "Collection Chambres", "t": "Le calme, en noyer", "d": "Tables de chevet aux lignes arrondies, fabriquées à la main au Maroc.", "cta": "Voir les chambres", "href": "#c-chambres", "alt": "Table de chevet Cloud en noyer dans une chambre"}, {"img": "images/home/slide-sur-mesure.webp", "pos": "50% 60%", "k": "Fabrication sur mesure", "t": "Vos dimensions. Votre teinte.", "d": "Chaque pièce est adaptée à votre espace. Devis gratuit en quelques minutes sur WhatsApp.", "cta": "Demander un devis", "href": "WA", "alt": "Salon contemporain avec table basse ronde en noyer"}], "cats": {"tables": "images/home/cat-tables.webp", "tv": "images/home/cat-tv.webp", "entree": "images/home/cat-entree.webp", "chambres": "images/home/cat-chambres.webp"}, "ig": ["images/home/ig-1.webp", "images/home/ig-2.webp", "images/home/ig-3.webp", "images/home/ig-4.webp", "images/home/ig-5.webp", "images/home/ig-6.webp"]},ICO2={"truck": "<path d=\"M2 6h12v10H2zM14 9h4.5L22 12.5V16h-8\"/><circle cx=\"6.5\" cy=\"17.5\" r=\"1.8\"/><circle cx=\"17.5\" cy=\"17.5\" r=\"1.8\"/>", "hand": "<path d=\"M4 20l7-7M9 11l4 4M13 4l7 7-3 3-7-7z\"/>", "ruler": "<path d=\"M3 16.5L16.5 3 21 7.5 7.5 21z\"/><path d=\"M7 12.5l2 2M10 9.5l2 2M13 6.5l2 2\"/>", "wallet": "<rect x=\"3\" y=\"6\" width=\"18\" height=\"13\" rx=\"1\"/><path d=\"M3 10h18M15.5 14.5h2.5\"/>", "chat": "<path d=\"M4 5h16v11H9l-5 4z\"/><path d=\"M8 10h8\"/>", "box": "<path d=\"M3 7l9-4 9 4v10l-9 4-9-4z\"/><path d=\"M3 7l9 4 9-4M12 11v10\"/>", "arrowl": "<path d=\"M15 5l-7 7 7 7\"/>", "arrowr": "<path d=\"M9 5l7 7-7 7\"/>", "ig": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"5\"/><circle cx=\"12\" cy=\"12\" r=\"4\"/><circle cx=\"17.5\" cy=\"6.5\" r=\"1\" fill=\"currentColor\"/>"},ic=(k,c='')=>`<svg class="ic ${c}" viewBox="0 0 24 24" aria-hidden="true">${ICO2[k]}</svg>`;
+  const wa=WAU('Bonjour Nervina, je souhaite un devis pour un meuble sur mesure.');
+  const sl=H.slides.filter(s=>!s.pid||prod(s.pid));const n=sl.length;
+  const href=h=>h==='WA'?wa:h,ext=h=>h==='WA'?' target="_blank" rel="noopener"':'';
+  const usp=[['truck','Livraison partout au Maroc','Frais confirmés avant commande'],['hand','Fabrication artisanale','Dans notre atelier au Maroc'],['ruler','Sur mesure','Dimensions et teintes au choix'],['wallet','Paiement en deux fois','30 % à la commande, 70 % à la livraison']];
+  const sig=prod('meuble-tv-arrondis');
+  const byCol=c=>L.filter(p=>p.col===c);
+  const best=['meuble-tv-arrondis','table-basse-amazonica','table-de-chevet-duo-curve','table-basse-london','console-arche-miroirs-organiques','table-a-manger-ronde-travertin-4-chaises','table-de-chevet-cloud-noyer','table-basse-ronde-marbre-bois'].map(prod).filter(p=>p&&!p.hidden);
+  const rail=(id,k,t,list,all)=>list.length?`<section class="sec2"><div class="sh rv"><div><p class="eyebrow">${k}</p><h2>${t}</h2></div><div class="sh-r">${all?`<a class="lnk" href="${all}">Tout voir</a>`:''}<div class="rail-nav"><button class="rn" data-rail="${id}" data-d="-1" aria-label="Précédent">${ic('arrowl')}</button><button class="rn" data-rail="${id}" data-d="1" aria-label="Suivant">${ic('arrowr')}</button></div></div></div><div class="rail" id="${id}">${list.map(card).join('')}</div></section>`:'';
+  const ig=String(S.settings.instagram||'').replace(/^@/,'');
+  return `<section class="hs bleed" id="hs" aria-roledescription="carrousel" aria-label="À la une">
+  ${sl.map((s,i)=>`<div class="hs-slide${i?'':' on'}" role="group" aria-roledescription="diapositive" aria-label="${i+1} sur ${n}"${i?' aria-hidden="true" inert':''}>
+    <picture>${s.imgm?`<source media="(max-width:760px)" srcset="${s.imgm}">`:''}<img class="hs-img" src="${s.img}" alt="${esc(s.alt)}" style="--pos:${s.pos};--posm:${s.posm||s.pos}" decoding="async"${i?' loading="lazy"':' fetchpriority="high"'}></picture>
+    <div class="hs-cap"><div class="hs-in">
+      <p class="hs-k">${esc(s.k)}</p>
+      ${i?`<h2 class="hs-t">${esc(s.t)}</h2>`:`<h1 class="hs-t">${esc(s.t)}</h1>`}
+      <p class="hs-d">${esc(s.d)}${s.pid?` <b>${MAD(prod(s.pid).price)}</b>`:''}</p>
+      <div class="hs-cta"><a class="btn hs-b1" href="${href(s.href)}"${ext(s.href)}>${esc(s.cta)}</a>${s.cta2?`<a class="btn hs-b2" href="${href(s.href2)}"${ext(s.href2)}>${esc(s.cta2)}</a>`:''}</div>
+    </div></div>
+  </div>`).join('')}
+  ${n>1?`<div class="hs-ui"><div class="hs-in hs-row">
+    <div class="hs-dots">${sl.map((s,i)=>`<button class="hs-dot" data-go="${i}" aria-label="Diapositive ${i+1} : ${esc(s.t)}"${i?'':' aria-current="true"'}><span>${String(i+1).padStart(2,'0')}</span><i></i></button>`).join('')}</div>
+    <div class="hs-nav"><button class="hs-btn" data-step="-1" aria-label="Diapositive précédente">${ic('arrowl')}</button><button class="hs-btn" id="hspp" aria-label="Mettre le diaporama en pause"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path class="ic-pause" d="M8 5h3v14H8zM13 5h3v14h-3z" fill="currentColor" stroke="none"/><path class="ic-play" d="M8 5l11 7-11 7z" fill="currentColor" stroke="none"/></svg></button><button class="hs-btn" data-step="1" aria-label="Diapositive suivante">${ic('arrowr')}</button></div>
+  </div></div>`:''}
+</section>
+<section class="usp bleed" aria-label="Nos engagements"><div class="usp-in">${usp.map(u=>`<div class="usp-i">${ic(u[0])}<div><b>${u[1]}</b><span>${u[2]}</span></div></div>`).join('')}</div></section>
+<section class="sec2"><div class="sh rv"><div><p class="eyebrow">Collections</p><h2>Explorez nos univers</h2></div><a class="lnk" href="#catalogue">Tout le catalogue</a></div>
+  <div class="cats">${S.collections.map(c=>{const k=byCol(c.id).length;const im=H.cats[c.id]||(byCol(c.id)[0]||{}).imgs?.[0];return `<a class="cat rv" href="#c-${esc(c.id)}">${im?`<img src="${im}" alt="" loading="lazy" decoding="async">`:''}<span class="cat-cap"><b>${esc(c.name)}</b><small>${k} pièce${k>1?'s':''}</small><em>Découvrir ${ic('arrowr','sm')}</em></span></a>`}).join('')}</div></section>
+${rail('r-best','Les plus demandées','Nos best-sellers',best,'#catalogue')}
+${sig&&!sig.hidden?`<section class="promo bleed rv-wrap"><div class="promo-in">
+  <div class="promo-img rv"><img src="images/home/promo-meuble-tv.webp" alt="Meuble TV Arrondis en noyer, éclairage LED allumé" loading="lazy" decoding="async"><span class="promo-badge">Pièce signature</span></div>
+  <div class="promo-txt rv"><p class="eyebrow">Meubles TV</p><h2>${esc(sig.title)}</h2>
+    <p class="promo-d">Un meuble suspendu en noyer aux extrémités arrondies, avec un éclairage LED intégré qui réchauffe tout le salon.</p>
+    <ul class="promo-l"><li>Noyer naturel</li><li>LED intégrée</li><li>Fixation murale invisible</li><li>200 × 30 × 30 cm, ou sur mesure</li></ul>
+    <p class="promo-p"><span>À partir de</span> ${MAD(sig.price)}</p>
+    <div class="promo-cta"><a class="btn" href="#p-${esc(sig.id)}">Découvrir le meuble</a><a class="btn ghost" href="${WAU('Bonjour Nervina, je suis intéressé(e) par le '+sig.title+'.')}" target="_blank" rel="noopener">Commander sur WhatsApp</a></div>
+  </div></div></section>`:''}
+${rail('r-tables','Collection Tables','Tables basses et à manger',byCol('tables'),'#c-tables')}
+<section class="big bleed"><img class="big-img" src="images/home/banner-sur-mesure.webp" alt="" loading="lazy" decoding="async">
+  <div class="big-in rv"><p class="eyebrow">Fabrication sur mesure</p><h2>Votre meuble, à vos dimensions.</h2>
+  <p>Envoyez-nous une photo de votre espace et vos mesures : nous vous proposons un devis gratuit, la teinte et les finitions qui vous ressemblent.</p>
+  <div class="big-cta"><a class="btn big-b1" href="${wa}" target="_blank" rel="noopener">${ic('chat')} Devis gratuit sur WhatsApp</a></div></div></section>
+${rail('r-ch','Collection Chambres','Pour la chambre',byCol('chambres'),'#c-chambres')}
+<section class="sec2 steps-s"><div class="sh rv"><div><p class="eyebrow">Comment commander</p><h2>Simple, depuis chez vous</h2></div></div>
+  <ol class="steps">${[['chat','Choisissez','Ajoutez vos pièces au panier ou envoyez-nous votre projet.'],['ruler','Validez sur WhatsApp','Nous confirmons dimensions, teinte, délai et frais de livraison.'],['hand','Fabrication','Après un acompte de 30 %, votre meuble est fabriqué dans notre atelier.'],['box','Livraison','Livraison chez vous partout au Maroc. Vous réglez le solde de 70 %.']].map((s,i)=>`<li class="rv"><span class="st-n">${String(i+1).padStart(2,'0')}</span>${ic(s[0])}<b>${s[1]}</b><p>${s[2]}</p></li>`).join('')}</ol></section>
+${ig?`<section class="sec2"><div class="sh rv"><div><p class="eyebrow">@${esc(ig)}</p><h2>Nos pièces chez vous</h2></div><a class="btn ghost" href="https://www.instagram.com/${encodeURIComponent(ig)}/" target="_blank" rel="noopener">${ic('ig')} Suivre sur Instagram</a></div>
+  <div class="igg">${H.ig.map(u=>`<a class="igt rv" href="https://www.instagram.com/${encodeURIComponent(ig)}/" target="_blank" rel="noopener" aria-label="Voir sur Instagram"><img src="${u}" alt="" loading="lazy" decoding="async"><span>${ic('ig')}</span></a>`).join('')}</div></section>`:''}`},
 catalogue(){
   let list=vis().filter(p=>(filt==='all'||p.col===filt)&&p.title.toLowerCase().includes(q.toLowerCase()));
   if(sort==='asc')list=[...list].sort((a,b)=>a.price-b.price);if(sort==='desc')list=[...list].sort((a,b)=>b.price-a.price);

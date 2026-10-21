@@ -68,8 +68,6 @@
 <div id="layer" data-lenis-prevent></div>
 <script src="vendor/gsap.min.js"></script>
 <script src="vendor/ScrollTrigger.min.js"></script>
-<script src="vendor/SplitText.min.js"></script>
-<script src="vendor/DrawSVGPlugin.min.js"></script>
 <script src="vendor/lenis.min.js"></script>
 <script type="application/json" id="seed">@@SEED@@</script>
 
@@ -101,14 +99,14 @@ let canEdit=false,artifact=null,assets=null,dirty=false,saving=false,stMsg='';
 function ph(p,cls=''){const im=p.imgs&&p.imgs[0];
   return `<div class="ph ${cls}">${hasOld(p)?`<span class="badge">-${Math.round((1-p.price/p.old)*100)}%</span>`:''}${im?`<img src="${IMGSM(im)}" alt="${esc(p.title)}" loading="lazy" decoding="async">`:ico(p.col)}</div>`}
 const priceH=p=>`<span class="price">${MAD(p.price)}${hasOld(p)?`<s>${MAD(p.old)}</s>`:''}</span>`;
-function card(p){return `<article class="pc"><a class="im" href="#p-${esc(p.id)}" aria-label="${esc(p.title)}">${ph(p)}</a><h3><a href="#p-${esc(p.id)}">${esc(p.title)}</a></h3>${priceH(p)}<button class="btn ghost add" data-add="${esc(p.id)}">Ajouter au panier</button></article>`}
+function card(p){const i2=p.imgs&&p.imgs[1];return `<article class="pc"><a class="im" href="#p-${esc(p.id)}" aria-label="${esc(p.title)}">${ph(p)}${i2?`<img class="alt" src="${IMGSM(i2)}" alt="" loading="lazy" decoding="async">`:''}<span class="tag">Sur mesure</span></a><p class="pc-c">${esc(colName(p.col))}</p><h3><a href="#p-${esc(p.id)}">${esc(p.title)}</a></h3>${priceH(p)}<button class="btn ghost add" data-add="${esc(p.id)}">Ajouter au panier</button></article>`}
 function toast(m){const t=document.createElement('div');t.className='toast';t.setAttribute('role','status');t.textContent=m;document.body.append(t);setTimeout(()=>t.remove(),1900)}
 function paras(body){return String(body||'').split(/\n\s*\n/).filter(x=>x.trim()).map(b=>{const l=b.split('\n');return l.length>1&&/\?\s*$/.test(l[0])?`<p class="q">${esc(l[0])}</p><p>${esc(l.slice(1).join(' '))}</p>`:`<p>${esc(b)}</p>`}).join('')}
 
 /* ---------- chrome (bandeau, pied, whatsapp) ---------- */
 function chrome(){
   const st=S.settings;
-  $('#ann').textContent=st.banner||'';$('#ann').hidden=!st.banner;
+  annSet();
   $('#waf').href=WAU('Bonjour, je suis intéressé par vos produits 😊');
   const ig=String(st.instagram||'').replace(/^@/,'');
   $('#foot').innerHTML=`<div class="fg">
@@ -122,7 +120,7 @@ function chrome(){
 
 /* ---------- vues boutique ---------- */
 let filt='all',q='',sort='def';
-/* ---------- défilement doux (Lenis) + bannière plein écran (GSAP) ---------- */
+/* ---------- Lenis + GSAP + accueil pro ---------- */
 const RM=matchMedia('(prefers-reduced-motion: reduce)');
 let LEN=null;
 (function(){
@@ -131,126 +129,112 @@ let LEN=null;
   if(window.gsap){if(window.ScrollTrigger){gsap.registerPlugin(ScrollTrigger);LEN.on('scroll',ScrollTrigger.update)}gsap.ticker.add(t=>LEN.raf(t*1000));gsap.ticker.lagSmoothing(0)}
 })();
 const toY=y=>{if(LEN)LEN.scrollTo(y,{immediate:true,force:true});else scrollTo(0,y)};
-let MG=null;
-function mgKill(){document.body.classList.remove('sg-in');if(MG){try{MG.ctx&&MG.ctx.revert()}catch(e){}removeEventListener('resize',MG.fit);MG=null}}
-function mgGrain(){
-  if(mgGrain.u)return mgGrain.u;
-  try{const c=document.createElement('canvas');c.width=c.height=160;const x=c.getContext('2d'),d=x.createImageData(160,160);
-    for(let i=0;i<d.data.length;i+=4){const v=Math.random()*255|0;d.data[i]=d.data[i+1]=d.data[i+2]=v;d.data[i+3]=Math.random()*70|0}
-    x.putImageData(d,0,0);mgGrain.u=c.toDataURL()}catch(e){mgGrain.u=''}
-  return mgGrain.u}
-function mgSync(){
-  if(!MG||!MG.L)return;const on=MG.vis!==false&&!MG.user&&!document.hidden,root=$('#mg');
-  MG.L.forEach(t=>on?t.resume():t.pause());
-  if(root){root.classList.toggle('mg-paused',!on);const pp=$('#mgpp');if(pp){pp.classList.toggle('is-paused',!!MG.user);pp.setAttribute('aria-label',MG.user?"Lancer l'animation":"Mettre l'animation en pause")}}
+/* bandeau d'annonces qui défile */
+let ANN=null;
+function annSet(){
+  const el=$('#ann'),st=S.settings;if(!el)return;
+  const msgs=[st.banner,...(st.annMsgs||['Paiement : 30 % à la commande, 70 % à la livraison','Fabrication artisanale et sur mesure au Maroc'])].filter(Boolean);
+  el.hidden=!msgs.length;if(!msgs.length)return;
+  el.innerHTML=`<span class="ann-t">${esc(msgs[0])}</span>`;
+  clearInterval(ANN);if(msgs.length<2||RM.matches)return;
+  let i=0,hold=false;el.onmouseenter=()=>hold=true;el.onmouseleave=()=>hold=false;
+  ANN=setInterval(()=>{if(hold||document.hidden)return;const t=el.querySelector('.ann-t');t.classList.add('out');setTimeout(()=>{i=(i+1)%msgs.length;t.textContent=msgs[i];t.classList.remove('out')},350)},4200);
 }
-document.addEventListener('visibilitychange',mgSync);
+let MG=null;
+function mgKill(){document.body.classList.remove('hs-in');if(MG&&MG.io)MG.io.disconnect();if(MG){try{MG.ctx&&MG.ctx.revert()}catch(e){}MG=null}}
+document.addEventListener('visibilitychange',()=>{if(MG&&MG.sync)MG.sync()});
 function mgInit(){
-  const root=$('#mg');if(!root)return;
-  const fit=()=>{const r=root.getBoundingClientRect();root.style.setProperty('--top',Math.max(0,r.top+scrollY)+'px')};
-  fit();addEventListener('resize',fit);
-  const g=root.querySelector('.mg-grain');if(g){const u=mgGrain();if(u)g.style.backgroundImage=`url(${u})`}
-  const pp=$('#mgpp');
-  if(!window.gsap||!window.ScrollTrigger||!window.SplitText||RM.matches){root.classList.add('sg-static');if(pp)pp.hidden=true;MG={fit};return}
-  gsap.registerPlugin(ScrollTrigger,SplitText,...(window.DrawSVGPlugin?[DrawSVGPlugin]:[]));
-  MG={L:[],vis:true,user:false,fit};
+  const root=$('#hs');
+  MG={user:RM.matches,hover:false};
   const st=MG;
-  MG.ctx=gsap.context(()=>{
-    const q1=s=>root.querySelector(s),qa=s=>[...root.querySelectorAll(s)];
-    const split=SplitText.create(q1('.sg-h'),{type:'lines,chars',linesClass:'sg-line',charsClass:'sg-ch',mask:'lines'});
-    const nums=qa('[data-n]');nums.forEach(n=>n.textContent='0');
-    const tl=gsap.timeline({paused:true,defaults:{ease:'power3.out'}});
-    tl.from('.sg-bg',{opacity:0,duration:1.2,ease:'power1.out'},0)
-      .from('.sg-img',{opacity:0,y:26,filter:'brightness(.12) blur(6px)',duration:1.3},.2)
-      .to('.sg-img',{filter:'brightness(1) blur(0px)',duration:1.4,ease:'power2.out'},1.05)
-      .fromTo('.sg-led',{opacity:0},{keyframes:[{opacity:.9,duration:.06},{opacity:.15,duration:.08},{opacity:1,duration:.05},{opacity:.35,duration:.12},{opacity:1,duration:.5}],ease:'none'},.95)
-      .from('.sg-led i',{scaleX:.2,duration:1,ease:'power3.out'},.95)
-      .from('.sg-wash',{opacity:0,scale:.7,duration:1.6},1.05)
-      .from('.sg-eye',{opacity:0,y:10,duration:.6},.6)
-      .from(split.chars,{yPercent:110,duration:.9,stagger:.025,ease:'power4.out'},.75)
-      .from('.sg-sub',{opacity:0,y:12,duration:.7},1.15)
-      .from('.sg-dim path',window.DrawSVGPlugin?{drawSVG:'0%',duration:1.1,ease:'power2.inOut'}:{opacity:0,duration:.8},1.6)
-      .from('.sg-dl',{opacity:0,y:6,duration:.5,stagger:.1},2)
-      .from('.sg-hs',{opacity:0,scale:.6,duration:.6,stagger:.15,ease:'back.out(2)'},2.1)
-      .from('.sg-specs>div,.sg-price,.sg-cta',{opacity:0,y:18,duration:.7,stagger:.08},1.7)
-      .from('.mg-mq,.mg-pp',{opacity:0,duration:.8},2.2);
-    nums.forEach(n=>{const o={v:0},to=+n.dataset.n;tl.to(o,{v:to,duration:1.4,ease:'power2.out',onUpdate:()=>n.textContent=Math.round(o.v)},1.8)});
-    const im=q1('.sg-img');
-    Promise.race([im.decode?im.decode().catch(()=>{}):Promise.resolve(),new Promise(r=>setTimeout(r,1500))]).then(()=>tl.play());
-    const L=st.L,loop=v=>(L.push(v),v);
-    loop(gsap.to('.sg-led',{'--glow':.78,duration:2.8,ease:'sine.inOut',yoyo:true,repeat:-1,delay:2.6}));
-    loop(gsap.fromTo('.sg-sheen',{backgroundPosition:'130% 0'},{backgroundPosition:'-30% 0',duration:2.6,ease:'power2.inOut',repeat:-1,repeatDelay:3.5,delay:3}));
-    loop(gsap.to('.sg-wash',{scale:1.08,opacity:.8,duration:5,ease:'sine.inOut',yoyo:true,repeat:-1,delay:2.6}));
-    loop(gsap.to('.mg-track',{xPercent:-50,duration:34,ease:'none',repeat:-1}));
-    qa('.sg-hs i').forEach((d,i)=>loop(gsap.fromTo(d,{'--ring':0},{'--ring':1,duration:2,ease:'power1.out',repeat:-1,delay:2.8+i*.5})));
-    const mm=gsap.matchMedia();
-    mm.add('(max-width:899px)',()=>{
-      const rig=q1('.sg-rig'),unit=q1('.sg-unit');const span=()=>Math.max(0,(unit.offsetWidth-root.clientWidth)/2+14);
-      gsap.set(rig,{x:()=>span()});
-      loop(gsap.to(rig,{x:()=>-span(),duration:11,ease:'sine.inOut',yoyo:true,repeat:-1,delay:2.4,invalidateOnRefresh:true}));
+  /* carrousels produits */
+  app.querySelectorAll('[data-rail]').forEach(b=>b.onclick=()=>{const r=$('#'+b.dataset.rail);if(r)r.scrollBy({left:(+b.dataset.d)*r.clientWidth*.9,behavior:RM.matches?'auto':'smooth'})});
+  const railUpd=r=>{const nav=app.querySelectorAll(`[data-rail="${r.id}"]`);if(nav.length<2)return;nav[0].disabled=r.scrollLeft<8;nav[1].disabled=r.scrollLeft+r.clientWidth>=r.scrollWidth-8};
+  app.querySelectorAll('.rail').forEach(r=>{railUpd(r);r.addEventListener('scroll',()=>railUpd(r),{passive:true})});
+  /* slider */
+  if(root){
+    const slides=[...root.querySelectorAll('.hs-slide')],dots=[...root.querySelectorAll('.hs-dot')],pp=$('#hspp');let cur=0;
+    st.sync=()=>{const p=st.user||st.hover||document.hidden;root.classList.toggle('paused',p);if(pp){pp.classList.toggle('is-paused',st.user);pp.setAttribute('aria-label',st.user?'Lancer le diaporama':'Mettre le diaporama en pause')}};
+    const go=n=>{if(!slides.length)return;n=(n+slides.length)%slides.length;if(n===cur)return;
+      slides.forEach((s,k)=>{const on=k===n;s.classList.toggle('on',on);s.classList.toggle('was',k===cur);if(on){s.removeAttribute('aria-hidden');s.inert=false;const im=s.querySelector('img');im.loading='eager'}else{s.setAttribute('aria-hidden','true');s.inert=true}});
+      const nx=slides[(n+1)%slides.length];if(nx)nx.querySelector('img').loading='eager';
+      dots.forEach((d,k)=>{d.classList.toggle('done',k<n);d.classList.remove('run');k===n?d.setAttribute('aria-current','true'):d.removeAttribute('aria-current')});
+      void root.offsetWidth;if(dots[n])dots[n].classList.add('run');cur=n};
+    dots.forEach(d=>{d.onclick=()=>go(+d.dataset.go);d.addEventListener('animationend',e=>{if(e.animationName==='hs-fill'&&d.classList.contains('run'))go(cur+1)})});
+    root.querySelectorAll('[data-step]').forEach(b=>b.onclick=()=>go(cur+(+b.dataset.step)));
+    if(pp)pp.onclick=()=>{st.user=!st.user;st.sync()};
+    root.addEventListener('mouseenter',()=>{st.hover=true;st.sync()});root.addEventListener('mouseleave',()=>{st.hover=false;st.sync()});
+    root.addEventListener('focusin',()=>{st.hover=true;st.sync()});root.addEventListener('focusout',e=>{if(!root.contains(e.relatedTarget)){st.hover=false;st.sync()}});
+    let x0=null,y0=null;root.addEventListener('touchstart',e=>{x0=e.touches[0].clientX;y0=e.touches[0].clientY},{passive:true});
+    root.addEventListener('touchend',e=>{if(x0==null)return;const dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;x0=null;if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy))go(cur+(dx<0?1:-1))},{passive:true});
+    root.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){if(e.target.closest('.hs-ui')){e.preventDefault();go(cur+(e.key==='ArrowRight'?1:-1))}}});
+    if(dots[0])dots[0].classList.add('run');
+    st.sync();
+    if('IntersectionObserver' in window){st.io=new IntersectionObserver(es=>document.body.classList.toggle('hs-in',es[0].isIntersecting&&es[0].intersectionRatio>.25),{threshold:[0,.25,.5]});st.io.observe(root)}
+  }
+  /* apparitions au défilement */
+  if(window.gsap&&window.ScrollTrigger&&!RM.matches){
+    gsap.registerPlugin(ScrollTrigger);
+    st.ctx=gsap.context(()=>{
+      gsap.set('.rv',{opacity:0,y:34});
+      ScrollTrigger.batch('.rv',{start:'top 90%',once:true,onEnter:els=>gsap.to(els,{opacity:1,y:0,duration:.9,ease:'power3.out',stagger:.09,overwrite:true})});
+      gsap.utils.toArray('.rail').forEach(r=>gsap.from(r.children,{opacity:0,x:40,duration:.8,ease:'power3.out',stagger:.07,scrollTrigger:{trigger:r,start:'top 88%',once:true}}));
+      const big=document.querySelector('.big-img');if(big)gsap.fromTo(big,{yPercent:-10},{yPercent:10,ease:'none',scrollTrigger:{trigger:'.big',start:'top bottom',end:'bottom top',scrub:true}});
+      const pimg=document.querySelector('.promo-img img');if(pimg)gsap.fromTo(pimg,{scale:1.12},{scale:1,ease:'none',scrollTrigger:{trigger:'.promo',start:'top bottom',end:'center center',scrub:true}});
+      requestAnimationFrame(()=>ScrollTrigger.refresh());
     });
-    gsap.timeline({scrollTrigger:{trigger:root,start:'top top',end:'bottom top',scrub:.6}})
-      .to('.sg-unit',{scale:1.1,y:-30,ease:'none'},0)
-      .to('.sg-head',{y:-50,opacity:.25,ease:'none'},0)
-      .to('.sg-wash',{yPercent:-12,ease:'none'},0);
-    ScrollTrigger.create({trigger:root,start:'top bottom',end:'bottom top',onToggle:s=>{st.vis=s.isActive;mgSync()}});
-    ScrollTrigger.create({trigger:root,start:'top bottom',end:'bottom 70%',onToggle:s=>document.body.classList.toggle('sg-in',s.isActive)});
-  },root);
-  if(pp)pp.onclick=()=>{st.user=!st.user;mgSync()};
-  mgSync();
+  }
 }
 function perks(){return `<ul>${(S.settings.perks||[]).filter(Boolean).map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`}
 const VIEWS={
 accueil(){
-  const st=S.settings,f=prod(st.featured)||vis()[0],best=vis().filter(p=>p.star).slice(0,4),L=vis();
-  const ar=S.collections.slice(0,3).map((c,i)=>`<div class="arch">${ico(c.id)}</div>`).join('');
-  const fp=prod('meuble-tv-arrondis')||vis()[0];
-  const mq=['Meuble TV Arrondis','Noyer naturel','LED intégrée','Fixation invisible','Sur mesure','Fait main au Maroc'];
-  const mqh=mq.map(x=>`<span>${esc(x)}</span><svg viewBox="0 0 24 30"><path d="M3 29V12a9 9 0 0 1 18 0v17"/></svg>`).join('');
-  const wa=WAU(`Bonjour Nervina, je suis intéressé(e) par le ${fp.title} (${MAD(fp.price)}).`);
-  return `<section class="sg" id="mg" aria-label="${esc(fp.title)}, pièce signature">
-  <div class="sg-bg" aria-hidden="true"><div class="sg-wash"></div><div class="mg-grain"></div><div class="sg-vig"></div></div>
-  <div class="sg-head">
-    <p class="sg-eye"><span class="sg-dot"></span>Pièce signature · ${esc(colName(fp.col))}</p>
-    <h1 class="sg-h">${esc(fp.title)}</h1>
-    <p class="sg-sub">Noyer naturel · LED intégrée · Suspendu</p>
-  </div>
-  <div class="sg-stage" aria-hidden="true">
-    <div class="sg-rig">
-      <div class="sg-unit">
-        <svg class="sg-dim sg-dim-w" viewBox="0 0 1000 40" preserveAspectRatio="none"><path d="M500 20H4M4 8v24M500 20h492M996 8v24"/></svg>
-        <span class="sg-dl sg-dl-w"><b data-n="200">200</b> cm</span>
-        <svg class="sg-dim sg-dim-h" viewBox="0 0 40 1000" preserveAspectRatio="none"><path d="M20 500V4M8 4h24M20 500v492M8 996h24"/></svg>
-        <span class="sg-dl sg-dl-h"><b data-n="30">30</b> cm</span>
-        <div class="sg-led"><i></i></div>
-        <img class="sg-img" src="images/hero/meuble-tv-arrondis.webp" alt="" fetchpriority="high" decoding="async">
-        <div class="sg-sheen"></div>
-        <div class="sg-hs up" style="--x:5%;--y:46%"><i></i><span>Angles arrondis</span></div>
-        <div class="sg-hs up r" style="--x:62%;--y:40%"><i></i><span>Noyer naturel</span></div>
-        <div class="sg-hs dn" style="--x:34%;--y:93%"><i></i><span>LED intégrée</span></div>
-      </div>
-    </div>
-  </div>
-  <div class="sg-foot">
-    <dl class="sg-specs">
-      <div><dt>Longueur</dt><dd><b data-n="200">200</b> cm</dd></div>
-      <div><dt>Hauteur</dt><dd><b data-n="30">30</b> cm</dd></div>
-      <div><dt>Profondeur</dt><dd><b data-n="30">30</b> cm</dd></div>
-    </dl>
-    <div class="sg-buy">
-      <p class="sg-price"><span>À partir de</span><b>${MAD(fp.price)}</b><small>Dimensions et teinte sur mesure</small></p>
-      <div class="sg-cta"><a class="btn sg-b1" href="#p-${esc(fp.id)}">Découvrir le meuble</a><a class="btn sg-b2" href="${wa}" target="_blank" rel="noopener">Commander sur WhatsApp</a></div>
-    </div>
-  </div>
-  <div class="mg-mq" aria-hidden="true"><div class="mg-track"><div>${mqh}${mqh}</div><div>${mqh}${mqh}</div></div></div>
-  <button class="mg-pp" id="mgpp" aria-label="Mettre l'animation en pause"><svg viewBox="0 0 20 20" aria-hidden="true"><path class="ic-pause" d="M6 4h3v12H6zM11 4h3v12h-3z"/><path class="ic-play" d="M6 4l10 6-10 6z"/></svg></button>
-</section>`+`
-  ${S.collections.length?`<section class="sec"><div class="sechead"><div><p class="eyebrow">Collections</p><h2>Magasiner par collection</h2></div></div>
-    <div class="cols">${S.collections.map(c=>{const n=L.filter(p=>p.col===c.id).length;const cp=L.find(p=>p.col===c.id&&p.imgs&&p.imgs[0]);return `<a class="col" href="#c-${esc(c.id)}"><div class="arch" style="position:relative">${cp?`<img src="${IMGSM(cp.imgs[0])}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" loading="lazy">`:ico(c.id)}</div><span>${esc(c.name)}<small>${n} pièce${n>1?'s':''}</small></span></a>`}).join('')}</div></section>`:''}
-  ${L.length?'':`<section class="sec"><p class="empty">Les premières pièces arrivent bientôt. Écrivez-nous sur WhatsApp pour un projet sur mesure.</p></section>`}
-  ${f?`<section class="sec"><div class="feat"><div>${ph(f,'sq')}</div><div><p class="eyebrow">Notre coup de cœur</p><h2>${esc(f.title)}</h2>${perks()}<p class="price" style="font-size:1.4rem;margin:0 0 22px">${MAD(f.price)}</p><a class="btn" href="#p-${esc(f.id)}">Découvrir</a></div></div></section>`:''}
-  ${best.length?`<section class="sec"><div class="sechead"><div><p class="eyebrow">Sélection</p><h2>Pièces les plus demandées</h2></div><a href="#catalogue" style="font-size:.9rem">Tout voir</a></div><div class="grid">${best.map(card).join('')}</div></section>`:''}
-  <section class="sec"><div class="trust">${(st.trust||[]).map(x=>`<div><b>${esc(x.t)}</b><p>${esc(x.d)}</p></div>`).join('')}</div></section>`},
+  const L=vis(),H={"slides": [{"img": "images/home/slide-meuble-tv.webp", "imgm": "images/home/slide-meuble-tv-m.webp", "pos": "58% 60%", "posm": "62% 88%", "k": "Pièce signature", "t": "Meuble TV Arrondis", "d": "Noyer naturel, LED intégrée, suspendu. Fabriqué sur mesure à vos dimensions.", "cta": "Découvrir", "href": "#p-meuble-tv-arrondis", "cta2": "Voir la collection", "href2": "#c-tv", "pid": "meuble-tv-arrondis", "alt": "Meuble TV Arrondis en noyer avec LED, dans un salon"}, {"img": "images/home/slide-tables.webp", "pos": "55% 70%", "posm": "50% 75%", "k": "Collection Tables", "t": "Des tables basses sculpturales", "d": "Noyer, verre champagne, marbre et travertin, pour un salon qui a du caractère.", "cta": "Voir les tables", "href": "#c-tables", "cta2": "Amazonica", "href2": "#p-table-basse-amazonica", "alt": "Table basse Amazonica en noyer et verre dans un salon"}, {"img": "images/home/slide-chambres.webp", "pos": "60% 55%", "k": "Collection Chambres", "t": "Le calme, en noyer", "d": "Tables de chevet aux lignes arrondies, fabriquées à la main au Maroc.", "cta": "Voir les chambres", "href": "#c-chambres", "alt": "Table de chevet Cloud en noyer dans une chambre"}, {"img": "images/home/slide-sur-mesure.webp", "pos": "50% 60%", "k": "Fabrication sur mesure", "t": "Vos dimensions. Votre teinte.", "d": "Chaque pièce est adaptée à votre espace. Devis gratuit en quelques minutes sur WhatsApp.", "cta": "Demander un devis", "href": "WA", "alt": "Salon contemporain avec table basse ronde en noyer"}], "cats": {"tables": "images/home/cat-tables.webp", "tv": "images/home/cat-tv.webp", "entree": "images/home/cat-entree.webp", "chambres": "images/home/cat-chambres.webp"}, "ig": ["images/home/ig-1.webp", "images/home/ig-2.webp", "images/home/ig-3.webp", "images/home/ig-4.webp", "images/home/ig-5.webp", "images/home/ig-6.webp"]},ICO2={"truck": "<path d=\"M2 6h12v10H2zM14 9h4.5L22 12.5V16h-8\"/><circle cx=\"6.5\" cy=\"17.5\" r=\"1.8\"/><circle cx=\"17.5\" cy=\"17.5\" r=\"1.8\"/>", "hand": "<path d=\"M4 20l7-7M9 11l4 4M13 4l7 7-3 3-7-7z\"/>", "ruler": "<path d=\"M3 16.5L16.5 3 21 7.5 7.5 21z\"/><path d=\"M7 12.5l2 2M10 9.5l2 2M13 6.5l2 2\"/>", "wallet": "<rect x=\"3\" y=\"6\" width=\"18\" height=\"13\" rx=\"1\"/><path d=\"M3 10h18M15.5 14.5h2.5\"/>", "chat": "<path d=\"M4 5h16v11H9l-5 4z\"/><path d=\"M8 10h8\"/>", "box": "<path d=\"M3 7l9-4 9 4v10l-9 4-9-4z\"/><path d=\"M3 7l9 4 9-4M12 11v10\"/>", "arrowl": "<path d=\"M15 5l-7 7 7 7\"/>", "arrowr": "<path d=\"M9 5l7 7-7 7\"/>", "ig": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"5\"/><circle cx=\"12\" cy=\"12\" r=\"4\"/><circle cx=\"17.5\" cy=\"6.5\" r=\"1\" fill=\"currentColor\"/>"},ic=(k,c='')=>`<svg class="ic ${c}" viewBox="0 0 24 24" aria-hidden="true">${ICO2[k]}</svg>`;
+  const wa=WAU('Bonjour Nervina, je souhaite un devis pour un meuble sur mesure.');
+  const sl=H.slides.filter(s=>!s.pid||prod(s.pid));const n=sl.length;
+  const href=h=>h==='WA'?wa:h,ext=h=>h==='WA'?' target="_blank" rel="noopener"':'';
+  const usp=[['truck','Livraison partout au Maroc','Frais confirmés avant commande'],['hand','Fabrication artisanale','Dans notre atelier au Maroc'],['ruler','Sur mesure','Dimensions et teintes au choix'],['wallet','Paiement en deux fois','30 % à la commande, 70 % à la livraison']];
+  const sig=prod('meuble-tv-arrondis');
+  const byCol=c=>L.filter(p=>p.col===c);
+  const best=['meuble-tv-arrondis','table-basse-amazonica','table-de-chevet-duo-curve','table-basse-london','console-arche-miroirs-organiques','table-a-manger-ronde-travertin-4-chaises','table-de-chevet-cloud-noyer','table-basse-ronde-marbre-bois'].map(prod).filter(p=>p&&!p.hidden);
+  const rail=(id,k,t,list,all)=>list.length?`<section class="sec2"><div class="sh rv"><div><p class="eyebrow">${k}</p><h2>${t}</h2></div><div class="sh-r">${all?`<a class="lnk" href="${all}">Tout voir</a>`:''}<div class="rail-nav"><button class="rn" data-rail="${id}" data-d="-1" aria-label="Précédent">${ic('arrowl')}</button><button class="rn" data-rail="${id}" data-d="1" aria-label="Suivant">${ic('arrowr')}</button></div></div></div><div class="rail" id="${id}">${list.map(card).join('')}</div></section>`:'';
+  const ig=String(S.settings.instagram||'').replace(/^@/,'');
+  return `<section class="hs bleed" id="hs" aria-roledescription="carrousel" aria-label="À la une">
+  ${sl.map((s,i)=>`<div class="hs-slide${i?'':' on'}" role="group" aria-roledescription="diapositive" aria-label="${i+1} sur ${n}"${i?' aria-hidden="true" inert':''}>
+    <picture>${s.imgm?`<source media="(max-width:760px)" srcset="${s.imgm}">`:''}<img class="hs-img" src="${s.img}" alt="${esc(s.alt)}" style="--pos:${s.pos};--posm:${s.posm||s.pos}" decoding="async"${i?' loading="lazy"':' fetchpriority="high"'}></picture>
+    <div class="hs-cap"><div class="hs-in">
+      <p class="hs-k">${esc(s.k)}</p>
+      ${i?`<h2 class="hs-t">${esc(s.t)}</h2>`:`<h1 class="hs-t">${esc(s.t)}</h1>`}
+      <p class="hs-d">${esc(s.d)}${s.pid?` <b>${MAD(prod(s.pid).price)}</b>`:''}</p>
+      <div class="hs-cta"><a class="btn hs-b1" href="${href(s.href)}"${ext(s.href)}>${esc(s.cta)}</a>${s.cta2?`<a class="btn hs-b2" href="${href(s.href2)}"${ext(s.href2)}>${esc(s.cta2)}</a>`:''}</div>
+    </div></div>
+  </div>`).join('')}
+  ${n>1?`<div class="hs-ui"><div class="hs-in hs-row">
+    <div class="hs-dots">${sl.map((s,i)=>`<button class="hs-dot" data-go="${i}" aria-label="Diapositive ${i+1} : ${esc(s.t)}"${i?'':' aria-current="true"'}><span>${String(i+1).padStart(2,'0')}</span><i></i></button>`).join('')}</div>
+    <div class="hs-nav"><button class="hs-btn" data-step="-1" aria-label="Diapositive précédente">${ic('arrowl')}</button><button class="hs-btn" id="hspp" aria-label="Mettre le diaporama en pause"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path class="ic-pause" d="M8 5h3v14H8zM13 5h3v14h-3z" fill="currentColor" stroke="none"/><path class="ic-play" d="M8 5l11 7-11 7z" fill="currentColor" stroke="none"/></svg></button><button class="hs-btn" data-step="1" aria-label="Diapositive suivante">${ic('arrowr')}</button></div>
+  </div></div>`:''}
+</section>
+<section class="usp bleed" aria-label="Nos engagements"><div class="usp-in">${usp.map(u=>`<div class="usp-i">${ic(u[0])}<div><b>${u[1]}</b><span>${u[2]}</span></div></div>`).join('')}</div></section>
+<section class="sec2"><div class="sh rv"><div><p class="eyebrow">Collections</p><h2>Explorez nos univers</h2></div><a class="lnk" href="#catalogue">Tout le catalogue</a></div>
+  <div class="cats">${S.collections.map(c=>{const k=byCol(c.id).length;const im=H.cats[c.id]||(byCol(c.id)[0]||{}).imgs?.[0];return `<a class="cat rv" href="#c-${esc(c.id)}">${im?`<img src="${im}" alt="" loading="lazy" decoding="async">`:''}<span class="cat-cap"><b>${esc(c.name)}</b><small>${k} pièce${k>1?'s':''}</small><em>Découvrir ${ic('arrowr','sm')}</em></span></a>`}).join('')}</div></section>
+${rail('r-best','Les plus demandées','Nos best-sellers',best,'#catalogue')}
+${sig&&!sig.hidden?`<section class="promo bleed rv-wrap"><div class="promo-in">
+  <div class="promo-img rv"><img src="images/home/promo-meuble-tv.webp" alt="Meuble TV Arrondis en noyer, éclairage LED allumé" loading="lazy" decoding="async"><span class="promo-badge">Pièce signature</span></div>
+  <div class="promo-txt rv"><p class="eyebrow">Meubles TV</p><h2>${esc(sig.title)}</h2>
+    <p class="promo-d">Un meuble suspendu en noyer aux extrémités arrondies, avec un éclairage LED intégré qui réchauffe tout le salon.</p>
+    <ul class="promo-l"><li>Noyer naturel</li><li>LED intégrée</li><li>Fixation murale invisible</li><li>200 × 30 × 30 cm, ou sur mesure</li></ul>
+    <p class="promo-p"><span>À partir de</span> ${MAD(sig.price)}</p>
+    <div class="promo-cta"><a class="btn" href="#p-${esc(sig.id)}">Découvrir le meuble</a><a class="btn ghost" href="${WAU('Bonjour Nervina, je suis intéressé(e) par le '+sig.title+'.')}" target="_blank" rel="noopener">Commander sur WhatsApp</a></div>
+  </div></div></section>`:''}
+${rail('r-tables','Collection Tables','Tables basses et à manger',byCol('tables'),'#c-tables')}
+<section class="big bleed"><img class="big-img" src="images/home/banner-sur-mesure.webp" alt="" loading="lazy" decoding="async">
+  <div class="big-in rv"><p class="eyebrow">Fabrication sur mesure</p><h2>Votre meuble, à vos dimensions.</h2>
+  <p>Envoyez-nous une photo de votre espace et vos mesures : nous vous proposons un devis gratuit, la teinte et les finitions qui vous ressemblent.</p>
+  <div class="big-cta"><a class="btn big-b1" href="${wa}" target="_blank" rel="noopener">${ic('chat')} Devis gratuit sur WhatsApp</a></div></div></section>
+${rail('r-ch','Collection Chambres','Pour la chambre',byCol('chambres'),'#c-chambres')}
+<section class="sec2 steps-s"><div class="sh rv"><div><p class="eyebrow">Comment commander</p><h2>Simple, depuis chez vous</h2></div></div>
+  <ol class="steps">${[['chat','Choisissez','Ajoutez vos pièces au panier ou envoyez-nous votre projet.'],['ruler','Validez sur WhatsApp','Nous confirmons dimensions, teinte, délai et frais de livraison.'],['hand','Fabrication','Après un acompte de 30 %, votre meuble est fabriqué dans notre atelier.'],['box','Livraison','Livraison chez vous partout au Maroc. Vous réglez le solde de 70 %.']].map((s,i)=>`<li class="rv"><span class="st-n">${String(i+1).padStart(2,'0')}</span>${ic(s[0])}<b>${s[1]}</b><p>${s[2]}</p></li>`).join('')}</ol></section>
+${ig?`<section class="sec2"><div class="sh rv"><div><p class="eyebrow">@${esc(ig)}</p><h2>Nos pièces chez vous</h2></div><a class="btn ghost" href="https://www.instagram.com/${encodeURIComponent(ig)}/" target="_blank" rel="noopener">${ic('ig')} Suivre sur Instagram</a></div>
+  <div class="igg">${H.ig.map(u=>`<a class="igt rv" href="https://www.instagram.com/${encodeURIComponent(ig)}/" target="_blank" rel="noopener" aria-label="Voir sur Instagram"><img src="${u}" alt="" loading="lazy" decoding="async"><span>${ic('ig')}</span></a>`).join('')}</div></section>`:''}`},
 catalogue(){
   let list=vis().filter(p=>(filt==='all'||p.col===filt)&&p.title.toLowerCase().includes(q.toLowerCase()));
   if(sort==='asc')list=[...list].sort((a,b)=>a.price-b.price);if(sort==='desc')list=[...list].sort((a,b)=>b.price-a.price);

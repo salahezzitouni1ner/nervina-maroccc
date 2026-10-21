@@ -1,5 +1,5 @@
 import csv,json,os,re,urllib.parse,sys,importlib.util
-_sp=importlib.util.spec_from_file_location('banner',os.path.join(os.path.dirname(os.path.abspath(__file__)),'banner_sg.py'));banner=importlib.util.module_from_spec(_sp);_sp.loader.exec_module(banner)
+_sp=importlib.util.spec_from_file_location('banner',os.path.join(os.path.dirname(os.path.abspath(__file__)),'home_pro.py'));banner=importlib.util.module_from_spec(_sp);_sp.loader.exec_module(banner)
 from PIL import Image, ImageOps
 SCR='/tmp/claude-0/-home-claude/ff2ae7a3-8d31-5e47-be59-c1e595b976e6/scratchpad'
 SRC='/mnt/user-data/uploads/jgus0t-ph-files-2026-10-21-102141'
