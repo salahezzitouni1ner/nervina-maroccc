@@ -17,3 +17,14 @@ Modifiez `store.json` (prix, noms, textes). Placez les photos dans un dossier `i
 - Photos de l'accueil dans `images/home/`. Contenu des diapositives : `source/home_pro.py` (HOME).
 - `vendor/` : GSAP 3.15 + ScrollTrigger (licence standard GreenSock, gratuite) et Lenis 1.3 (MIT).
 - Si le visiteur a activé « réduire les animations », rien ne défile tout seul.
+
+## État au 21/10/2026
+- Site en ligne : https://salahezzitouni1ner.github.io/nervina-maroccc/ (variante photos carrées : /carre.html)
+- 20 produits (export Shopify), 83 photos hébergées dans `images/` : plus aucune dépendance à Shopify.
+- Accueil : bannière « Une pièce pour chaque pièce » (6 produits, version téléphone et ordinateur), réassurance,
+  univers, carrousels, bannière Nouveauté (Duo Curve), sur mesure, étapes, Instagram. Pas de diaporama.
+- Exclus de l'accueil à la demande du client : Meuble TV Arrondis et Table Basse Amazonica (toujours au catalogue).
+- Téléphone : barre d'onglets en bas (Accueil, Catalogue, WhatsApp, Panier).
+- Page produit : bouton collant « Commander maintenant » (ouvre directement le formulaire WhatsApp).
+- Paiement : commande via WhatsApp, 30 % d'acompte, 70 % à la livraison. Paiement en ligne : à discuter.
+- Reconstruire : `source/build.py` (modèle `source/modele.html`, styles `source/styles.css`, accueil `source/home_pro.py`).
