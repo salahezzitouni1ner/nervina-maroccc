@@ -122,7 +122,7 @@ function chrome(){
 
 /* ---------- vues boutique ---------- */
 let filt='all',q='',sort='def';
-/* ---------- défilement doux (Lenis) + bannière animée (GSAP) ---------- */
+/* ---------- défilement doux (Lenis) + bannière plein écran (GSAP) ---------- */
 const RM=matchMedia('(prefers-reduced-motion: reduce)');
 let LEN=null;
 (function(){
@@ -132,7 +132,7 @@ let LEN=null;
 })();
 const toY=y=>{if(LEN)LEN.scrollTo(y,{immediate:true,force:true});else scrollTo(0,y)};
 let MG=null;
-function mgKill(){if(MG){try{MG.ctx&&MG.ctx.revert()}catch(e){}MG=null}}
+function mgKill(){document.body.classList.remove('sg-in');if(MG){try{MG.ctx&&MG.ctx.revert()}catch(e){}removeEventListener('resize',MG.fit);MG=null}}
 function mgGrain(){
   if(mgGrain.u)return mgGrain.u;
   try{const c=document.createElement('canvas');c.width=c.height=160;const x=c.getContext('2d'),d=x.createImageData(160,160);
@@ -140,57 +140,61 @@ function mgGrain(){
     x.putImageData(d,0,0);mgGrain.u=c.toDataURL()}catch(e){mgGrain.u=''}
   return mgGrain.u}
 function mgSync(){
-  if(!MG)return;const on=MG.vis!==false&&!MG.user&&!document.hidden,root=$('#mg');
+  if(!MG||!MG.L)return;const on=MG.vis!==false&&!MG.user&&!document.hidden,root=$('#mg');
   MG.L.forEach(t=>on?t.resume():t.pause());
   if(root){root.classList.toggle('mg-paused',!on);const pp=$('#mgpp');if(pp){pp.classList.toggle('is-paused',!!MG.user);pp.setAttribute('aria-label',MG.user?"Lancer l'animation":"Mettre l'animation en pause")}}
 }
 document.addEventListener('visibilitychange',mgSync);
 function mgInit(){
   const root=$('#mg');if(!root)return;
+  const fit=()=>{const r=root.getBoundingClientRect();root.style.setProperty('--top',Math.max(0,r.top+scrollY)+'px')};
+  fit();addEventListener('resize',fit);
   const g=root.querySelector('.mg-grain');if(g){const u=mgGrain();if(u)g.style.backgroundImage=`url(${u})`}
   const pp=$('#mgpp');
-  if(!window.gsap||!window.ScrollTrigger||!window.SplitText||RM.matches){root.classList.add('mg-static');if(pp)pp.hidden=true;return}
+  if(!window.gsap||!window.ScrollTrigger||!window.SplitText||RM.matches){root.classList.add('sg-static');if(pp)pp.hidden=true;MG={fit};return}
   gsap.registerPlugin(ScrollTrigger,SplitText,...(window.DrawSVGPlugin?[DrawSVGPlugin]:[]));
-  MG={L:[],vis:true,user:false};
+  MG={L:[],vis:true,user:false,fit};
   const st=MG;
   MG.ctx=gsap.context(()=>{
     const q1=s=>root.querySelector(s),qa=s=>[...root.querySelectorAll(s)];
-    const split=SplitText.create(q1('.mg-h1'),{type:'words',wordsClass:'mg-w'});
+    const split=SplitText.create(q1('.sg-h'),{type:'lines,chars',linesClass:'sg-line',charsClass:'sg-ch',mask:'lines'});
+    const nums=qa('[data-n]');nums.forEach(n=>n.textContent='0');
     const tl=gsap.timeline({paused:true,defaults:{ease:'power3.out'}});
-    tl.from('.mg-glow',{opacity:0,scale:.5,duration:1.8},0)
-      .from('.mg-grain',{opacity:0,duration:1},0)
-      .from('.mg-line path',window.DrawSVGPlugin?{drawSVG:'50% 50%',duration:1.4,ease:'power2.inOut'}:{opacity:0,duration:1},.1)
-      .from('.mg-win',{clipPath:'inset(100% 0% 0% 0%)',duration:1.3,ease:'power4.inOut'},.45)
-      .from('.mg-win img',{scale:1.4,duration:2,ease:'power3.out'},.45)
-      .from('.mg-eye',{opacity:0,y:10,duration:.6},.5)
-      .from(split.words,{opacity:0,y:24,filter:'blur(12px)',stagger:.07,duration:.95},.65)
-      .from('.mg-em',{clipPath:'inset(0% 100% 0% 0%)',duration:1.1,ease:'power4.inOut'},1.05)
-      .from('.mg-table',{y:-170,opacity:0,rotation:-7,filter:'blur(10px)',duration:1.15,ease:'power4.out'},1.05)
-      .from('.mg-shadow',{scaleX:.15,opacity:0,duration:1.15},1.05)
-      .from('.mg-badge',{scale:0,rotation:-140,opacity:0,duration:1,ease:'back.out(1.6)'},1.3)
-      .from('.mg-chip',{y:16,scale:.7,opacity:0,stagger:.13,duration:.75,ease:'back.out(2)'},1.45)
-      .from('.mg-lead,.mg-cta,.mg-tag',{opacity:0,y:16,stagger:.1,duration:.7},1.35)
-      .from('.mg-mq',{opacity:0,y:12,duration:.8},1.6)
-      .from('.mg-pp',{opacity:0,duration:.6},1.8);
-    const imgs=qa('.mg-win img,.mg-table').map(i=>i.decode?i.decode().catch(()=>{}):Promise.resolve());
-    Promise.race([Promise.all(imgs),new Promise(r=>setTimeout(r,1400))]).then(()=>tl.play());
+    tl.from('.sg-bg',{opacity:0,duration:1.2,ease:'power1.out'},0)
+      .from('.sg-img',{opacity:0,y:26,filter:'brightness(.12) blur(6px)',duration:1.3},.2)
+      .to('.sg-img',{filter:'brightness(1) blur(0px)',duration:1.4,ease:'power2.out'},1.05)
+      .fromTo('.sg-led',{opacity:0},{keyframes:[{opacity:.9,duration:.06},{opacity:.15,duration:.08},{opacity:1,duration:.05},{opacity:.35,duration:.12},{opacity:1,duration:.5}],ease:'none'},.95)
+      .from('.sg-led i',{scaleX:.2,duration:1,ease:'power3.out'},.95)
+      .from('.sg-wash',{opacity:0,scale:.7,duration:1.6},1.05)
+      .from('.sg-eye',{opacity:0,y:10,duration:.6},.6)
+      .from(split.chars,{yPercent:110,duration:.9,stagger:.025,ease:'power4.out'},.75)
+      .from('.sg-sub',{opacity:0,y:12,duration:.7},1.15)
+      .from('.sg-dim path',window.DrawSVGPlugin?{drawSVG:'0%',duration:1.1,ease:'power2.inOut'}:{opacity:0,duration:.8},1.6)
+      .from('.sg-dl',{opacity:0,y:6,duration:.5,stagger:.1},2)
+      .from('.sg-hs',{opacity:0,scale:.6,duration:.6,stagger:.15,ease:'back.out(2)'},2.1)
+      .from('.sg-specs>div,.sg-price,.sg-cta',{opacity:0,y:18,duration:.7,stagger:.08},1.7)
+      .from('.mg-mq,.mg-pp',{opacity:0,duration:.8},2.2);
+    nums.forEach(n=>{const o={v:0},to=+n.dataset.n;tl.to(o,{v:to,duration:1.4,ease:'power2.out',onUpdate:()=>n.textContent=Math.round(o.v)},1.8)});
+    const im=q1('.sg-img');
+    Promise.race([im.decode?im.decode().catch(()=>{}):Promise.resolve(),new Promise(r=>setTimeout(r,1500))]).then(()=>tl.play());
     const L=st.L,loop=v=>(L.push(v),v);
-    loop(gsap.to('.mg-table',{y:-10,duration:2.7,ease:'sine.inOut',yoyo:true,repeat:-1,delay:2.3}));
-    loop(gsap.to('.mg-shadow',{scaleX:.84,opacity:.5,duration:2.7,ease:'sine.inOut',yoyo:true,repeat:-1,delay:2.3}));
-    const ring=loop(gsap.to('.mg-ring',{rotation:360,duration:20,ease:'none',repeat:-1,transformOrigin:'50% 50%'}));
-    qa('.mg-chip').forEach((c,i)=>loop(gsap.to(c,{y:i%2?8:-8,x:i%2?-5:5,duration:3+i*.7,ease:'sine.inOut',yoyo:true,repeat:-1,delay:2.2})));
-    loop(gsap.timeline({repeat:-1,delay:1.7}).fromTo('.mg-rip',{scale:1,opacity:.5},{scale:1.34,opacity:0,duration:3.3,ease:'power1.out',stagger:1.1,transformOrigin:'50% 100%'}));
-    loop(gsap.to('.mg-glow',{xPercent:14,yPercent:-10,scale:1.15,duration:7,ease:'sine.inOut',yoyo:true,repeat:-1}));
-    loop(gsap.fromTo('.mg-em',{backgroundPosition:'100% 0'},{backgroundPosition:'0% 0',duration:2.4,ease:'power2.inOut',repeat:-1,repeatDelay:3.2,delay:2.6}));
-    loop(gsap.to('.mg-track',{xPercent:-50,duration:30,ease:'none',repeat:-1}));
+    loop(gsap.to('.sg-led',{'--glow':.78,duration:2.8,ease:'sine.inOut',yoyo:true,repeat:-1,delay:2.6}));
+    loop(gsap.fromTo('.sg-sheen',{backgroundPosition:'130% 0'},{backgroundPosition:'-30% 0',duration:2.6,ease:'power2.inOut',repeat:-1,repeatDelay:3.5,delay:3}));
+    loop(gsap.to('.sg-wash',{scale:1.08,opacity:.8,duration:5,ease:'sine.inOut',yoyo:true,repeat:-1,delay:2.6}));
+    loop(gsap.to('.mg-track',{xPercent:-50,duration:34,ease:'none',repeat:-1}));
+    qa('.sg-hs i').forEach((d,i)=>loop(gsap.fromTo(d,{'--ring':0},{'--ring':1,duration:2,ease:'power1.out',repeat:-1,delay:2.8+i*.5})));
+    const mm=gsap.matchMedia();
+    mm.add('(max-width:899px)',()=>{
+      const rig=q1('.sg-rig'),unit=q1('.sg-unit');const span=()=>Math.max(0,(unit.offsetWidth-root.clientWidth)/2+14);
+      gsap.set(rig,{x:()=>span()});
+      loop(gsap.to(rig,{x:()=>-span(),duration:11,ease:'sine.inOut',yoyo:true,repeat:-1,delay:2.4,invalidateOnRefresh:true}));
+    });
     gsap.timeline({scrollTrigger:{trigger:root,start:'top top',end:'bottom top',scrub:.6}})
-      .to('.mg-par',{yPercent:12,scale:1.06,ease:'none'},0)
-      .to('.mg-obj',{y:-60,ease:'none'},0)
-      .to('.mg-archwrap',{y:36,ease:'none'},0)
-      .to('.mg-txt',{y:-28,ease:'none'},0);
-    ScrollTrigger.create({trigger:root,start:'top bottom',end:'bottom top',
-      onToggle:s=>{st.vis=s.isActive;mgSync()},
-      onUpdate:s=>{const v=Math.abs(s.getVelocity());if(v>60&&!st.user)gsap.to(ring,{timeScale:1+Math.min(v/250,7),duration:.15,overwrite:true,onComplete:()=>gsap.to(ring,{timeScale:1,duration:1.4})})}});
+      .to('.sg-unit',{scale:1.1,y:-30,ease:'none'},0)
+      .to('.sg-head',{y:-50,opacity:.25,ease:'none'},0)
+      .to('.sg-wash',{yPercent:-12,ease:'none'},0);
+    ScrollTrigger.create({trigger:root,start:'top bottom',end:'bottom top',onToggle:s=>{st.vis=s.isActive;mgSync()}});
+    ScrollTrigger.create({trigger:root,start:'top bottom',end:'bottom 70%',onToggle:s=>document.body.classList.toggle('sg-in',s.isActive)});
   },root);
   if(pp)pp.onclick=()=>{st.user=!st.user;mgSync()};
   mgSync();
@@ -200,29 +204,43 @@ const VIEWS={
 accueil(){
   const st=S.settings,f=prod(st.featured)||vis()[0],best=vis().filter(p=>p.star).slice(0,4),L=vis();
   const ar=S.collections.slice(0,3).map((c,i)=>`<div class="arch">${ico(c.id)}</div>`).join('');
-  const fp=prod('table-basse-amazonica');
-  const mq=['Tables','Meubles TV',"Meubles d'entrée",'Tables de chevet','Sur mesure','Fait main au Maroc'];
+  const fp=prod('meuble-tv-arrondis')||vis()[0];
+  const mq=['Meuble TV Arrondis','Noyer naturel','LED intégrée','Fixation invisible','Sur mesure','Fait main au Maroc'];
   const mqh=mq.map(x=>`<span>${esc(x)}</span><svg viewBox="0 0 24 30"><path d="M3 29V12a9 9 0 0 1 18 0v17"/></svg>`).join('');
-  return `<section class="mg" id="mg" aria-label="Nervina Maroc">
-  <div class="mg-bg" aria-hidden="true"><div class="mg-glow"></div><div class="mg-grain"></div></div>
-  <div class="mg-scene" aria-hidden="true">
-    <div class="mg-archwrap">
-      <svg class="mg-ripples" viewBox="0 0 200 264" preserveAspectRatio="none"><path class="mg-rip" d="M6 262V102a94 94 0 0 1 188 0v160"/><path class="mg-rip" d="M6 262V102a94 94 0 0 1 188 0v160"/><path class="mg-rip" d="M6 262V102a94 94 0 0 1 188 0v160"/></svg>
-      <div class="mg-win"><div class="mg-par"><img src="images/meuble-tv-sur-pieds-noyer-creme-3.webp" alt="" fetchpriority="high" decoding="async"></div></div>
-      <svg class="mg-line" viewBox="0 0 200 264" preserveAspectRatio="none"><path d="M6 262V102a94 94 0 0 1 188 0v160"/></svg>
-      <div class="mg-badge"><svg class="mg-ring" viewBox="0 0 100 100"><defs><path id="mgc" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0"/></defs><text><textPath href="#mgc" textLength="236">FAIT MAIN AU MAROC · SUR MESURE ·</textPath></text></svg><svg class="mg-bi" viewBox="0 0 24 30"><path d="M3 29V12a9 9 0 0 1 18 0v17"/></svg></div>
-    </div>
-    <div class="mg-obj"><div class="mg-shadow"></div><img class="mg-table" src="images/hero/amazonica.webp" alt="" decoding="async"></div>
-    <span class="mg-chip c1"><i style="background:linear-gradient(135deg,#7a4b2c,#4a2b17)"></i>Noyer massif</span>
-    <span class="mg-chip c2"><i style="background:linear-gradient(135deg,#efdcc2,#c9a983)"></i>Verre champagne</span>
-    <span class="mg-chip c3"><i style="background:#D9B88F"></i>Sur mesure</span>
+  const wa=WAU(`Bonjour Nervina, je suis intéressé(e) par le ${fp.title} (${MAD(fp.price)}).`);
+  return `<section class="sg" id="mg" aria-label="${esc(fp.title)}, pièce signature">
+  <div class="sg-bg" aria-hidden="true"><div class="sg-wash"></div><div class="mg-grain"></div><div class="sg-vig"></div></div>
+  <div class="sg-head">
+    <p class="sg-eye"><span class="sg-dot"></span>Pièce signature · ${esc(colName(fp.col))}</p>
+    <h1 class="sg-h">${esc(fp.title)}</h1>
+    <p class="sg-sub">Noyer naturel · LED intégrée · Suspendu</p>
   </div>
-  <div class="mg-txt">
-    <p class="eyebrow mg-eye">Mobilier · Décoration · Menuiserie</p>
-    <h1 class="mg-h"><span class="mg-h1">${esc(st.heroTitle1)}</span> <em class="mg-em">${esc(st.heroTitle2)}</em></h1>
-    <p class="lead mg-lead">${esc(st.heroLead)}</p>
-    <div class="mg-cta"><a class="btn mg-b1" href="#catalogue">Voir le catalogue</a><a class="btn mg-b2" href="#contact">Nous contacter</a></div>
-    ${fp&&!fp.hidden?`<a class="mg-tag" href="#p-${esc(fp.id)}"><span class="mg-k">En vedette</span><b>${esc(fp.title)}</b><span class="mg-p">${MAD(fp.price)} <svg viewBox="0 0 16 10" aria-hidden="true"><path d="M0 5h14M10 1l4 4-4 4"/></svg></span></a>`:''}
+  <div class="sg-stage" aria-hidden="true">
+    <div class="sg-rig">
+      <div class="sg-unit">
+        <svg class="sg-dim sg-dim-w" viewBox="0 0 1000 40" preserveAspectRatio="none"><path d="M500 20H4M4 8v24M500 20h492M996 8v24"/></svg>
+        <span class="sg-dl sg-dl-w"><b data-n="200">200</b> cm</span>
+        <svg class="sg-dim sg-dim-h" viewBox="0 0 40 1000" preserveAspectRatio="none"><path d="M20 500V4M8 4h24M20 500v492M8 996h24"/></svg>
+        <span class="sg-dl sg-dl-h"><b data-n="30">30</b> cm</span>
+        <div class="sg-led"><i></i></div>
+        <img class="sg-img" src="images/hero/meuble-tv-arrondis.webp" alt="" fetchpriority="high" decoding="async">
+        <div class="sg-sheen"></div>
+        <div class="sg-hs up" style="--x:5%;--y:46%"><i></i><span>Angles arrondis</span></div>
+        <div class="sg-hs up r" style="--x:62%;--y:40%"><i></i><span>Noyer naturel</span></div>
+        <div class="sg-hs dn" style="--x:34%;--y:93%"><i></i><span>LED intégrée</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="sg-foot">
+    <dl class="sg-specs">
+      <div><dt>Longueur</dt><dd><b data-n="200">200</b> cm</dd></div>
+      <div><dt>Hauteur</dt><dd><b data-n="30">30</b> cm</dd></div>
+      <div><dt>Profondeur</dt><dd><b data-n="30">30</b> cm</dd></div>
+    </dl>
+    <div class="sg-buy">
+      <p class="sg-price"><span>À partir de</span><b>${MAD(fp.price)}</b><small>Dimensions et teinte sur mesure</small></p>
+      <div class="sg-cta"><a class="btn sg-b1" href="#p-${esc(fp.id)}">Découvrir le meuble</a><a class="btn sg-b2" href="${wa}" target="_blank" rel="noopener">Commander sur WhatsApp</a></div>
+    </div>
   </div>
   <div class="mg-mq" aria-hidden="true"><div class="mg-track"><div>${mqh}${mqh}</div><div>${mqh}${mqh}</div></div></div>
   <button class="mg-pp" id="mgpp" aria-label="Mettre l'animation en pause"><svg viewBox="0 0 20 20" aria-hidden="true"><path class="ic-pause" d="M6 4h3v12H6zM11 4h3v12h-3z"/><path class="ic-play" d="M6 4l10 6-10 6z"/></svg></button>
