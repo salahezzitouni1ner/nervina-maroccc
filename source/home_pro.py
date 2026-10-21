@@ -9,8 +9,8 @@ ORIG = '/mnt/user-data/uploads/jgus0t-ph-files-2026-10-21-102141/'
 
 # (nom, image produit locale, recadrage (l,t,r,b) ou None, largeur max)
 ASSETS = [
-    ('slide-tables', 'table-basse-amazonica-2', None, 1600),
-    ('slide-tables-m', 'table-basse-amazonica-2', (330, 0, 1030, 933), 900),
+    ('slide-tables', 'table-basse-ronde-luxe-2', None, 1600),
+    ('slide-tables-m', 'table-basse-ronde-luxe-2', (330, 0, 954, 832), 900),
     ('slide-chambres', 'table-de-chevet-cloud-noyer-4', None, 1600),
     ('slide-chambres-m', 'table-de-chevet-cloud-noyer-4', (420, 0, 1044, 832), 900),
     ('slide-entree', 'console-arche-miroirs-organiques-1', None, 1400),
@@ -27,14 +27,14 @@ ASSETS = [
     ('ig-2', 'table-basse-ovale-noire-mdf-2', None, 700),
     ('ig-3', 'table-a-manger-ronde-travertin-4-chaises-2', None, 700),
     ('ig-4', 'table-de-chevet-duo-curve-1', None, 700),
-    ('ig-5', 'table-basse-ronde-luxe-2', None, 700),
+    ('ig-5', 'table-basse-ovale-design-2', None, 700),
     ('ig-6', 'table-basse-ronde-noyer-metal-noir-2', None, 700),
 ]
 
 HOME = {
   'slides': [
-    {'img': 'images/home/slide-tables.webp', 'imgm': 'images/home/slide-tables-m.webp', 'pos': '55% 70%', 'posm': '50% 85%', 'k': 'Collection Tables', 't': 'Des tables basses sculpturales',
-     'd': 'Noyer, verre champagne, marbre et travertin, pour un salon qui a du caractère.', 'cta': 'Voir les tables', 'href': '#c-tables', 'cta2': 'Amazonica', 'href2': '#p-table-basse-amazonica', 'alt': 'Table basse Amazonica en noyer et verre dans un salon'},
+    {'img': 'images/home/slide-tables.webp', 'imgm': 'images/home/slide-tables-m.webp', 'pos': '50% 65%', 'posm': '50% 75%', 'k': 'Collection Tables', 't': 'Des tables basses sculpturales',
+     'd': 'Noyer, marbre, verre et travertin, pour un salon qui a du caractère.', 'cta': 'Voir les tables', 'href': '#c-tables', 'cta2': 'Table Ronde Luxe', 'href2': '#p-table-basse-ronde-luxe', 'alt': 'Table basse ronde en noyer et verre fumé dans un salon, la nuit'},
     {'img': 'images/home/slide-chambres.webp', 'imgm': 'images/home/slide-chambres-m.webp', 'pos': '60% 55%', 'posm': '50% 70%', 'k': 'Collection Chambres', 't': 'Le calme, en noyer',
      'd': 'Tables de chevet aux lignes arrondies, fabriquées à la main au Maroc.', 'cta': 'Voir les chambres', 'href': '#c-chambres', 'alt': 'Table de chevet arrondie sous une arche marocaine'},
     {'img': 'images/home/slide-entree.webp', 'imgm': 'images/home/slide-entree-m.webp', 'pos': '50% 70%', 'posm': '40% 80%', 'k': "Meubles d'entrée", 't': 'Une entrée qui accueille',
@@ -64,11 +64,12 @@ ACCUEIL = r'''accueil(){
   const href=h=>h==='WA'?wa:h,ext=h=>h==='WA'?' target="_blank" rel="noopener"':'';
   const usp=[['truck','Livraison partout au Maroc','Frais confirmés avant commande'],['hand','Fabrication artisanale','Dans notre atelier au Maroc'],['ruler','Sur mesure','Dimensions et teintes au choix'],['wallet','Paiement en deux fois','30 % à la commande, 70 % à la livraison']];
   const sig=prod('table-de-chevet-duo-curve');
-  const byCol=c=>L.filter(p=>p.col===c);
-  const best=['table-basse-amazonica','table-de-chevet-duo-curve','table-basse-london','console-arche-miroirs-organiques','table-a-manger-ronde-travertin-4-chaises','table-de-chevet-cloud-noyer','table-basse-ronde-marbre-bois','table-de-chevet-canne'].map(prod).filter(p=>p&&!p.hidden);
+  const NOHOME=['table-basse-amazonica','meuble-tv-arrondis'];const byCol=c=>L.filter(p=>p.col===c&&!NOHOME.includes(p.id));
+  const best=['table-de-chevet-duo-curve','table-basse-london','console-arche-miroirs-organiques','table-a-manger-ronde-travertin-4-chaises','table-de-chevet-cloud-noyer','table-basse-ronde-marbre-bois','table-de-chevet-canne'].map(prod).filter(p=>p&&!p.hidden);
   const rail=(id,k,t,list,all)=>list.length?`<section class="sec2"><div class="sh rv"><div><p class="eyebrow">${k}</p><h2>${t}</h2></div><div class="sh-r">${all?`<a class="lnk" href="${all}">Tout voir</a>`:''}<div class="rail-nav"><button class="rn" data-rail="${id}" data-d="-1" aria-label="Précédent">${ic('arrowl')}</button><button class="rn" data-rail="${id}" data-d="1" aria-label="Suivant">${ic('arrowr')}</button></div></div></div><div class="rail" id="${id}">${list.map(card).join('')}</div></section>`:'';
   const ig=String(S.settings.instagram||'').replace(/^@/,'');
-  return `<section class="hs bleed" id="hs" aria-roledescription="carrousel" aria-label="À la une">
+  return `<a class="mban bleed" href="#catalogue" aria-label="Découvrir nos collections : meubles TV, tables, entrée, chambres"><img src="images/home/banniere-collections.webp" width="1080" height="1350" alt="Une pièce pour chaque pièce : un meuble TV, des tables basses, une console d'entrée et une table de chevet Nervina" fetchpriority="high" decoding="async"></a>
+<section class="hs bleed" id="hs" aria-roledescription="carrousel" aria-label="À la une">
   ${sl.map((s,i)=>`<div class="hs-slide${i?'':' on'}" role="group" aria-roledescription="diapositive" aria-label="${i+1} sur ${n}"${i?' aria-hidden="true" inert':''}>
     <picture>${s.imgm?`<source media="(max-width:760px)" srcset="${s.imgm}">`:''}<img class="hs-img" src="${s.img}" alt="${esc(s.alt)}" style="--pos:${s.pos};--posm:${s.posm||s.pos}" decoding="async"${i?' loading="lazy"':' fetchpriority="high"'}></picture>
     <div class="hs-cap"><div class="hs-in">
@@ -338,6 +339,8 @@ html,body{overflow-x:clip}
 
 /* ================= MOBILE D'ABORD ================= */
 .tb{display:none}
+.mban{display:none}
+@media(max-width:760px){.mban{display:block;background:#F3F0E6;line-height:0}.mban img{width:100%;height:auto;display:block}.mban+.hs{height:clamp(600px,80svh,700px)!important}}
 @media(max-width:760px){
   /* barre d'onglets en bas, comme une appli */
   .tb{display:grid;grid-template-columns:repeat(4,1fr);position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--bg);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}

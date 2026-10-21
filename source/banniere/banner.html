@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<style>
+*{box-sizing:border-box;margin:0}
+html,body{width:1080px;height:1350px;background:#F3F0E6;overflow:hidden}
+body{font-family:'Poppins',sans-serif;color:#1B1D1F;position:relative;padding:60px 56px 0}
+.top{display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:16px}
+.brand svg{width:34px;height:42px;fill:none;stroke:#1B1D1F;stroke-width:2.6}
+.brand b{font-weight:500;letter-spacing:.32em;font-size:26px;display:block;line-height:1}
+.brand small{display:block;font-size:14px;letter-spacing:.42em;color:#585C60;margin-top:6px}
+.tag{font-size:28px;letter-spacing:.18em;text-transform:uppercase;color:#85582F;font-weight:500;border:1.5px solid #B07F52;padding:10px 18px}
+h1{font-weight:300;font-size:104px;line-height:1;letter-spacing:-.04em;margin-top:26px}
+h1 em{font-style:normal;font-weight:500;color:#85582F}
+.sub{font-size:36px;color:#585C60;margin-top:18px;line-height:1.3}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px 28px;margin-top:30px}
+.cell{display:flex;flex-direction:column}
+.arch{position:relative;height:230px;border-radius:226px 226px 4px 4px;background:linear-gradient(180deg,#EAE2D1 0%,#E3D8C3 100%);overflow:visible}
+.arch::after{content:"";position:absolute;left:12%;right:12%;bottom:26px;height:26px;border-radius:50%;background:radial-gradient(closest-side,rgba(60,40,20,.22),rgba(60,40,20,0))}
+.arch img{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);z-index:1;filter:drop-shadow(0 10px 14px rgba(70,45,20,.18))}
+.lab{display:flex;flex-direction:column;margin-top:14px;gap:0}
+.lab span{font-size:32px;letter-spacing:.12em;text-transform:uppercase;color:#85582F;font-weight:500}
+.lab b{font-size:34px;font-weight:400;color:#1B1D1F;white-space:nowrap}
+.foot{position:absolute;left:56px;right:56px;bottom:46px;display:flex;justify-content:space-between;align-items:center;border-top:1.5px solid rgba(27,29,31,.18);padding-top:26px}
+.foot p{font-size:31px;color:#585C60;letter-spacing:.02em}
+.foot a{font-size:34px;font-weight:500;background:#1B1D1F;color:#F3F0E6;padding:20px 30px;text-decoration:none;display:flex;gap:14px;align-items:center}
+.foot a svg{width:32px;height:18px;fill:none;stroke:#F3F0E6;stroke-width:2.4}
+</style></head><body>
+<div class="top"><span class="tag">Fait main · Sur mesure</span></div>
+<h1>Une pièce pour<br><em>chaque pièce.</em></h1>
+<p class="sub">Fabriqués au Maroc, à vos dimensions.</p>
+<div class="grid">
+  <div class="cell"><div class="arch"><img src="cut-tv-pieds.png" style="width:94%;bottom:48px"></div><div class="lab"><span>Meubles TV</span><b>6 000 dh</b></div></div>
+  <div class="cell"><div class="arch"><img src="cut-tables.png" style="width:80%;bottom:34px"></div><div class="lab"><span>Tables</span><b>8 500 dh</b></div></div>
+  <div class="cell"><div class="arch"><img src="cut-entree.png" style="width:66%"></div><div class="lab"><span>Entrée</span><b>7 000 dh</b></div></div>
+  <div class="cell"><div class="arch"><img src="cut-chambres.png" style="width:48%"></div><div class="lab"><span>Chambres</span><b>3 500 dh</b></div></div>
+</div>
+<div class="foot"><p>Livraison partout<br>au Maroc</p><a>Découvrir <svg viewBox="0 0 24 14"><path d="M0 7h22M16 1l6 6-6 6"/></svg></a></div>
+</body></html>

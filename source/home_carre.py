@@ -5,7 +5,7 @@ _sp = importlib.util.spec_from_file_location('home_pro', os.path.join(os.path.di
 hp = importlib.util.module_from_spec(_sp); _sp.loader.exec_module(hp)
 
 hp.ASSETS = [
-    ('sq-slide-tables', 'table-basse-amazonica-2', (230, 0, 1163, 933), 1100),
+    ('sq-slide-tables', 'table-basse-ronde-luxe-2', (208, 0, 1040, 832), 1100),
     ('sq-slide-chambres', 'table-de-chevet-cloud-noyer-4', (316, 0, 1148, 832), 1100),
     ('sq-slide-entree', 'console-arche-miroirs-organiques-1', None, 1100),
     ('sq-slide-sur-mesure', 'table-a-manger-ronde-4-chaises-mdf-noyer-2', None, 1100),
@@ -54,6 +54,7 @@ hp.CSS += r'''
 @media(max-width:760px){
   /* téléphone : photo carrée pleine largeur, texte en dessous */
   .hs{height:calc(100vw + 300px);min-height:0;max-height:none}
+  .mban+.hs{height:calc(100vw + 300px)!important}
   .hs-slide picture{left:0;right:0;top:0;bottom:auto;width:100%;height:auto;aspect-ratio:1/1}
   .hs-cap{top:100vw;padding:18px 0 80px}
   .hs-cap .hs-in>*{max-width:none}
