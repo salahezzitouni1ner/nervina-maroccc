@@ -9,35 +9,38 @@ ORIG = '/mnt/user-data/uploads/jgus0t-ph-files-2026-10-21-102141/'
 
 # (nom, image produit locale, recadrage (l,t,r,b) ou None, largeur max)
 ASSETS = [
-    ('slide-meuble-tv', 'meuble-tv-arrondis-3', (0, 290, 1254, 1254), 1600),
-    ('slide-meuble-tv-m', 'meuble-tv-arrondis-3', (470, 430, 1110, 1254), 900),
     ('slide-tables', 'table-basse-amazonica-2', None, 1600),
+    ('slide-tables-m', 'table-basse-amazonica-2', (330, 0, 1030, 933), 900),
     ('slide-chambres', 'table-de-chevet-cloud-noyer-4', None, 1600),
-    ('slide-sur-mesure', 'table-basse-ronde-luxe-2', None, 1600),
-    ('promo-meuble-tv', 'meuble-tv-arrondis-2', (0, 420, 1254, 1254), 1400),
+    ('slide-chambres-m', 'table-de-chevet-cloud-noyer-4', (420, 0, 1044, 832), 900),
+    ('slide-entree', 'console-arche-miroirs-organiques-1', None, 1400),
+    ('slide-entree-m', 'console-arche-miroirs-organiques-1', (150, 0, 918, 1024), 900),
+    ('slide-sur-mesure', 'table-a-manger-ronde-4-chaises-mdf-noyer-2', None, 1400),
+    ('slide-sur-mesure-m', 'table-a-manger-ronde-4-chaises-mdf-noyer-2', (150, 0, 918, 1024), 900),
+    ('promo-duo', 'table-de-chevet-duo-curve-1', None, 1200),
     ('banner-sur-mesure', 'set-2-tables-basses-organiques-3', None, 1600),
     ('cat-tables', 'table-basse-ronde-marbre-bois-4', None, 900),
-    ('cat-tv', 'meuble-tv-arrondis-3', (300, 290, 1254, 1254), 900),
+    ('cat-tv', 'meuble-tv-suspendu-design-3', None, 900),
     ('cat-entree', 'console-arche-miroirs-organiques-1', None, 900),
     ('cat-chambres', 'table-de-chevet-arrondie-luxe-4', None, 900),
     ('ig-1', 'table-de-chevet-canne-5', None, 700),
     ('ig-2', 'table-basse-ovale-noire-mdf-2', None, 700),
     ('ig-3', 'table-a-manger-ronde-travertin-4-chaises-2', None, 700),
     ('ig-4', 'table-de-chevet-duo-curve-1', None, 700),
-    ('ig-5', 'meuble-tv-suspendu-design-3', None, 700),
+    ('ig-5', 'table-basse-ronde-luxe-2', None, 700),
     ('ig-6', 'table-basse-ronde-noyer-metal-noir-2', None, 700),
 ]
 
 HOME = {
   'slides': [
-    {'img': 'images/home/slide-meuble-tv.webp', 'imgm': 'images/home/slide-meuble-tv-m.webp', 'pos': '58% 60%', 'posm': '62% 88%', 'k': 'Pièce signature', 't': 'Meuble TV Arrondis',
-     'd': 'Noyer naturel, LED intégrée, suspendu. Fabriqué sur mesure à vos dimensions.', 'cta': 'Découvrir', 'href': '#p-meuble-tv-arrondis', 'cta2': 'Voir la collection', 'href2': '#c-tv', 'pid': 'meuble-tv-arrondis', 'alt': 'Meuble TV Arrondis en noyer avec LED, dans un salon'},
-    {'img': 'images/home/slide-tables.webp', 'pos': '55% 70%', 'posm': '50% 75%', 'k': 'Collection Tables', 't': 'Des tables basses sculpturales',
+    {'img': 'images/home/slide-tables.webp', 'imgm': 'images/home/slide-tables-m.webp', 'pos': '55% 70%', 'posm': '50% 85%', 'k': 'Collection Tables', 't': 'Des tables basses sculpturales',
      'd': 'Noyer, verre champagne, marbre et travertin, pour un salon qui a du caractère.', 'cta': 'Voir les tables', 'href': '#c-tables', 'cta2': 'Amazonica', 'href2': '#p-table-basse-amazonica', 'alt': 'Table basse Amazonica en noyer et verre dans un salon'},
-    {'img': 'images/home/slide-chambres.webp', 'pos': '60% 55%', 'k': 'Collection Chambres', 't': 'Le calme, en noyer',
-     'd': 'Tables de chevet aux lignes arrondies, fabriquées à la main au Maroc.', 'cta': 'Voir les chambres', 'href': '#c-chambres', 'alt': 'Table de chevet Cloud en noyer dans une chambre'},
-    {'img': 'images/home/slide-sur-mesure.webp', 'pos': '50% 60%', 'k': 'Fabrication sur mesure', 't': 'Vos dimensions. Votre teinte.',
-     'd': 'Chaque pièce est adaptée à votre espace. Devis gratuit en quelques minutes sur WhatsApp.', 'cta': 'Demander un devis', 'href': 'WA', 'alt': 'Salon contemporain avec table basse ronde en noyer'},
+    {'img': 'images/home/slide-chambres.webp', 'imgm': 'images/home/slide-chambres-m.webp', 'pos': '60% 55%', 'posm': '50% 70%', 'k': 'Collection Chambres', 't': 'Le calme, en noyer',
+     'd': 'Tables de chevet aux lignes arrondies, fabriquées à la main au Maroc.', 'cta': 'Voir les chambres', 'href': '#c-chambres', 'alt': 'Table de chevet arrondie sous une arche marocaine'},
+    {'img': 'images/home/slide-entree.webp', 'imgm': 'images/home/slide-entree-m.webp', 'pos': '50% 70%', 'posm': '40% 80%', 'k': "Meubles d'entrée", 't': 'Une entrée qui accueille',
+     'd': 'Console en arche et miroirs organiques, pour soigner la première impression.', 'cta': 'Découvrir la console', 'href': '#p-console-arche-miroirs-organiques', 'alt': 'Console en arche avec miroirs organiques'},
+    {'img': 'images/home/slide-sur-mesure.webp', 'imgm': 'images/home/slide-sur-mesure-m.webp', 'pos': '50% 65%', 'posm': '50% 75%', 'k': 'Fabrication sur mesure', 't': 'Vos dimensions. Votre teinte.',
+     'd': 'Chaque pièce est adaptée à votre espace. Devis gratuit sur WhatsApp.', 'cta': 'Demander un devis', 'href': 'WA', 'alt': 'Table à manger ronde en noyer et quatre chaises'},
   ],
   'cats': {'tables': 'images/home/cat-tables.webp', 'tv': 'images/home/cat-tv.webp', 'entree': 'images/home/cat-entree.webp', 'chambres': 'images/home/cat-chambres.webp'},
   'ig': ['images/home/ig-%d.webp' % i for i in range(1, 7)],
@@ -60,9 +63,9 @@ ACCUEIL = r'''accueil(){
   const sl=H.slides.filter(s=>!s.pid||prod(s.pid));const n=sl.length;
   const href=h=>h==='WA'?wa:h,ext=h=>h==='WA'?' target="_blank" rel="noopener"':'';
   const usp=[['truck','Livraison partout au Maroc','Frais confirmés avant commande'],['hand','Fabrication artisanale','Dans notre atelier au Maroc'],['ruler','Sur mesure','Dimensions et teintes au choix'],['wallet','Paiement en deux fois','30 % à la commande, 70 % à la livraison']];
-  const sig=prod('meuble-tv-arrondis');
+  const sig=prod('table-de-chevet-duo-curve');
   const byCol=c=>L.filter(p=>p.col===c);
-  const best=['meuble-tv-arrondis','table-basse-amazonica','table-de-chevet-duo-curve','table-basse-london','console-arche-miroirs-organiques','table-a-manger-ronde-travertin-4-chaises','table-de-chevet-cloud-noyer','table-basse-ronde-marbre-bois'].map(prod).filter(p=>p&&!p.hidden);
+  const best=['table-basse-amazonica','table-de-chevet-duo-curve','table-basse-london','console-arche-miroirs-organiques','table-a-manger-ronde-travertin-4-chaises','table-de-chevet-cloud-noyer','table-basse-ronde-marbre-bois','table-de-chevet-canne'].map(prod).filter(p=>p&&!p.hidden);
   const rail=(id,k,t,list,all)=>list.length?`<section class="sec2"><div class="sh rv"><div><p class="eyebrow">${k}</p><h2>${t}</h2></div><div class="sh-r">${all?`<a class="lnk" href="${all}">Tout voir</a>`:''}<div class="rail-nav"><button class="rn" data-rail="${id}" data-d="-1" aria-label="Précédent">${ic('arrowl')}</button><button class="rn" data-rail="${id}" data-d="1" aria-label="Suivant">${ic('arrowr')}</button></div></div></div><div class="rail" id="${id}">${list.map(card).join('')}</div></section>`:'';
   const ig=String(S.settings.instagram||'').replace(/^@/,'');
   return `<section class="hs bleed" id="hs" aria-roledescription="carrousel" aria-label="À la une">
@@ -85,12 +88,12 @@ ACCUEIL = r'''accueil(){
   <div class="cats">${S.collections.map(c=>{const k=byCol(c.id).length;const im=H.cats[c.id]||(byCol(c.id)[0]||{}).imgs?.[0];return `<a class="cat rv" href="#c-${esc(c.id)}">${im?`<img src="${im}" alt="" loading="lazy" decoding="async">`:''}<span class="cat-cap"><b>${esc(c.name)}</b><small>${k} pièce${k>1?'s':''}</small><em>Découvrir ${ic('arrowr','sm')}</em></span></a>`}).join('')}</div></section>
 ${rail('r-best','Les plus demandées','Nos best-sellers',best,'#catalogue')}
 ${sig&&!sig.hidden?`<section class="promo bleed rv-wrap"><div class="promo-in">
-  <div class="promo-img rv"><img src="images/home/promo-meuble-tv.webp" alt="Meuble TV Arrondis en noyer, éclairage LED allumé" loading="lazy" decoding="async"><span class="promo-badge">Pièce signature</span></div>
-  <div class="promo-txt rv"><p class="eyebrow">Meubles TV</p><h2>${esc(sig.title)}</h2>
-    <p class="promo-d">Un meuble suspendu en noyer aux extrémités arrondies, avec un éclairage LED intégré qui réchauffe tout le salon.</p>
-    <ul class="promo-l"><li>Noyer naturel</li><li>LED intégrée</li><li>Fixation murale invisible</li><li>200 × 30 × 30 cm, ou sur mesure</li></ul>
-    <p class="promo-p"><span>À partir de</span> ${MAD(sig.price)}</p>
-    <div class="promo-cta"><a class="btn" href="#p-${esc(sig.id)}">Découvrir le meuble</a><a class="btn ghost" href="${WAU('Bonjour Nervina, je suis intéressé(e) par le '+sig.title+'.')}" target="_blank" rel="noopener">Commander sur WhatsApp</a></div>
+  <div class="promo-img rv"><img src="images/home/promo-duo.webp" alt="Table de chevet Duo Curve vert sauge et noyer" loading="lazy" decoding="async"><span class="promo-badge">Nouveauté</span></div>
+  <div class="promo-txt rv"><p class="eyebrow">Chambres</p><h2>${esc(sig.title)}</h2>
+    <p class="promo-d">Deux tiroirs aux formes douces, le vert sauge associé au noyer : une table de chevet apaisante, fabriquée sur mesure.</p>
+    <ul class="promo-l"><li>Vert sauge et noyer</li><li>Deux tiroirs</li><li>Livrée montée</li><li>Toutes les couleurs sur demande</li></ul>
+    <p class="promo-p">${MAD(sig.price)}</p>
+    <div class="promo-cta"><a class="btn" href="#p-${esc(sig.id)}">Découvrir</a><a class="btn ghost" href="${WAU('Bonjour Nervina, je suis intéressé(e) par le '+sig.title+'.')}" target="_blank" rel="noopener">Commander sur WhatsApp</a></div>
   </div></div></section>`:''}
 ${rail('r-tables','Collection Tables','Tables basses et à manger',byCol('tables'),'#c-tables')}
 <section class="big bleed"><img class="big-img" src="images/home/banner-sur-mesure.webp" alt="" loading="lazy" decoding="async">
@@ -132,6 +135,7 @@ function mgKill(){document.body.classList.remove('hs-in');if(MG&&MG.io)MG.io.dis
 document.addEventListener('visibilitychange',()=>{if(MG&&MG.sync)MG.sync()});
 function mgInit(){
   const root=$('#hs');
+  if(root){const fit=()=>root.style.setProperty('--top',Math.max(0,root.getBoundingClientRect().top+scrollY)+'px');fit();addEventListener('resize',fit)}
   MG={user:RM.matches,hover:false};
   const st=MG;
   /* carrousels produits */
@@ -331,6 +335,54 @@ html,body{overflow-x:clip}
 .igt:hover img{transform:scale(1.06)}.igt:hover span,.igt:focus-visible span{opacity:1}
 @media(max-width:700px){.igg{grid-template-columns:repeat(3,1fr);gap:4px}}
 .sh .btn.ghost{gap:8px}
+
+/* ================= MOBILE D'ABORD ================= */
+.tb{display:none}
+@media(max-width:760px){
+  /* barre d'onglets en bas, comme une appli */
+  .tb{display:grid;grid-template-columns:repeat(4,1fr);position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--bg);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+  .tb a,.tb button{position:relative;min-height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;background:none;border:0;color:var(--muted);font:500 .66rem var(--font);letter-spacing:.04em;text-decoration:none;cursor:pointer}
+  .tb .ic{width:22px;height:22px}
+  .tb a[aria-current]{color:var(--fg)}.tb a[aria-current]::before{content:"";position:absolute;top:0;left:30%;right:30%;height:2px;background:var(--accent)}
+  .tb .tb-wa{color:var(--fg)}
+  .tb-cnt{position:absolute;top:7px;left:calc(50% + 6px);min-width:17px;height:17px;padding:0 4px;border-radius:9px;background:var(--btn-bg);color:var(--btn-fg);font-size:.62rem;display:grid;place-items:center}
+  .tb-cnt[data-n="0"]{display:none}
+  body{padding-bottom:calc(58px + env(safe-area-inset-bottom,0px))}
+  #waf{display:none!important}
+  /* slider : photo en haut, texte en dessous */
+  .hs{height:calc(100svh - var(--top,104px) - 58px - env(safe-area-inset-bottom,0px));min-height:560px;max-height:820px}
+  .hs-slide picture{position:absolute;left:0;right:0;top:0;height:54%;overflow:hidden;display:block}
+  .hs-slide picture .hs-img{object-position:var(--posm)}
+  .hs-slide::after{inset:0 0 auto 0;height:54%;background:linear-gradient(0deg,#111213 0%,rgba(17,18,19,0) 28%)}
+  .hs-cap{top:54%;align-items:flex-start;padding:4px 0 84px}
+  .hs-k{margin-bottom:8px;font-size:.7rem}
+  .hs-t{font-size:clamp(1.85rem,8.4vw,2.4rem);line-height:1.05}
+  .hs-d{margin:10px 0 16px;font-size:.92rem;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .hs-cta{flex-wrap:nowrap}
+  .hs-ui{padding-bottom:14px}
+  /* sections plus compactes */
+  .sec2{padding-block:40px}
+  .sh{margin-bottom:18px;align-items:center}.sh h2{font-size:1.6rem}
+  /* réassurance : bande qui défile au doigt */
+  .usp-in{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;gap:24px;padding-block:16px}
+  .usp-in::-webkit-scrollbar{display:none}
+  .usp-i{flex:0 0 auto;scroll-snap-align:start;align-items:center}
+  .usp-i span{white-space:nowrap}
+  /* univers : carrousel horizontal */
+  .cats{display:grid;grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:46%;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin-inline:-16px;padding-inline:16px;scroll-padding-inline:16px}
+  .cats::-webkit-scrollbar{display:none}.cat{scroll-snap-align:start}
+  .rail{grid-auto-columns:62%}
+  .pc .add{width:100%;justify-content:center}
+  /* étapes : carrousel */
+  .steps{display:grid;grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:78%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin-inline:-16px;padding-inline:16px;scroll-padding-inline:16px}
+  .steps::-webkit-scrollbar{display:none}.steps li{scroll-snap-align:start}
+  .promo-in{padding-block:36px;gap:22px}
+  .promo-txt h2{font-size:1.8rem}
+  .big{min-height:420px}.big-in{padding-block:40px}
+  .big h2{font-size:1.9rem}
+  .sh .btn.ghost{width:100%}
+  footer{padding-bottom:20px}
+}
 /* aligne le contenu des sections pleine largeur sur la grille de la page */
 .hs-in,.usp-in,.promo-in,.big-in{max-width:none;padding-inline:max(20px,calc((100vw - 1200px)/2))}
 @media (prefers-reduced-motion:reduce){.hs-slide .hs-k,.hs-slide .hs-t,.hs-slide .hs-d,.hs-slide .hs-cta{opacity:1;transform:none;animation:none!important}.hs-slide.on .hs-img{animation:none}}
@@ -359,6 +411,15 @@ def make_assets(repo):
 SCRIPTS = '<script src="vendor/gsap.min.js"></script>\n<script src="vendor/ScrollTrigger.min.js"></script>\n<script src="vendor/lenis.min.js"></script>\n'
 
 
+TB = r'''<div class="tb" role="navigation" aria-label="Navigation rapide">
+  <a href="#accueil" data-r="accueil"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-7 8 7v9H4z"/><path d="M10 20v-5h4v5"/></svg>Accueil</a>
+  <a href="#catalogue" data-r="catalogue"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="7" height="7"/><rect x="13" y="4" width="7" height="7"/><rect x="4" y="13" width="7" height="7"/><rect x="13" y="13" width="7" height="7"/></svg>Catalogue</a>
+  <a class="tb-wa" id="tbwa" href="#" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"/><path d="M9 9.5c.3 2 2.2 4.2 5 5"/></svg>WhatsApp</a>
+  <button type="button" id="tbcart" aria-label="Ouvrir le panier"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>Panier<span class="tb-cnt" data-n="0">0</span></button>
+</div>
+'''
+
+
 def patch(m, c, s):
     for a, b in [('scrollTo(0,0)', 'toY(0)'), ('scrollTo(0,k)', 'toY(k)'), ('scrollTo(0,y)', 'toY(y)')]:
         assert a in m, a; m = m.replace(a, b)
@@ -374,6 +435,17 @@ def patch(m, c, s):
     m = m.replace("function bind(h){\n", "function bind(h){\n  if(h==='accueil')mgInit();\n", 1)
     m = m.replace("function route(){\n", "function route(){\n  mgKill();\n", 1)
     m = m.replace('<div id="layer"></div>', '<div id="layer" data-lenis-prevent></div>', 1)
+    a = '<a class="btn wa-float" id="waf" href="#" target="_blank" rel="noopener">WhatsApp</a>'
+    assert a in m; m = m.replace(a, a + '\n' + TB, 1)
+    a = "function updCnt(){$('#cnt').textContent=Object.entries(cart).filter(([id])=>prod(id)).reduce((a,[,b])=>a+b,0)}"
+    assert a in m
+    m = m.replace(a, "function updCnt(){const n=Object.entries(cart).filter(([id])=>prod(id)).reduce((a,[,b])=>a+b,0);$('#cnt').textContent=n;const t=document.querySelector('.tb-cnt');if(t){t.textContent=n;t.dataset.n=n}}")
+    a = "function setNav(h){document.querySelectorAll('nav a')"
+    assert a in m; m = m.replace(a, "function setNav(h){document.querySelectorAll('nav a,.tb a[data-r]')")
+    a = "$('#waf').href=WAU("
+    assert a in m; m = m.replace(a, "$('#tbwa').href=$('#waf').href=WAU(")
+    a = "chrome();updCnt();route();"
+    assert a in m; m = m.replace(a, "chrome();updCnt();route();$('#tbcart').onclick=()=>openCart();")
     m = m.replace('<script type="application/json" id="seed">', SCRIPTS + '<script type="application/json" id="seed">', 1)
     for t in ["mgInit();", "mgKill();", "annSet();", "vendor/gsap.min.js", "else scrollTo(0,y)", 'class="hs bleed"']:
         assert t in m, t
