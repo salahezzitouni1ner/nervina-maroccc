@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<style>
+*{box-sizing:border-box;margin:0}
+html,body{background:#F3F0E6;overflow:hidden}
+body{font-family:'Poppins',sans-serif;color:#1B1D1F;position:relative}
+.tag{display:inline-block;letter-spacing:.18em;text-transform:uppercase;color:#85582F;font-weight:500;border:1.5px solid #B07F52}
+h1{font-weight:300;line-height:1;letter-spacing:-.04em}
+h1 em{font-style:normal;font-weight:500;color:#85582F}
+.sub{color:#585C60;line-height:1.3}
+.grid{display:grid}
+.cell{display:flex;flex-direction:column;min-width:0}
+.arch{position:relative;background:linear-gradient(180deg,#EAE2D1 0%,#E2D6C0 100%)}
+.arch::after{content:"";position:absolute;left:14%;right:14%;height:22px;border-radius:50%;background:radial-gradient(closest-side,rgba(60,40,20,.22),rgba(60,40,20,0))}
+.arch img{position:absolute;left:50%;transform:translateX(-50%);z-index:1;max-height:78%;object-fit:contain;filter:drop-shadow(0 10px 14px rgba(70,45,20,.18))}
+.lab{color:#1B1D1F;font-weight:400;letter-spacing:-.005em}
+.lab small{display:block;letter-spacing:.16em;text-transform:uppercase;color:#85582F;font-weight:500}
+.foot{position:absolute;display:flex;justify-content:space-between;align-items:center;border-top:1.5px solid rgba(27,29,31,.18)}
+.foot p{color:#585C60}
+.foot a{font-weight:500;background:#1B1D1F;color:#F3F0E6;text-decoration:none;display:flex;align-items:center}
+.foot a svg{fill:none;stroke:#F3F0E6;stroke-width:2.4}
+/* ---- téléphone 1080 x 1350 ---- */
+.m{width:1080px;height:1350px;padding:54px 56px 0}
+.m .tag{font-size:27px;padding:10px 18px}
+.m h1{font-size:92px;margin-top:20px}
+.m .sub{display:none}
+.m .grid{grid-template-columns:1fr 1fr;gap:12px 28px;margin-top:26px}
+.m .arch{height:202px;border-radius:236px 236px 4px 4px}
+.m .arch::after{bottom:16px}
+.m .arch img{bottom:20px}
+.m .lab{font-size:30px;margin-top:10px;line-height:1.12}
+.m .lab small{font-size:21px;margin-bottom:2px}
+.m .foot{left:56px;right:56px;bottom:36px;padding-top:20px}
+.m .foot p{font-size:30px}
+.m .foot a{font-size:33px;padding:18px 28px;gap:16px}.m .foot a svg{width:32px;height:18px}
+/* ---- ordinateur 1920 x 820 ---- */
+.d{width:1920px;height:820px;padding:0 96px;display:grid;grid-template-columns:700px 1fr;gap:72px;align-items:center}
+.d .tag{font-size:20px;padding:10px 18px}
+.d h1{font-size:96px;margin-top:26px;white-space:nowrap}
+.d .sub{font-size:28px;margin-top:20px}
+.d .grid{grid-template-columns:repeat(3,1fr);gap:26px 26px}
+.d .arch{height:236px;border-radius:200px 200px 4px 4px}
+.d .arch::after{bottom:18px}
+.d .arch img{bottom:24px}
+.d .lab{font-size:24px;margin-top:12px}
+.d .lab small{font-size:15px;margin-bottom:2px}
+.d .cta{display:flex;gap:28px;align-items:center;margin-top:40px}
+.d .cta a{white-space:nowrap;font-size:24px;font-weight:500;background:#1B1D1F;color:#F3F0E6;padding:18px 30px;display:inline-flex;gap:14px;align-items:center;text-decoration:none}
+.d .cta a svg{width:26px;height:14px;fill:none;stroke:#F3F0E6;stroke-width:2.4}
+.d .cta p{font-size:20px;color:#585C60}
+</style></head><body class="m">
+<span class="tag">Fait main · Sur mesure</span><h1>Une pièce pour<br><em>chaque pièce.</em></h1><p class="sub">Fabriqués au Maroc, à vos dimensions.</p><div class="grid"><div class="cell"><div class="arch"><img src="cut-tv-pieds.png" style="width:90%;bottom:30px"></div><p class="lab"><small>Meuble TV</small>Noyer & crème</p></div><div class="cell"><div class="arch"><img src="cut-tables.png" style="width:72%"></div><p class="lab"><small>Tables basses</small>Table London</p></div><div class="cell"><div class="arch"><img src="cut-entree.png" style="width:56%"></div><p class="lab"><small>Entrée</small>Console Arche</p></div><div class="cell"><div class="arch"><img src="cut-chambres.png" style="width:40%"></div><p class="lab"><small>Chambres</small>Chevet Arrondi</p></div><div class="cell"><div class="arch"><img src="cut-set2.png" style="width:60%"></div><p class="lab"><small>Tables basses</small>Set Organique</p></div><div class="cell"><div class="arch"><img src="cut-ovale.png" style="width:80%"></div><p class="lab"><small>Tables basses</small>Table Ovale Marbre</p></div></div><div class="foot"><p>Livraison partout au Maroc</p><a>Découvrir <svg viewBox="0 0 24 14"><path d="M0 7h22M16 1l6 6-6 6"/></svg></a></div>
+</body></html>

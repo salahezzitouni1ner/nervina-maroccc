@@ -353,8 +353,8 @@ html,body{overflow-x:clip}
 
 /* ================= MOBILE D'ABORD ================= */
 .tb{display:none}
-.mban{display:none}
-@media(max-width:760px){.mban{display:block;background:#F3F0E6;line-height:0}.mban img{width:100%;height:auto;display:block}.mban+.hs{height:clamp(600px,80svh,700px)!important}}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.mban{display:block;background:#F3F0E6;line-height:0}.mban img{width:100%;height:auto;display:block}
 @media(max-width:760px){
   /* barre d'onglets en bas, comme une appli */
   .tb{display:grid;grid-template-columns:repeat(4,1fr);position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--bg);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}

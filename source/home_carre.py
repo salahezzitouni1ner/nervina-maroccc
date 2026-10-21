@@ -5,10 +5,6 @@ _sp = importlib.util.spec_from_file_location('home_pro', os.path.join(os.path.di
 hp = importlib.util.module_from_spec(_sp); _sp.loader.exec_module(hp)
 
 hp.ASSETS = [
-    ('sq-slide-tables', 'table-basse-ronde-luxe-2', (208, 0, 1040, 832), 1100),
-    ('sq-slide-chambres', 'table-de-chevet-cloud-noyer-4', (316, 0, 1148, 832), 1100),
-    ('sq-slide-entree', 'console-arche-miroirs-organiques-1', None, 1100),
-    ('sq-slide-sur-mesure', 'table-a-manger-ronde-4-chaises-mdf-noyer-2', None, 1100),
     ('sq-promo-duo', 'table-de-chevet-duo-curve-1', None, 1100),
     ('sq-banner', 'set-2-tables-basses-organiques-3', (208, 0, 1040, 832), 1100),
     ('sq-cat-tables', 'table-basse-ronde-marbre-bois-4', (0, 330, 832, 1162), 800),
@@ -17,8 +13,6 @@ hp.ASSETS = [
     ('sq-cat-chambres', 'table-de-chevet-arrondie-luxe-4', None, 800),
 ] + [a for a in hp.ASSETS if a[0].startswith('ig-')]
 
-for s, f in zip(hp.HOME['slides'], ['tables', 'chambres', 'entree', 'sur-mesure']):
-    s['img'] = f'images/home/sq-slide-{f}.webp'; s.pop('imgm', None); s['pos'] = s['posm'] = '50% 50%'
 hp.HOME['cats'] = {k: f'images/home/sq-cat-{k}.webp' for k in ['tables', 'tv', 'entree', 'chambres']}
 
 A = hp.ACCUEIL
