@@ -40,6 +40,9 @@ os.makedirs(REPO+'/images/sm',exist_ok=True)
 for out in done.values():
     im=Image.open(REPO+'/'+out); im.thumbnail((640,640),Image.LANCZOS)
     im.save(REPO+'/'+out.replace('images/','images/sm/'),'WEBP',quality=80,method=6)
+import importlib.util as _u
+_c=_u.spec_from_file_location('cards',os.path.join(os.path.dirname(os.path.abspath(__file__)),'cards.py'));cards=_u.module_from_spec(_c);_c.loader.exec_module(cards)
+s=cards.run(REPO,s)
 json.dump(s,open(REPO+'/store.json','w'),ensure_ascii=False,indent=1)
 # 4. rebuild page; add a safety net: if a local photo is missing, show the Shopify copy
 m=open(BT+'/modele.html').read()

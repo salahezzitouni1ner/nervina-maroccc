@@ -378,6 +378,13 @@ html,body{overflow-x:clip}
 .pd-bar .btn{min-height:50px;padding-inline:30px;white-space:nowrap}
 body.has-pdbar #waf{transform:translateY(-80px)}
 .pd-rel .pc .add{display:none}
+/* cartes produit uniformes : même fond beige, même hauteur, bouton aligné en bas */
+.pc{display:flex;flex-direction:column}
+.pc .ph{background:#ECE6D9}
+.pc .ph img{object-fit:cover}
+.pc h3{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.6em;line-height:1.3}
+.pc .add{margin-top:auto}
+.pc .pr,.pc .price{margin-bottom:10px}
 #ad{min-height:52px}
 @media(max-width:760px){
   .pd-bar{bottom:calc(58px + env(safe-area-inset-bottom,0px));padding:10px 16px;gap:12px;transform:none}
