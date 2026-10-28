@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /carre.html
+Disallow: /source/
+
+Sitemap: https://nervina.ma/sitemap.xml

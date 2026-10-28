@@ -74,4 +74,7 @@ g=m.replace('@@CSS@@',c).replace('@@SEED@@',json.dumps(s,ensure_ascii=False).rep
 HEAD='<!doctype html>\n<html lang="fr">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<meta name="description" content="Nervina Maroc : tables, meubles TV, consoles et tables de chevet sur mesure. Livraison partout au Maroc, commande par WhatsApp.">\n'
 g=HEAD+g.replace('<meta name="claude:viewport-fit-sides" content="cover">\n','',1)
 open(REPO+'/'+os.environ.get('OUT','index.html'),'w',encoding='utf-8').write(g)
+_ss=importlib.util.spec_from_file_location('seo',os.path.join(os.path.dirname(os.path.abspath(__file__)),'seo.py'));seo=importlib.util.module_from_spec(_ss);_ss.loader.exec_module(seo)
+if os.environ.get('OUT','index.html')=='index.html': print('pages produit:',seo.run(REPO,g,s))
+else: seo.noindex(REPO+'/'+os.environ['OUT'])
 print(len(s['products']),len(done),sum(os.path.getsize(REPO+'/'+x) for x in done.values())//1024,'KB')

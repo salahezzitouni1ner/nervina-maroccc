@@ -365,6 +365,8 @@ html,body{overflow-x:clip}
   footer{padding-bottom:20px}
 }
 
+
+.share-b{margin-top:10px;gap:10px}.share-b .ic{width:18px;height:18px}
 /* ===== Page produit : Commander maintenant ===== */
 .pd-bar{position:fixed;left:0;right:0;bottom:0;z-index:55;display:flex;align-items:center;gap:16px;
   padding:10px max(16px,calc((100vw - 1200px)/2)) calc(10px + env(safe-area-inset-bottom,0px));background:var(--bg);border-top:1px solid var(--line);
@@ -439,6 +441,16 @@ def patch(m, c, s):
     m = m.replace("function route(){\n", "function route(){\n  mgKill();\n", 1)
     m = m.replace('<div id="layer"></div>', '<div id="layer" data-lenis-prevent></div>', 1)
 
+
+    # partage + pages produit : démarrage direct sur une fiche, bouton « Partager »
+    a = "let h=(location.hash||'#accueil').slice(1),html;"
+    assert a in m; m = m.replace(a, "let h=(location.hash||('#'+(window.NV_START||'accueil'))).slice(1),html;")
+    a = 'target="_blank" rel="noopener">Poser une question sur WhatsApp</a>'
+    assert a in m
+    m = m.replace(a, a + '\n  <button class="btn ghost wide share-b" id="share" type="button" data-id="${esc(p.id)}" data-t="${esc(p.title)}" data-pr="${esc(MAD(p.price))}"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V3M7 8l5-5 5 5"/><path d="M5 12v8h14v-8"/></svg>Partager cette pièce</button>')
+    a = "$('#ad').onclick=()=>{add(id,n);openCart()};"
+    assert a in m
+    m = m.replace(a, "const sb=$('#share');if(sb)sb.onclick=async()=>{const u='https://nervina.ma/p/'+sb.dataset.id+'/',t=sb.dataset.t+' · '+sb.dataset.pr+' · Nervina Maroc';try{if(navigator.share){await navigator.share({title:sb.dataset.t,text:t,url:u});return}}catch(e){if(e&&e.name==='AbortError')return}window.open('https://wa.me/?text='+encodeURIComponent(t+'\\n'+u),'_blank','noopener')};" + a, 1)
     # page produit : « Commander maintenant » (bouton + barre collante), sans « Ajouter au panier »
     a = '<button class="btn" id="ad" style="flex:1;min-width:180px">Ajouter au panier</button>'
     assert a in m; m = m.replace(a, '<button class="btn" id="ad" style="flex:1;min-width:180px">Commander maintenant</button>')

@@ -248,6 +248,7 @@ produit(id){
   <p class="d">${esc(p.desc||S.settings.productDesc)}</p>${perks()}
   <div class="buy"><div class="qty"><button id="m" aria-label="Moins">−</button><span id="n">1</span><button id="pl" aria-label="Plus">+</button></div><button class="btn" id="ad" style="flex:1;min-width:180px">Commander maintenant</button></div>
   <a class="btn ghost wide" href="${WAU('Bonjour, je suis intéressé par : '+p.title)}" target="_blank" rel="noopener">Poser une question sur WhatsApp</a>
+  <button class="btn ghost wide share-b" id="share" type="button" data-id="${esc(p.id)}" data-t="${esc(p.title)}" data-pr="${esc(MAD(p.price))}"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V3M7 8l5-5 5 5"/><path d="M5 12v8h14v-8"/></svg>Partager cette pièce</button>
   <p class="note" style="margin-top:14px">${esc(S.settings.productNote)}</p></div></section>
   <div class="pd-bar" id="pdbar"><div class="pd-bar-i"><b>${esc(p.title)}</b>${priceH(p)}</div><button class="btn" id="ad2" type="button">Commander maintenant</button></div>
   <section class="sec pd-rel"><div class="sechead"><h2>Dans la même collection</h2></div><div class="grid">${vis().filter(x=>x.col===p.col&&x.id!==p.id).slice(0,4).map(card).join('')}</div></section>`},
@@ -262,7 +263,7 @@ page(k){const pg=S.pages[k];if(!pg)return VIEWS.accueil();
 
 function route(){
   mgKill();
-  let h=(location.hash||'#accueil').slice(1),html;
+  let h=(location.hash||('#'+(window.NV_START||'accueil'))).slice(1),html;
   if(h==='admin'){if(canEdit){renderAdmin();setNav(h);return}h='accueil'}
   if(h.startsWith('c-')){filt=h.slice(2);h='catalogue'}
   if(h.startsWith('p-'))html=VIEWS.produit(h.slice(2));
@@ -283,7 +284,7 @@ function bind(h){
   if(h.startsWith('p-')){
     let n=1;const id=h.slice(2);
     $('#m').onclick=()=>{n=Math.max(1,n-1);$('#n').textContent=n};$('#pl').onclick=()=>{n=Math.min(20,n+1);$('#n').textContent=n};
-    const buy=()=>{cart[id]=Math.min(20,(cart[id]||0)+n);saveCart();updCnt();openCart()};$('#ad').onclick=buy;$('#ad2').onclick=buy;document.body.classList.add('has-pdbar');if('IntersectionObserver' in window){PDIO=new IntersectionObserver(es=>{const bar=$('#pdbar');if(bar)bar.classList.toggle('on',!es[0].isIntersecting)});PDIO.observe($('#ad'))}else{$('#pdbar').classList.add('on')}
+    const sb=$('#share');if(sb)sb.onclick=async()=>{const u='https://nervina.ma/p/'+sb.dataset.id+'/',t=sb.dataset.t+' · '+sb.dataset.pr+' · Nervina Maroc';try{if(navigator.share){await navigator.share({title:sb.dataset.t,text:t,url:u});return}}catch(e){if(e&&e.name==='AbortError')return}window.open('https://wa.me/?text='+encodeURIComponent(t+'\n'+u),'_blank','noopener')};const buy=()=>{cart[id]=Math.min(20,(cart[id]||0)+n);saveCart();updCnt();openCart()};$('#ad').onclick=buy;$('#ad2').onclick=buy;document.body.classList.add('has-pdbar');if('IntersectionObserver' in window){PDIO=new IntersectionObserver(es=>{const bar=$('#pdbar');if(bar)bar.classList.toggle('on',!es[0].isIntersecting)});PDIO.observe($('#ad'))}else{$('#pdbar').classList.add('on')}
     app.querySelectorAll('[data-gi]').forEach(b=>b.onclick=()=>{const p=prod(id);$('#mi').src=IMGURL(p.imgs[+b.dataset.gi]);app.querySelectorAll('[data-gi]').forEach(x=>x.setAttribute('aria-current',x===b))});
   }
   if(h==='contact'){
