@@ -462,6 +462,18 @@ body.has-pdbar #waf{transform:translateY(-80px)}
 .hs-in,.usp-in,.promo-in,.big-in{max-width:none;padding-inline:max(20px,calc((100vw - 1200px)/2))}
 @media (prefers-reduced-motion:reduce){.hs-slide .hs-k,.hs-slide .hs-t,.hs-slide .hs-d,.hs-slide .hs-cta{opacity:1;transform:none;animation:none!important}.hs-slide.on .hs-img{animation:none}}
 
+/* bandeau engagements qui défile en boucle (livraison, fabrication, sur mesure, paiement) */
+.usp-in{display:block!important;max-width:none!important;padding:0!important;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.usp-track{display:flex;width:max-content;animation:uspLoop 32s linear infinite}
+.usp-set{display:flex;flex:none}
+.usp-i{flex:none;display:flex;align-items:center!important;gap:12px;padding:18px 28px;position:relative}
+.usp-i::after{content:"";position:absolute;right:0;top:50%;width:5px;height:5px;background:var(--accent);translate:50% -50%;rotate:45deg}
+.usp-i span{white-space:nowrap}.usp-i b{white-space:nowrap}
+@media(hover:hover){.usp:hover .usp-track{animation-play-state:paused}}
+@keyframes uspLoop{to{transform:translateX(-50%)}}
+@media(max-width:760px){.usp-track{animation-duration:28s}.usp-i{padding:14px 22px}}
+@media(prefers-reduced-motion:reduce){.usp-track{animation:none}.usp-in{overflow-x:auto;-webkit-mask-image:none;mask-image:none}.usp-set[aria-hidden]{display:none}}
+
 /* administration */
 .adm{padding-block:28px 90px}
 .adm-top{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between;position:sticky;top:calc(env(safe-area-inset-top,0px) + 62px);z-index:25;background:var(--bg);padding-block:14px;border-bottom:1px solid var(--line)}
@@ -667,7 +679,7 @@ accueil(){
   const ig=String(S.settings.instagram||'').replace(/^@/,'');
   return `<h1 class="sr">Nervina Maroc : une pièce pour chaque pièce, mobilier fait main et sur mesure</h1>
 <a class="mban bleed" href="#catalogue" aria-label="Découvrir la collection : meuble TV, tables basses, console d'entrée, table de chevet"><picture><source media="(min-width:761px)" srcset="images/home/banniere-6-ordinateur.webp" width="1920" height="820"><img src="images/home/banniere-6-mobile.webp" width="1080" height="1350" alt="Une pièce pour chaque pièce : meuble TV noyer et crème, table London, console Arche, chevet arrondi, set organique et table ovale en marbre" fetchpriority="high" decoding="async"></picture></a>
-<section class="usp bleed" aria-label="Nos engagements"><div class="usp-in">${usp.map(u=>`<div class="usp-i">${ic(u[0])}<div><b>${u[1]}</b><span>${u[2]}</span></div></div>`).join('')}</div></section>
+<section class="usp bleed" aria-label="Nos engagements"><div class="usp-in"><div class="usp-track">${[0,1].map(k=>`<div class="usp-set"${k?' aria-hidden="true"':''}>${usp.map(u=>`<div class="usp-i">${ic(u[0])}<div><b>${u[1]}</b><span>${u[2]}</span></div></div>`).join('')}</div>`).join('')}</div></div></section>
 <section class="sec2"><div class="sh rv"><div><p class="eyebrow">Collections</p><h2>Explorez nos univers</h2></div><a class="lnk" href="#catalogue">Tout le catalogue</a></div>
   <div class="cats">${S.collections.map(c=>{const k=byCol(c.id).length;const im=H.cats[c.id]||(byCol(c.id)[0]||{}).imgs?.[0];return `<a class="cat rv" href="#c-${esc(c.id)}">${im?`<img src="${im}" alt="" loading="lazy" decoding="async">`:''}<span class="cat-cap"><b>${esc(c.name)}</b><small>${k} pièce${k>1?'s':''}</small><em>Découvrir ${ic('arrowr','sm')}</em></span></a>`}).join('')}</div></section>
 ${rail('r-best','Les plus demandées','Nos best-sellers',best,'#catalogue')}
