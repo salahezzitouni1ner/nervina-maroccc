@@ -7,13 +7,8 @@ hp = importlib.util.module_from_spec(_sp); _sp.loader.exec_module(hp)
 hp.ASSETS = [
     ('sq-promo-signature', 'meuble-tv-arrondis-1', (0, 362, 1086, 1448), 1086),
     ('sq-banner', 'set-2-tables-basses-organiques-3', (208, 0, 1040, 832), 1100),
-    ('sq-cat-tables', 'table-basse-ronde-marbre-bois-4', (0, 330, 832, 1162), 800),
-    ('sq-cat-tv', 'meuble-tv-suspendu-design-3', None, 800),
-    ('sq-cat-entree', 'console-arche-miroirs-organiques-1', None, 800),
-    ('sq-cat-chambres', 'table-de-chevet-arrondie-luxe-4', None, 800),
 ] + [a for a in hp.ASSETS if a[0].startswith('ig-')]
 
-hp.HOME['cats'] = {k: f'images/home/sq-cat-{k}.webp' for k in ['tables', 'tv', 'entree', 'chambres']}
 
 A = hp.ACCUEIL
 for a, b in [
@@ -56,7 +51,6 @@ hp.CSS += r'''
   .hs-t{font-size:clamp(1.85rem,8.4vw,2.4rem)}
   .hs-ui .hs-dots{max-width:none}
   .hs-d{-webkit-line-clamp:2}
-  .cats{grid-auto-columns:58%}
   .promo-in{grid-template-columns:1fr}
   .big{grid-template-columns:1fr}
   .big-img{grid-column:1;grid-row:1}

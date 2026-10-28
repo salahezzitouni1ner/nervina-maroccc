@@ -11,10 +11,6 @@ ORIG = '/mnt/user-data/uploads/jgus0t-ph-files-2026-10-21-102141/'
 ASSETS = [
     ('promo-signature', 'meuble-tv-arrondis-3', (0, 270, 1254, 1106), 1254),
     ('banner-sur-mesure', 'set-2-tables-basses-organiques-3', None, 1600),
-    ('cat-tables', 'table-basse-ronde-marbre-bois-4', None, 900),
-    ('cat-tv', 'meuble-tv-suspendu-design-3', None, 900),
-    ('cat-entree', 'console-arche-miroirs-organiques-1', None, 900),
-    ('cat-chambres', 'table-de-chevet-arrondie-luxe-4', None, 900),
     ('ig-1', 'table-de-chevet-canne-5', None, 700),
     ('ig-2', 'table-basse-ovale-noire-mdf-2', None, 700),
     ('ig-3', 'table-a-manger-ronde-travertin-4-chaises-2', None, 700),
@@ -34,7 +30,8 @@ HOME = {
     {'img': 'images/home/slide-sur-mesure.webp', 'imgm': 'images/home/slide-sur-mesure-m.webp', 'pos': '50% 65%', 'posm': '50% 75%', 'k': 'Fabrication sur mesure', 't': 'Vos dimensions. Votre teinte.',
      'd': 'Chaque pièce est adaptée à votre espace. Devis gratuit sur WhatsApp.', 'cta': 'Demander un devis', 'href': 'WA', 'alt': 'Table à manger ronde en noyer et quatre chaises'},
   ],
-  'cats': {'tables': 'images/home/cat-tables.webp', 'tv': 'images/home/cat-tv.webp', 'entree': 'images/home/cat-entree.webp', 'chambres': 'images/home/cat-chambres.webp'},
+  'cats': {'tables': 'images/home/col-tables.webp', 'tv': 'images/home/col-tv.webp', 'entree': 'images/home/col-entree.webp', 'chambres': 'images/home/col-chambres.webp'},
+  'catd': {'tables': 'Basses, à manger, d’appoint', 'tv': 'Suspendus ou sur pieds', 'entree': 'Consoles et miroirs', 'chambres': 'Tables de chevet'},
   'ig': ['images/home/ig-%d.webp' % i for i in range(1, 7)],
 }
 
@@ -64,7 +61,7 @@ ACCUEIL = r'''accueil(){
 <a class="mban bleed" href="#catalogue" aria-label="Découvrir la collection : meuble TV, tables basses, console d'entrée, table de chevet"><picture><source media="(min-width:761px)" srcset="images/home/banniere-6-ordinateur.webp" width="1920" height="820"><img src="images/home/banniere-6-mobile.webp" width="1080" height="1350" alt="Une pièce pour chaque pièce : meuble TV noyer et crème, table London, console Arche, chevet arrondi, set organique et table ovale en marbre" fetchpriority="high" decoding="async"></picture></a>
 <section class="usp bleed" aria-label="Nos engagements"><div class="usp-in"><div class="usp-track">${[0,1].map(k=>`<div class="usp-set"${k?' aria-hidden="true"':''}>${usp.map(u=>`<div class="usp-i">${ic(u[0])}<div><b>${u[1]}</b><span>${u[2]}</span></div></div>`).join('')}</div>`).join('')}</div></div></section>
 <section class="sec2"><div class="sh rv"><div><p class="eyebrow">Collections</p><h2>Explorez nos univers</h2></div><a class="lnk" href="#catalogue">Tout le catalogue</a></div>
-  <div class="cats">${S.collections.map(c=>{const k=byCol(c.id).length;const im=H.cats[c.id]||(byCol(c.id)[0]||{}).imgs?.[0];return `<a class="cat rv" href="#c-${esc(c.id)}">${im?`<img src="${im}" alt="" loading="lazy" decoding="async">`:''}<span class="cat-cap"><b>${esc(c.name)}</b><small>${k} pièce${k>1?'s':''}</small><em>Découvrir ${ic('arrowr','sm')}</em></span></a>`}).join('')}</div></section>
+  <div class="uvs">${S.collections.map(c=>{const im=H.cats[c.id]||(L.find(p=>p.col===c.id)||{}).imgs?.[0];return `<a class="uv rv" href="#c-${esc(c.id)}"><span class="uv-im">${im?`<img src="${im}" alt="${esc(c.name)}" loading="lazy" decoding="async">`:''}</span><span class="uv-cap"><b>${esc(c.name)}</b><small>${esc((H.catd||{})[c.id]||'')}</small></span><span class="uv-go" aria-hidden="true">${ic('arrowr')}</span></a>`}).join('')}</div></section>
 ${rail('r-best','Les plus demandées','Nos best-sellers',best,'#catalogue')}
 ${sig&&!sig.hidden?`<section class="promo bleed rv-wrap"><div class="promo-in">
   <div class="promo-img rv"><img src="images/home/promo-signature.webp" alt="Meuble TV arrondis en noyer, suspendu, avec éclairage LED" loading="lazy" decoding="async"><span class="promo-badge">Notre signature</span></div>
@@ -410,6 +407,22 @@ body.has-pdbar #waf{transform:translateY(-80px)}
 @keyframes uspLoop{to{transform:translateX(-50%)}}
 @media(max-width:760px){.usp-track{animation-duration:28s}.usp-i{padding:14px 22px}}
 @media(prefers-reduced-motion:reduce){.usp-track{animation:none}.usp-in{overflow-x:auto;-webkit-mask-image:none;mask-image:none}.usp-set[aria-hidden]{display:none}}
+
+/* collections : 4 univers rangés en grille, produit détouré sur une arche beige (comme la bannière) */
+.uvs{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.uv{position:relative;display:flex;flex-direction:column;text-decoration:none;color:var(--fg)}
+.uv-im{position:relative;display:block;aspect-ratio:1/1;background:#ECE6D9;border-radius:2px;overflow:hidden}
+.uv-im::before{content:"";position:absolute;left:14%;right:14%;top:12%;bottom:0;background:#E3D8C3;border-radius:999px 999px 0 0}
+.uv-im::after{content:"";position:absolute;left:18%;right:18%;bottom:13%;height:5%;border-radius:50%;background:radial-gradient(closest-side,rgba(70,45,20,.22),rgba(70,45,20,0))}
+.uv-im img{position:absolute;left:50%;bottom:15%;width:74%;height:58%;object-fit:contain;object-position:50% 100%;translate:-50% 0;z-index:1;transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.uv:hover .uv-im img{transform:translateY(-6px) scale(1.03)}
+.uv-cap{display:grid;gap:2px;padding:14px 44px 0 0}
+.uv-cap b{font-size:1.12rem;font-weight:500;letter-spacing:-.01em}
+.uv-cap small{font-size:.82rem;color:var(--muted)}
+.uv-go{position:absolute;right:0;bottom:4px;width:34px;height:34px;display:grid;place-items:center;border:1px solid var(--line);border-radius:50%;transition:background .3s,color .3s}
+.uv:hover .uv-go{background:var(--fg);color:var(--bg)}
+.uv-go .ic{width:15px;height:15px}
+@media(max-width:900px){.uvs{grid-template-columns:1fr 1fr;gap:22px 12px}.uv-cap{padding:10px 36px 0 0}.uv-cap b{font-size:1rem}.uv-cap small{font-size:.76rem}.uv-go{width:30px;height:30px}}
 '''
 
 
@@ -417,6 +430,11 @@ def _src(name):
     s = json.load(open('/home/claude/nervina-maroccc/store.json'))
     u = s['shopify']['images/' + name + '.webp']
     return ORIG + urllib.parse.unquote(u.split('?')[0].rsplit('/', 1)[1])
+
+
+CUTS = '/tmp/claude-0/-home-claude/ff2ae7a3-8d31-5e47-be59-c1e595b976e6/scratchpad/cards_cache'
+COLS = [('tables', 'table-a-manger-ronde-travertin-4-chaises'), ('tv', 'meuble-tv-suspendu-design'),
+        ('entree', 'console-arche-miroirs-organiques'), ('chambres', 'table-de-chevet-cloud-noyer')]
 
 
 def make_assets(repo):
@@ -430,6 +448,11 @@ def make_assets(repo):
         if crop: im = im.crop(crop)
         if im.width > w: im = im.resize((w, round(im.height * w / im.width)), Image.LANCZOS)
         im.save(f'{repo}/images/home/{name}.webp', 'WEBP', quality=80, method=6)
+    # collections : produit détouré (fond transparent), posé sur une arche beige en CSS
+    for k, pid in COLS:
+        im = Image.open(f'{CUTS}/{pid}.png').convert('RGBA')
+        im.thumbnail((720, 720), Image.LANCZOS)
+        im.save(f'{repo}/images/home/col-{k}.webp', 'WEBP', quality=86, method=6)
 
 
 SCRIPTS = '<script src="vendor/gsap.min.js"></script>\n<script src="vendor/ScrollTrigger.min.js"></script>\n<script src="vendor/lenis.min.js"></script>\n'
