@@ -79,7 +79,7 @@ ${rail('r-tables','Collection Tables','Tables basses et à manger',byCol('tables
 ${rail('r-ch','Collection Chambres','Pour la chambre',byCol('chambres'),'#c-chambres')}
 <section class="sec2 steps-s"><div class="sh rv"><div><p class="eyebrow">Comment commander</p><h2>Simple, depuis chez vous</h2></div></div>
   <ol class="steps">${[['chat','Choisissez','Ajoutez vos pièces au panier ou envoyez-nous votre projet.'],['ruler','Validez sur WhatsApp','Nous confirmons dimensions, teinte, délai et frais de livraison.'],['hand','Fabrication','Après un acompte de 30 %, votre meuble est fabriqué dans notre atelier.'],['box','Livraison','Livraison chez vous partout au Maroc. Vous réglez le solde de 70 %.']].map((s,i)=>`<li class="rv"><span class="st-n">${String(i+1).padStart(2,'0')}</span>${ic(s[0])}<b>${s[1]}</b><p>${s[2]}</p></li>`).join('')}</ol></section>
-${ig?`<section class="sec2"><div class="sh rv"><div><p class="eyebrow">@${esc(ig)}</p><h2>Nos pièces chez vous</h2></div><a class="btn ghost" href="https://www.instagram.com/${encodeURIComponent(ig)}/" target="_blank" rel="noopener">${ic('ig')} Suivre sur Instagram</a></div>
+${ig?`<section class="sec2"><div class="sh rv"><div><p class="eyebrow">@${esc(ig)}</p><h2>L’univers Nervina</h2></div><a class="btn ghost" href="https://www.instagram.com/${encodeURIComponent(ig)}/" target="_blank" rel="noopener">${ic('ig')} Suivre sur Instagram</a></div>
   <div class="igg">${H.ig.map(u=>`<a class="igt rv" href="https://www.instagram.com/${encodeURIComponent(ig)}/" target="_blank" rel="noopener" aria-label="Voir sur Instagram"><img src="${u}" alt="" loading="lazy" decoding="async"><span>${ic('ig')}</span></a>`).join('')}</div></section>`:''}`},
 '''
 
@@ -423,6 +423,26 @@ body.has-pdbar #waf{transform:translateY(-80px)}
 .uv:hover .uv-go{background:var(--fg);color:var(--bg)}
 .uv-go .ic{width:15px;height:15px}
 @media(max-width:900px){.uvs{grid-template-columns:1fr 1fr;gap:22px 12px}.uv-cap{padding:10px 36px 0 0}.uv-cap b{font-size:1rem}.uv-cap small{font-size:.76rem}.uv-go{width:30px;height:30px}}
+
+/* ---------- finitions pro ---------- */
+.nv-x{display:none}
+@media(max-width:860px){nav.open .nv-x{display:block;padding:11px 0 11px 18px!important;font-size:.92rem;color:var(--muted);border-bottom:1px solid var(--line)}}
+.pd .pd-trust{list-style:none;margin:18px 0 0;padding:0;border:1px solid var(--line);background:var(--card);border-radius:2px}
+.pd-trust li{display:flex;gap:14px;align-items:flex-start;padding:14px 16px}
+.pd-trust li+li{border-top:1px solid var(--line)}
+.pd-trust .ic{width:24px;height:24px;flex:none;color:var(--accent-ink);stroke-width:1.4;margin-top:1px}
+.pd-trust b{display:block;font-weight:500;font-size:.9rem}
+.pd-trust span{display:block;font-size:.8rem;color:var(--muted);margin-top:2px}
+.tot2{display:flex;justify-content:space-between;font-size:.84rem;color:var(--muted);margin-top:6px}
+.tot2 span:last-child{color:var(--fg);font-weight:500}
+.wa-float{display:inline-flex;align-items:center;gap:10px;border-radius:999px!important;padding:12px 18px 12px 14px!important;box-shadow:0 10px 30px rgba(17,18,19,.18)}
+.wa-float .ic{width:22px;height:22px}
+.waf-t{font-size:.85rem}
+@media(max-width:760px){
+  .pd .gal{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-inline:-16px;padding-inline:16px}
+  .pd .gal::-webkit-scrollbar{display:none}
+  .pd .gal button{flex:none;width:64px;height:64px}
+}
 '''
 
 
@@ -517,6 +537,30 @@ def patch(m, c, s):
     assert a in m; m = m.replace(a, "$('#tbwa').href=$('#waf').href=WAU(")
     a = "chrome();updCnt();route();"
     assert a in m; m = m.replace(a, "chrome();updCnt();route();$('#tbcart').onclick=()=>openCart();")
+    # ---------- finitions pro ----------
+    # menu mobile : accès direct aux collections
+    a = '<a href="#catalogue" data-r="catalogue">Catalogue</a>'
+    assert a in m
+    m = m.replace(a, a + ''.join(f'<a class="nv-x" href="#c-{k}">{n}</a>' for k, n in [('tables', 'Tables'), ('tv', 'Meubles TV'), ('entree', "Meubles d'entrée"), ('chambres', 'Chambres')]), 1)
+    a = "$('#bg').onclick=()=>{const o=$('#nav').classList.toggle('open');$('#bg').setAttribute('aria-expanded',o)};"
+    assert a in m
+    m = m.replace(a, a + "$('#nav').addEventListener('click',e=>{if(e.target.closest('a')){$('#nav').classList.remove('open');$('#bg').setAttribute('aria-expanded',false)}});", 1)
+    # fiche produit : garanties claires (livraison, paiement 30/70, sur mesure) à la place de la note grise
+    a = '<p class="note" style="margin-top:14px">${esc(S.settings.productNote)}</p>'
+    assert a in m
+    sv = lambda k: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">' + ICONS[k] + '</svg>'
+    m = m.replace(a, '<ul class="pd-trust">'
+        '<li>' + sv('truck') + '<div><b>Livraison partout au Maroc</b><span>3 à 7 jours ouvrables · 7 à 21 jours pour le sur mesure</span></div></li>'
+        '<li>' + sv('wallet') + '<div><b>Paiement en deux fois</b><span>Acompte de ${MAD(Math.round(p.price*.3))} à la commande, le reste à la livraison</span></div></li>'
+        '<li>' + sv('ruler') + '<div><b>Fait main, sur mesure</b><span>Dimensions et teinte adaptées à votre intérieur</span></div></li></ul>', 1)
+    # panier : acompte 30 % et solde 70 % affichés
+    a = '<div class="tot"><span>Total</span><span>${MAD(total())}</span></div>'
+    assert a in m
+    m = m.replace(a, a + '<div class="tot2"><span>Acompte à la commande (30 %)</span><span>${MAD(Math.round(total()*.3))}</span></div><div class="tot2"><span>À régler à la livraison (70 %)</span><span>${MAD(total()-Math.round(total()*.3))}</span></div>', 1)
+    # bouton WhatsApp flottant (ordinateur) : rond, discret
+    a = '<a class="btn wa-float" id="waf" href="#" target="_blank" rel="noopener">WhatsApp</a>'
+    assert a in m
+    m = m.replace(a, '<a class="btn wa-float" id="waf" href="#" target="_blank" rel="noopener" aria-label="Écrire sur WhatsApp"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"/><path d="M9 9.5c.3 2 2.2 4.2 5 5"/></svg><span class="waf-t">Une question ?</span></a>', 1)
     m = m.replace('<script type="application/json" id="seed">', SCRIPTS + '<script type="application/json" id="seed">', 1)
     for t in ["mgInit();", "mgKill();", "annSet();", "vendor/gsap.min.js", "else scrollTo(0,y)"]:
         assert t in m, t
