@@ -1,7 +1,7 @@
 # Page d'accueil « boutique pro » : slider plein écran, bandeau défilant d'annonces, réassurance,
 # univers, carrousels produits, bannière promo, bannière sur mesure, étapes, Instagram.
 # GSAP + ScrollTrigger (apparitions), Lenis (défilement doux sur ordinateur).
-import os, re, shutil, json, urllib.parse
+import importlib.util, os, re, shutil, json, urllib.parse
 from PIL import Image
 
 VEND = '/tmp/claude-0/-home-claude/ff2ae7a3-8d31-5e47-be59-c1e595b976e6/scratchpad/vend'
@@ -57,7 +57,7 @@ ACCUEIL = r'''accueil(){
   const best=['table-de-chevet-duo-curve','table-basse-london','console-arche-miroirs-organiques','table-a-manger-ronde-travertin-4-chaises','table-de-chevet-cloud-noyer','table-basse-ronde-marbre-bois','table-de-chevet-canne'].map(prod).filter(p=>p&&!p.hidden);
   const rail=(id,k,t,list,all)=>list.length?`<section class="sec2"><div class="sh rv"><div><p class="eyebrow">${k}</p><h2>${t}</h2></div><div class="sh-r">${all?`<a class="lnk" href="${all}">Tout voir</a>`:''}<div class="rail-nav"><button class="rn" data-rail="${id}" data-d="-1" aria-label="Précédent">${ic('arrowl')}</button><button class="rn" data-rail="${id}" data-d="1" aria-label="Suivant">${ic('arrowr')}</button></div></div></div><div class="rail" id="${id}">${list.map(card).join('')}</div></section>`:'';
   const ig=String(S.settings.instagram||'').replace(/^@/,'');
-  return `<h1 class="sr">Nervina Maroc : une pièce pour chaque pièce, mobilier fait main et sur mesure</h1>
+  return `<h1 class="sr">Nervina Maroc : meubles sur mesure faits main au Maroc, meubles TV, tables basses, consoles et tables de chevet</h1>
 <a class="mban bleed" href="#catalogue" aria-label="Découvrir la collection : meuble TV, tables basses, console d'entrée, table de chevet"><picture><source media="(min-width:761px)" srcset="images/home/banniere-6-ordinateur.webp" width="1920" height="820"><img src="images/home/banniere-6-mobile.webp" width="1080" height="1350" alt="Une pièce pour chaque pièce : meuble TV noyer et crème, table London, console Arche, chevet arrondi, set organique et table ovale en marbre" fetchpriority="high" decoding="async"></picture></a>
 <section class="usp bleed" aria-label="Nos engagements"><div class="usp-in"><div class="usp-track">${[0,1].map(k=>`<div class="usp-set"${k?' aria-hidden="true"':''}>${usp.map(u=>`<div class="usp-i">${ic(u[0])}<div><b>${u[1]}</b><span>${u[2]}</span></div></div>`).join('')}</div>`).join('')}</div></div></section>
 <section class="sec2"><div class="sh rv"><div><p class="eyebrow">Collections</p><h2>Explorez nos univers</h2></div><a class="lnk" href="#catalogue">Tout le catalogue</a></div>
@@ -443,6 +443,8 @@ body.has-pdbar #waf{transform:translateY(-80px)}
   .pd .gal::-webkit-scrollbar{display:none}
   .pd .gal button{flex:none;width:64px;height:64px}
 }
+.col-intro{color:var(--muted);max-width:62ch;margin:0 0 26px;font-size:.95rem}
+.seo-pre{padding:40px 0 80px;color:var(--muted)}.seo-pre h1{color:var(--fg);margin-bottom:12px}.seo-pre ul{padding-left:18px}
 '''
 
 
@@ -561,6 +563,18 @@ def patch(m, c, s):
     a = '<a class="btn wa-float" id="waf" href="#" target="_blank" rel="noopener">WhatsApp</a>'
     assert a in m
     m = m.replace(a, '<a class="btn wa-float" id="waf" href="#" target="_blank" rel="noopener" aria-label="Écrire sur WhatsApp"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"/><path d="M9 9.5c.3 2 2.2 4.2 5 5"/></svg><span class="waf-t">Une question ?</span></a>', 1)
+    # référencement : texte d'introduction des collections + titre d'onglet par page
+    _ss = importlib.util.spec_from_file_location('seo', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'seo.py')); _seo = importlib.util.module_from_spec(_ss); _ss.loader.exec_module(_seo)
+    intro = json.dumps({k: v[2] for k, v in _seo.COLS.items()}, ensure_ascii=False)
+    a = "<h1 style=\"margin-bottom:28px\">${filt==='all'?'Tous les produits':esc(colName(filt))}</h1>"
+    assert a in m
+    m = m.replace(a, "<h1 style=\"margin-bottom:${filt!=='all'&&COLI[filt]?'10px':'28px'}\">${filt==='all'?'Tous les produits':esc(colName(filt))}</h1>${filt!=='all'&&COLI[filt]?`<p class=\"col-intro\">${esc(COLI[filt])}</p>`:''}", 1)
+    a = "let PDIO=null;\n"
+    assert a in m
+    m = m.replace(a, a + "const COLI=" + intro + ";\n", 1)
+    a = "app.innerHTML=html;toY(0);bind(h);setNav(h);"
+    assert a in m
+    m = m.replace(a, a + "try{if(!window.NV_H0){window.NV_H0=h;window.NV_T0=document.title}const t1=(app.querySelector('h1')||{}).textContent;document.title=h===window.NV_H0?window.NV_T0:h==='accueil'?'Nervina Maroc | Meubles sur mesure : meubles TV, tables basses, chevets':(t1?t1.trim()+' | Nervina Maroc':document.title)}catch(e){}", 1)
     m = m.replace('<script type="application/json" id="seed">', SCRIPTS + '<script type="application/json" id="seed">', 1)
     for t in ["mgInit();", "mgKill();", "annSet();", "vendor/gsap.min.js", "else scrollTo(0,y)"]:
         assert t in m, t
