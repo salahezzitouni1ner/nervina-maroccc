@@ -42,6 +42,13 @@ HOME = {
     {'t': "La qualité et la finition, tbarkallah, tout est beau. Merci encore.", 'p': 'Coiffeuse sur mesure', 's': 'WhatsApp'},
     {'t': "Bravo, top, très satisfaite.", 'n': 'Myriam', 'p': 'Meuble TV arrondis', 's': 'Instagram'},
   ],
+  'livr': [
+    ('images/home/livraison-1.webp', 'Meuble TV suspendu en noyer, éclairage LED'),
+    ('images/home/livraison-2.webp', 'Meuble TV noyer sous un mur à moulures'),
+    ('images/home/livraison-3.webp', 'Meuble TV crème devant un mur en arche'),
+    ('images/home/livraison-4.webp', 'Meuble TV suspendu en noyer, finition arrondie'),
+    ('images/home/livraison-5.webp', 'Pose sur place par l’équipe Nervina'),
+  ],
   'avisUrl': 'https://www.instagram.com/stories/highlights/17938774950381191/',
   'followers': '10,7 k',
 }
@@ -90,6 +97,8 @@ ${rail('r-tables','Collection Tables','Tables basses et à manger',byCol('tables
 ${rail('r-ch','Collection Chambres','Pour la chambre',byCol('chambres'),'#c-chambres')}
 <section class="sec2 steps-s"><div class="sh rv"><div><p class="eyebrow">Comment commander</p><h2>Simple, depuis chez vous</h2></div></div>
   <ol class="steps">${[['chat','Choisissez','Ajoutez vos pièces au panier ou envoyez-nous votre projet.'],['ruler','Validez sur WhatsApp','Nous confirmons dimensions, teinte, délai et frais de livraison.'],['hand','Fabrication','Après un acompte de 30 %, votre meuble est fabriqué dans notre atelier.'],['box','Livraison','Livraison chez vous partout au Maroc. Vous réglez le solde de 70 %.']].map((s,i)=>`<li class="rv"><span class="st-n">${String(i+1).padStart(2,'0')}</span>${ic(s[0])}<b>${s[1]}</b><p>${s[2]}</p></li>`).join('')}</ol></section>
+<section class="sec2 livr-s" aria-label="Nos livraisons"><div class="sh rv"><div><p class="eyebrow">Nos livraisons</p><h2>Livrés et posés chez nos clients</h2><p class="avis-sub">De vraies photos, prises le jour de la pose.</p></div><a class="lnk" href="https://www.instagram.com/${encodeURIComponent(ig||'nervina_maroc')}/" target="_blank" rel="noopener">Plus sur Instagram</a></div>
+<div class="livr">${H.livr.map(l=>`<figure class="lv rv"><img src="${l[0]}" alt="${esc(l[1])}" loading="lazy" decoding="async" width="720" height="900"><figcaption>${esc(l[1])}</figcaption></figure>`).join('')}</div></section>
 <section class="sec2 avis-s" aria-label="Avis clients"><div class="sh rv"><div><p class="eyebrow">Avis clients</p><h2>Ils nous ont fait confiance</h2><p class="avis-sub">Messages reçus de nos clients sur WhatsApp et Instagram.</p></div><a class="lnk" href="${H.avisUrl}" target="_blank" rel="noopener">Voir tous les avis</a></div>
 <div class="avis">${H.avis.map(a=>`<figure class="av rv"><span class="av-q" aria-hidden="true">“</span><blockquote>${esc(a.t)}</blockquote><figcaption><b>${esc(a.n||(a.s==='WhatsApp'?'Client · WhatsApp':'Client · Instagram'))}</b><span>${esc(a.p)}</span></figcaption></figure>`).join('')}</div>
 <div class="avis-band rv"><div><b>${H.followers}</b><span>abonnés sur Instagram</span></div><div><b>100 %</b><span>fait main au Maroc</span></div><div><b>30 / 70</b><span>acompte, puis solde à la livraison</span></div></div></section>
@@ -478,6 +487,17 @@ body.has-pdbar #waf{transform:translateY(-80px)}
   .avis{grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:84%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin-inline:-16px;padding-inline:16px;scroll-padding-inline:16px;gap:12px}
   .avis::-webkit-scrollbar{display:none}.av{scroll-snap-align:start;padding:24px 20px 18px}
   .avis-band{grid-template-columns:1fr 1fr 1fr}.avis-band>div{padding:14px 12px}.avis-band b{font-size:1.15rem}.avis-band span{font-size:.7rem}
+}
+
+/* livraisons réelles */
+.livr{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.lv{margin:0;position:relative;overflow:hidden;border-radius:2px;background:var(--surface);aspect-ratio:4/5}
+.lv img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.lv:hover img{transform:scale(1.04)}
+.lv figcaption{position:absolute;left:0;right:0;bottom:0;padding:28px 12px 10px;font-size:.74rem;line-height:1.35;color:#F3F0E6;background:linear-gradient(0deg,rgba(12,11,10,.72),rgba(12,11,10,0))}
+@media(max-width:900px){
+  .livr{grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:62%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin-inline:-16px;padding-inline:16px;scroll-padding-inline:16px;gap:10px}
+  .livr::-webkit-scrollbar{display:none}.lv{scroll-snap-align:start}
 }
 '''
 
