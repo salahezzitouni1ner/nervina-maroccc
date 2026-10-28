@@ -66,6 +66,7 @@ def head_tags(title, desc, url, image, img_w, img_h, kind='website', extra=''):
 <meta property="og:image:height" content="{img_h}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#F3F0E6">
+<meta name="google-site-verification" content="C2QKTSXRmBoDAZWHZOLYi5kOMKuZIIbIhbf2dBbYhuw">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" href="/icons/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
