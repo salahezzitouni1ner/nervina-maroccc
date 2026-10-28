@@ -660,7 +660,7 @@ accueil(){
   const sl=H.slides.filter(s=>!s.pid||prod(s.pid));const n=sl.length;
   const href=h=>h==='WA'?wa:h,ext=h=>h==='WA'?' target="_blank" rel="noopener"':'';
   const usp=[['truck','Livraison partout au Maroc','Frais confirmés avant commande'],['hand','Fabrication artisanale','Dans notre atelier au Maroc'],['ruler','Sur mesure','Dimensions et teintes au choix'],['wallet','Paiement en deux fois','30 % à la commande, 70 % à la livraison']];
-  const sig=prod('table-de-chevet-duo-curve');
+  const sig=prod('meuble-tv-arrondis');
   const NOHOME=['table-basse-amazonica','meuble-tv-arrondis'];const byCol=c=>L.filter(p=>p.col===c&&!NOHOME.includes(p.id));
   const best=['table-de-chevet-duo-curve','table-basse-london','console-arche-miroirs-organiques','table-a-manger-ronde-travertin-4-chaises','table-de-chevet-cloud-noyer','table-basse-ronde-marbre-bois','table-de-chevet-canne'].map(prod).filter(p=>p&&!p.hidden);
   const rail=(id,k,t,list,all)=>list.length?`<section class="sec2"><div class="sh rv"><div><p class="eyebrow">${k}</p><h2>${t}</h2></div><div class="sh-r">${all?`<a class="lnk" href="${all}">Tout voir</a>`:''}<div class="rail-nav"><button class="rn" data-rail="${id}" data-d="-1" aria-label="Précédent">${ic('arrowl')}</button><button class="rn" data-rail="${id}" data-d="1" aria-label="Suivant">${ic('arrowr')}</button></div></div></div><div class="rail" id="${id}">${list.map(card).join('')}</div></section>`:'';
@@ -672,10 +672,10 @@ accueil(){
   <div class="cats">${S.collections.map(c=>{const k=byCol(c.id).length;const im=H.cats[c.id]||(byCol(c.id)[0]||{}).imgs?.[0];return `<a class="cat rv" href="#c-${esc(c.id)}">${im?`<img src="${im}" alt="" loading="lazy" decoding="async">`:''}<span class="cat-cap"><b>${esc(c.name)}</b><small>${k} pièce${k>1?'s':''}</small><em>Découvrir ${ic('arrowr','sm')}</em></span></a>`}).join('')}</div></section>
 ${rail('r-best','Les plus demandées','Nos best-sellers',best,'#catalogue')}
 ${sig&&!sig.hidden?`<section class="promo bleed rv-wrap"><div class="promo-in">
-  <div class="promo-img rv"><img src="images/home/promo-duo.webp" alt="Table de chevet Duo Curve vert sauge et noyer" loading="lazy" decoding="async"><span class="promo-badge">Nouveauté</span></div>
-  <div class="promo-txt rv"><p class="eyebrow">Chambres</p><h2>${esc(sig.title)}</h2>
-    <p class="promo-d">Deux tiroirs aux formes douces, le vert sauge associé au noyer : une table de chevet apaisante, fabriquée sur mesure.</p>
-    <ul class="promo-l"><li>Vert sauge et noyer</li><li>Deux tiroirs</li><li>Livrée montée</li><li>Toutes les couleurs sur demande</li></ul>
+  <div class="promo-img rv"><img src="images/home/promo-signature.webp" alt="Meuble TV arrondis en noyer, suspendu, avec éclairage LED" loading="lazy" decoding="async"><span class="promo-badge">Notre signature</span></div>
+  <div class="promo-txt rv"><p class="eyebrow">Meubles TV · Notre signature</p><h2>${esc(sig.title)}</h2>
+    <p class="promo-d">Notre pièce signature : un meuble TV suspendu en noyer aux extrémités arrondies, avec un éclairage LED intégré qui réchauffe tout le salon. Fabriqué sur mesure, à vos dimensions.</p>
+    <ul class="promo-l"><li>Finition noyer</li><li>Éclairage LED intégré</li><li>Fixation murale invisible</li><li>Dimensions et couleurs sur mesure</li></ul>
     <p class="promo-p">${MAD(sig.price)}</p>
     <div class="promo-cta"><a class="btn" href="#p-${esc(sig.id)}">Découvrir</a><a class="btn ghost" href="${WAU('Bonjour Nervina, je suis intéressé(e) par le '+sig.title+'.')}" target="_blank" rel="noopener">Commander sur WhatsApp</a></div>
   </div></div></section>`:''}

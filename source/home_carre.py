@@ -5,7 +5,7 @@ _sp = importlib.util.spec_from_file_location('home_pro', os.path.join(os.path.di
 hp = importlib.util.module_from_spec(_sp); _sp.loader.exec_module(hp)
 
 hp.ASSETS = [
-    ('sq-promo-duo', 'table-de-chevet-duo-curve-1', None, 1100),
+    ('sq-promo-signature', 'meuble-tv-arrondis-1', (0, 362, 1086, 1448), 1086),
     ('sq-banner', 'set-2-tables-basses-organiques-3', (208, 0, 1040, 832), 1100),
     ('sq-cat-tables', 'table-basse-ronde-marbre-bois-4', (0, 330, 832, 1162), 800),
     ('sq-cat-tv', 'meuble-tv-suspendu-design-3', None, 800),
@@ -17,7 +17,7 @@ hp.HOME['cats'] = {k: f'images/home/sq-cat-{k}.webp' for k in ['tables', 'tv', '
 
 A = hp.ACCUEIL
 for a, b in [
-    ('images/home/promo-duo.webp', 'images/home/sq-promo-duo.webp'),
+    ('images/home/promo-signature.webp', 'images/home/sq-promo-signature.webp'),
     ('<section class="big bleed"><img class="big-img" src="images/home/banner-sur-mesure.webp"',
      '<section class="big bleed"><img class="big-img" src="images/home/sq-banner.webp"'),
 ]:
