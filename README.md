@@ -28,3 +28,10 @@ Modifiez `store.json` (prix, noms, textes). Placez les photos dans un dossier `i
 - Page produit : bouton collant « Commander maintenant » (ouvre directement le formulaire WhatsApp).
 - Paiement : commande via WhatsApp, 30 % d'acompte, 70 % à la livraison. Paiement en ligne : à discuter.
 - Reconstruire : `source/build.py` (modèle `source/modele.html`, styles `source/styles.css`, accueil `source/home_pro.py`).
+
+## Partage et référencement (28/10/2026)
+- Domaine : https://nervina.ma (DNS Nindohost → GitHub Pages, HTTPS forcé).
+- Chaque produit a sa page : https://nervina.ma/p/<id-du-produit>/ (aperçu WhatsApp avec photo et prix).
+- Bouton « Partager cette pièce » sur la fiche produit.
+- `sitemap.xml`, `robots.txt`, icônes (`icons/`, `favicon.ico`), `manifest.webmanifest`, images d'aperçu (`images/og/`).
+- Tout est régénéré par `source/build.py` (étape `source/seo.py`) à chaque reconstruction.
