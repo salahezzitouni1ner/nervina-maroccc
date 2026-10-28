@@ -33,6 +33,17 @@ HOME = {
   'cats': {'tables': 'images/home/col-tables.webp', 'tv': 'images/home/col-tv.webp', 'entree': 'images/home/col-entree.webp', 'chambres': 'images/home/col-chambres.webp'},
   'catd': {'tables': 'Basses, à manger, d’appoint', 'tv': 'Suspendus ou sur pieds', 'entree': 'Consoles et miroirs', 'chambres': 'Tables de chevet'},
   'ig': ['images/home/ig-%d.webp' % i for i in range(1, 7)],
+  # avis réels, repris des messages clients publiés dans la story « Avis clients » d'Instagram
+  'avis': [
+    {'t': "Merci beaucoup pour le meuble TV, pour la qualité du travail et pour le professionnalisme de tes équipes. Vraiment un travail magnifique ! Le résultat est exactement comme sur la photo Pinterest, reproduit à l’identique. Merci également pour le respect des délais.", 'p': 'Meuble TV sur mesure', 's': 'WhatsApp'},
+    {'t': "Je tiens à remercier chaleureusement M. Salah et toute l’équipe de Nervina pour l’excellent travail réalisé dans mon séjour et ma chambre à coucher. Je suis très satisfait du résultat et je recommande vivement vos services.", 'p': 'Séjour et chambre', 's': 'Instagram'},
+    {'t': "Toute ma famille a adoré les meubles, et moi aussi je suis ravie.", 'p': 'Meubles sur mesure', 's': 'WhatsApp'},
+    {'t': "Un travail soigné et très professionnel. Merci beaucoup, à la prochaine inchallah !", 'p': 'Projet sur mesure', 's': 'Instagram'},
+    {'t': "La qualité et la finition, tbarkallah, tout est beau. Merci encore.", 'p': 'Coiffeuse sur mesure', 's': 'WhatsApp'},
+    {'t': "Bravo, top, très satisfaite.", 'n': 'Myriam', 'p': 'Meuble TV arrondis', 's': 'Instagram'},
+  ],
+  'avisUrl': 'https://www.instagram.com/stories/highlights/17938774950381191/',
+  'followers': '10,7 k',
 }
 
 ICONS = {
@@ -79,6 +90,9 @@ ${rail('r-tables','Collection Tables','Tables basses et à manger',byCol('tables
 ${rail('r-ch','Collection Chambres','Pour la chambre',byCol('chambres'),'#c-chambres')}
 <section class="sec2 steps-s"><div class="sh rv"><div><p class="eyebrow">Comment commander</p><h2>Simple, depuis chez vous</h2></div></div>
   <ol class="steps">${[['chat','Choisissez','Ajoutez vos pièces au panier ou envoyez-nous votre projet.'],['ruler','Validez sur WhatsApp','Nous confirmons dimensions, teinte, délai et frais de livraison.'],['hand','Fabrication','Après un acompte de 30 %, votre meuble est fabriqué dans notre atelier.'],['box','Livraison','Livraison chez vous partout au Maroc. Vous réglez le solde de 70 %.']].map((s,i)=>`<li class="rv"><span class="st-n">${String(i+1).padStart(2,'0')}</span>${ic(s[0])}<b>${s[1]}</b><p>${s[2]}</p></li>`).join('')}</ol></section>
+<section class="sec2 avis-s" aria-label="Avis clients"><div class="sh rv"><div><p class="eyebrow">Avis clients</p><h2>Ils nous ont fait confiance</h2><p class="avis-sub">Messages reçus de nos clients sur WhatsApp et Instagram.</p></div><a class="lnk" href="${H.avisUrl}" target="_blank" rel="noopener">Voir tous les avis</a></div>
+<div class="avis">${H.avis.map(a=>`<figure class="av rv"><span class="av-q" aria-hidden="true">“</span><blockquote>${esc(a.t)}</blockquote><figcaption><b>${esc(a.n||(a.s==='WhatsApp'?'Client · WhatsApp':'Client · Instagram'))}</b><span>${esc(a.p)}</span></figcaption></figure>`).join('')}</div>
+<div class="avis-band rv"><div><b>${H.followers}</b><span>abonnés sur Instagram</span></div><div><b>100 %</b><span>fait main au Maroc</span></div><div><b>30 / 70</b><span>acompte, puis solde à la livraison</span></div></div></section>
 ${ig?`<section class="sec2"><div class="sh rv"><div><p class="eyebrow">@${esc(ig)}</p><h2>L’univers Nervina</h2></div><a class="btn ghost" href="https://www.instagram.com/${encodeURIComponent(ig)}/" target="_blank" rel="noopener">${ic('ig')} Suivre sur Instagram</a></div>
   <div class="igg">${H.ig.map(u=>`<a class="igt rv" href="https://www.instagram.com/${encodeURIComponent(ig)}/" target="_blank" rel="noopener" aria-label="Voir sur Instagram"><img src="${u}" alt="" loading="lazy" decoding="async"><span>${ic('ig')}</span></a>`).join('')}</div></section>`:''}`},
 '''
@@ -445,6 +459,26 @@ body.has-pdbar #waf{transform:translateY(-80px)}
 }
 .col-intro{color:var(--muted);max-width:62ch;margin:0 0 26px;font-size:.95rem}
 .seo-pre{padding:40px 0 80px;color:var(--muted)}.seo-pre h1{color:var(--fg);margin-bottom:12px}.seo-pre ul{padding-left:18px}
+
+/* avis clients */
+.avis-sub{color:var(--muted);margin:8px 0 0;font-size:.92rem}
+.avis{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.av{margin:0;position:relative;display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:2px;padding:28px 24px 22px}
+.av-q{font-size:3.4rem;line-height:.6;color:var(--accent);font-family:Georgia,serif;height:22px;display:block}
+.av blockquote{margin:10px 0 18px;font-size:.98rem;line-height:1.6;color:var(--fg)}
+.av figcaption{margin-top:auto;padding-top:14px;border-top:1px solid var(--line);display:grid;gap:2px}
+.av figcaption b{font-weight:500;font-size:.88rem}
+.av figcaption span{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink)}
+.avis-band{display:grid;grid-template-columns:repeat(3,1fr);margin-top:22px;border:1px solid var(--line);background:var(--surface)}
+.avis-band>div{padding:18px 20px;display:grid;gap:2px}
+.avis-band>div+div{border-left:1px solid var(--line)}
+.avis-band b{font-size:1.5rem;font-weight:500;letter-spacing:-.02em}
+.avis-band span{font-size:.8rem;color:var(--muted)}
+@media(max-width:900px){
+  .avis{grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:84%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin-inline:-16px;padding-inline:16px;scroll-padding-inline:16px;gap:12px}
+  .avis::-webkit-scrollbar{display:none}.av{scroll-snap-align:start;padding:24px 20px 18px}
+  .avis-band{grid-template-columns:1fr 1fr 1fr}.avis-band>div{padding:14px 12px}.avis-band b{font-size:1.15rem}.avis-band span{font-size:.7rem}
+}
 '''
 
 
