@@ -396,19 +396,6 @@
    ],
    "hidden": false,
    "star": false
-  },
-  {
-   "id": "test-admin",
-   "title": "Test admin (masqué)",
-   "price": 100,
-   "old": 0,
-   "col": "tables",
-   "desc": "Test",
-   "imgs": [
-    "images/home/livraison-3.webp"
-   ],
-   "hidden": true,
-   "star": false
   }
  ],
  "pages": {
