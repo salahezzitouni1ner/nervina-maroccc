@@ -43,11 +43,16 @@ HOME = {
     {'t': "Bravo, top, très satisfaite.", 'n': 'Myriam', 'p': 'Meuble TV arrondis', 's': 'Instagram'},
   ],
   'livr': [
-    ('images/home/livraison-1.webp', 'Meuble TV suspendu en noyer, éclairage LED'),
-    ('images/home/livraison-2.webp', 'Meuble TV noyer sous un mur à moulures'),
-    ('images/home/livraison-3.webp', 'Meuble TV crème devant un mur en arche'),
-    ('images/home/livraison-4.webp', 'Meuble TV suspendu en noyer, finition arrondie'),
-    ('images/home/livraison-5.webp', 'Pose sur place par l’équipe Nervina'),
+    ('images/home/livraison-1.webp', 'Meuble TV suspendu en noyer, parquet à chevrons'),
+    ('images/home/livraison-2.webp', 'Mur TV en noyer avec niches éclairées'),
+    ('images/home/livraison-3.webp', 'Meuble TV laqué crème, arche lumineuse'),
+    ('images/home/livraison-4.webp', 'Table basse organique en noyer massif'),
+    ('images/home/livraison-5.webp', 'Coiffeuse suspendue en noyer et crème'),
+    ('images/home/livraison-6.webp', 'Meuble TV noyer sous un mur à moulures'),
+    ('images/home/livraison-7.webp', 'Buffet en noyer, portes en verre fumé'),
+    ('images/home/livraison-8.webp', 'Meuble TV noyer et cannage, LED'),
+    ('images/home/livraison-9.webp', 'Salon complet : table organique et meuble TV cannage'),
+    ('images/home/livraison-10.webp', 'Meuble TV suspendu et panneau mural LED'),
   ],
   'avisUrl': 'https://www.instagram.com/stories/highlights/17938774950381191/',
   'followers': '10,7 k',
@@ -97,7 +102,7 @@ ${rail('r-tables','Collection Tables','Tables basses et à manger',byCol('tables
 ${rail('r-ch','Collection Chambres','Pour la chambre',byCol('chambres'),'#c-chambres')}
 <section class="sec2 steps-s"><div class="sh rv"><div><p class="eyebrow">Comment commander</p><h2>Simple, depuis chez vous</h2></div></div>
   <ol class="steps">${[['chat','Choisissez','Ajoutez vos pièces au panier ou envoyez-nous votre projet.'],['ruler','Validez sur WhatsApp','Nous confirmons dimensions, teinte, délai et frais de livraison.'],['hand','Fabrication','Après un acompte de 30 %, votre meuble est fabriqué dans notre atelier.'],['box','Livraison','Livraison chez vous partout au Maroc. Vous réglez le solde de 70 %.']].map((s,i)=>`<li class="rv"><span class="st-n">${String(i+1).padStart(2,'0')}</span>${ic(s[0])}<b>${s[1]}</b><p>${s[2]}</p></li>`).join('')}</ol></section>
-<section class="sec2 livr-s" aria-label="Nos livraisons"><div class="sh rv"><div><p class="eyebrow">Nos livraisons</p><h2>Livrés et posés chez nos clients</h2><p class="avis-sub">De vraies photos, prises le jour de la pose.</p></div><a class="lnk" href="https://www.instagram.com/${encodeURIComponent(ig||'nervina_maroc')}/" target="_blank" rel="noopener">Plus sur Instagram</a></div>
+<section class="sec2 livr-s" aria-label="Nos livraisons"><div class="sh rv"><div><p class="eyebrow">Nos livraisons</p><h2>Livrés et posés chez nos clients</h2><p class="avis-sub">Nos réalisations, photographiées chez nos clients.</p></div><a class="lnk" href="https://www.instagram.com/${encodeURIComponent(ig||'nervina_maroc')}/" target="_blank" rel="noopener">Plus sur Instagram</a></div>
 <div class="livr">${H.livr.map(l=>`<figure class="lv rv"><img src="${l[0]}" alt="${esc(l[1])}" loading="lazy" decoding="async" width="720" height="900"><figcaption>${esc(l[1])}</figcaption></figure>`).join('')}</div></section>
 <section class="sec2 avis-s" aria-label="Avis clients"><div class="sh rv"><div><p class="eyebrow">Avis clients</p><h2>Ils nous ont fait confiance</h2><p class="avis-sub">Messages reçus de nos clients sur WhatsApp et Instagram.</p></div><a class="lnk" href="${H.avisUrl}" target="_blank" rel="noopener">Voir tous les avis</a></div>
 <div class="avis">${H.avis.map(a=>`<figure class="av rv"><span class="av-q" aria-hidden="true">“</span><blockquote>${esc(a.t)}</blockquote><figcaption><b>${esc(a.n||(a.s==='WhatsApp'?'Client · WhatsApp':'Client · Instagram'))}</b><span>${esc(a.p)}</span></figcaption></figure>`).join('')}</div>
