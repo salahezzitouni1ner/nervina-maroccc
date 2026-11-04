@@ -35,3 +35,10 @@ Modifiez `store.json` (prix, noms, textes). Placez les photos dans un dossier `i
 - Bouton « Partager cette pièce » sur la fiche produit.
 - `sitemap.xml`, `robots.txt`, icônes (`icons/`, `favicon.ico`), `manifest.webmanifest`, images d'aperçu (`images/og/`).
 - Tout est régénéré par `source/build.py` (étape `source/seo.py`) à chaque reconstruction.
+
+## Admin boutique
+
+- Adresse : https://nervina.ma/admin/ (non indexée par Google).
+- Connexion avec une clé GitHub « fine-grained » limitée à ce dépôt (Contents : lecture et écriture ; Actions : lecture conseillée).
+- Chaque enregistrement crée un commit (photos optimisées + `store.json`). Le workflow `.github/workflows/publier.yml` lance alors `tools/publish.py`, qui régénère l'accueil, les pages produit, collection et info, le sitemap et les aperçus de partage.
+- `store.json` dans le dépôt est désormais la source des produits : toujours faire `git pull` avant de reconstruire le site en local.
