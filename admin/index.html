@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Admin · Nervina Maroc</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap">
+<style>
+:root{--bg:#F3F0E6;--card:#FBF9F4;--surface:#ECE6D9;--fg:#111213;--muted:#5E6266;--line:rgba(17,18,19,.12);--accent:#B07F52;--accent-ink:#85582F;--ok:#2E7D4F;--bad:#B3261E}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--fg);font-family:Poppins,system-ui,sans-serif;font-size:15px;line-height:1.5}
+button,input,select,textarea{font:inherit;color:inherit}
+.wrap{max-width:1000px;margin:0 auto;padding:0 16px}
+header{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;gap:12px;min-height:64px}
+.brand{display:flex;align-items:center;gap:10px;margin-right:auto;text-decoration:none;color:inherit}
+.brand b{letter-spacing:.3em;font-weight:500;font-size:.95rem}.brand small{display:block;font-size:.62rem;letter-spacing:.3em;color:var(--muted)}
+.brand svg{width:22px;height:26px;fill:none;stroke:currentColor;stroke-width:1.6}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border:1px solid var(--fg);background:var(--fg);color:var(--bg);cursor:pointer;text-decoration:none;font-weight:500;font-size:.9rem;border-radius:0}
+.btn.ghost{background:transparent;color:var(--fg);border-color:var(--line)}
+.btn.danger{background:transparent;color:var(--bad);border-color:rgba(179,38,30,.35)}
+.btn:disabled{opacity:.5;cursor:default}
+.btn.sm{min-height:36px;padding:0 12px;font-size:.82rem}
+h1{font-weight:300;font-size:1.9rem;letter-spacing:-.02em;margin:28px 0 6px}
+.eyebrow{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-ink);font-weight:500;margin:0}
+.muted{color:var(--muted)}
+label{display:block;font-size:.82rem;font-weight:500;margin:0 0 6px}
+input[type=text],input[type=number],input[type=password],input[type=search],select,textarea{width:100%;min-height:46px;padding:10px 12px;border:1px solid var(--line);background:#fff;border-radius:0}
+textarea{min-height:120px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-offset:-1px}
+.card{background:var(--card);border:1px solid var(--line);padding:22px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{margin-bottom:16px}
+.hint{font-size:.78rem;color:var(--muted);margin-top:4px}
+/* connexion */
+.login{max-width:520px;margin:40px auto}
+.login ol{padding-left:20px;margin:10px 0 18px;font-size:.88rem}.login li{margin-bottom:6px}
+.login a{color:var(--accent-ink)}
+/* liste */
+.bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:18px 0}
+.bar input{flex:1;min-width:180px}.bar select{width:auto;min-width:160px}
+.list{display:grid;gap:8px;margin-bottom:60px}
+.row{display:grid;grid-template-columns:64px 1fr auto;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);padding:10px;cursor:pointer;text-align:left;width:100%}
+.row:hover{border-color:var(--accent)}
+.row img,.row .noimg{width:64px;height:64px;object-fit:cover;background:var(--surface);display:block}
+.row b{font-weight:500;display:block}
+.row .meta{font-size:.78rem;color:var(--muted)}
+.row .pr{font-weight:500;white-space:nowrap;text-align:right}
+.tag{display:inline-block;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;padding:2px 6px;margin-left:6px;border:1px solid var(--line);color:var(--muted)}
+.tag.off{color:var(--bad);border-color:rgba(179,38,30,.35)}.tag.promo{color:#fff;background:#A3402B;border-color:#A3402B}
+/* photos */
+.photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}
+.ph{position:relative;background:var(--surface);aspect-ratio:1/1;border:1px solid var(--line)}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.ph .main{position:absolute;left:6px;top:6px;background:var(--fg);color:var(--bg);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;padding:3px 6px}
+.ph .tools{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;background:rgba(17,18,19,.6)}
+.ph .tools button{background:none;border:0;color:#fff;min-width:40px;min-height:36px;cursor:pointer;font-size:1rem}
+.ph.new::after{content:"nouvelle";position:absolute;right:6px;top:6px;background:var(--accent);color:#fff;font-size:.6rem;padding:2px 5px;text-transform:uppercase;letter-spacing:.08em}
+.add-ph{display:grid;place-items:center;aspect-ratio:1/1;border:1.5px dashed rgba(17,18,19,.3);cursor:pointer;color:var(--muted);text-align:center;font-size:.82rem;padding:8px}
+.add-ph:hover{border-color:var(--accent);color:var(--accent-ink)}
+.check{display:flex;gap:10px;align-items:center;min-height:44px;font-size:.9rem;cursor:pointer}
+.check input{width:20px;height:20px;accent-color:var(--fg)}
+.actions{position:sticky;bottom:0;background:var(--bg);border-top:1px solid var(--line);padding:12px 0;display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.actions .sp{flex:1}
+/* messages */
+.toast{position:fixed;left:50%;bottom:24px;translate:-50% 0;background:var(--fg);color:var(--bg);padding:12px 18px;font-size:.88rem;z-index:20;max-width:calc(100vw - 32px);box-shadow:0 10px 30px rgba(0,0,0,.2)}
+.toast.bad{background:var(--bad)}
+.status{padding:12px 14px;border:1px solid var(--line);background:var(--card);font-size:.86rem;margin:16px 0;display:flex;gap:10px;align-items:center}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--accent);flex:none;animation:pulse 1.2s infinite}
+.dot.ok{background:var(--ok);animation:none}.dot.bad{background:var(--bad);animation:none}
+@keyframes pulse{50%{opacity:.3}}
+.modal{position:fixed;inset:0;background:rgba(17,18,19,.5);display:grid;place-items:center;z-index:30;padding:16px}
+.modal .card{max-width:420px;width:100%}
+[hidden]{display:none!important}
+@media(max-width:640px){.grid2{grid-template-columns:1fr}h1{font-size:1.5rem}.row{grid-template-columns:56px 1fr;}.row img,.row .noimg{width:56px;height:56px}.row .pr{grid-column:2;text-align:left}.hide-m{display:none}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a class="brand" href="/admin/"><svg viewBox="0 0 22 26"><path d="M2 25V11a9 9 0 0 1 18 0v14M6 25v-9h10v9"/></svg><span><b>NERVINA</b><small>ADMIN BOUTIQUE</small></span></a>
+  <a class="btn ghost sm" href="/" target="_blank" rel="noopener">Voir le site</a>
+  <button class="btn ghost sm hide-m" id="logout" hidden>Se déconnecter</button>
+</div></header>
+<main class="wrap" id="app"></main>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+const OWNER='salahezzitouni1ner',REPO='nervina-maroccc',BRANCH='main';
+const API='https://api.github.com';
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const MAD=n=>Number(n||0).toLocaleString('fr-FR').replace(/ | /g,' ')+' dh';
+const LS={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}},del(k){try{localStorage.removeItem(k)}catch(e){}}};
+let TOKEN=LS.get('nv_admin_token')||'',S=null,STORE_SHA=null,filter={q:'',col:''},lastCommit=null;
+
+function toast(msg,bad){const t=$('#toast');t.textContent=msg;t.className='toast'+(bad?' bad':'');t.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>t.hidden=true,bad?6000:3500)}
+async function gh(path,opt={}){
+  const r=await fetch(API+path,{...opt,headers:{'Accept':'application/vnd.github+json','Authorization':'Bearer '+TOKEN,'X-GitHub-Api-Version':'2022-11-28',...(opt.body?{'Content-Type':'application/json'}:{})}});
+  if(!r.ok){let m='';try{m=(await r.json()).message}catch(e){}const err=new Error(m||('Erreur '+r.status));err.status=r.status;throw err}
+  return r.status===204?null:r.json();
+}
+const b64ToUtf8=b=>new TextDecoder().decode(Uint8Array.from(atob(b.replace(/\n/g,'')),c=>c.charCodeAt(0)));
+const utf8ToB64=s=>{const u=new TextEncoder().encode(s);let bin='';for(let i=0;i<u.length;i+=0x8000)bin+=String.fromCharCode.apply(null,u.subarray(i,i+0x8000));return btoa(bin)};
+const blobToB64=b=>new Promise((ok,ko)=>{const r=new FileReader();r.onload=()=>ok(String(r.result).split(',')[1]);r.onerror=ko;r.readAsDataURL(b)});
+const slug=t=>String(t).normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,60)||'produit';
+const imgUrl=p=>/^(blob:|data:)/.test(p)?p:'/'+p.replace(/^\//,'');
+const thumb=p=>/^images\//.test(p)?'/'+p.replace('images/','images/sm/'):imgUrl(p);
+
+/* ---------- connexion ---------- */
+function viewLogin(err){
+  $('#logout').hidden=true;
+  $('#app').innerHTML=`<div class="login"><p class="eyebrow">Admin boutique</p><h1>Connexion</h1>
+  <p class="muted">L’admin enregistre vos produits directement sur GitHub, là où le site est hébergé. Il faut une clé d’accès GitHub, à créer une seule fois :</p>
+  <ol>
+    <li>Ouvrez <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">la création de clé GitHub</a> (connecté à votre compte).</li>
+    <li>Nom : <b>Admin Nervina</b> · Expiration : <b>1 an</b> (ou plus).</li>
+    <li>Repository access : <b>Only select repositories</b> → <b>${REPO}</b>.</li>
+    <li>Permissions → Repository permissions : <b>Contents : Read and write</b> (et si possible <b>Actions : Read-only</b> pour suivre la publication).</li>
+    <li>Cliquez <b>Generate token</b>, copiez la clé et collez-la ci-dessous.</li>
+  </ol>
+  <div class="card"><div class="field"><label for="tk">Clé d’accès GitHub</label><input id="tk" type="password" autocomplete="off" placeholder="github_pat_…"></div>
+  <label class="check"><input type="checkbox" id="rem" checked> Se souvenir sur cet appareil</label>
+  ${err?`<p style="color:var(--bad);font-size:.86rem">${esc(err)}</p>`:''}
+  <button class="btn" id="go" style="width:100%;margin-top:8px">Se connecter</button></div>
+  <p class="hint">La clé reste uniquement dans ce navigateur. Ne la partagez avec personne.</p></div>`;
+  $('#go').onclick=async()=>{const v=$('#tk').value.trim();if(!v)return;TOKEN=v;$('#go').disabled=true;$('#go').textContent='Vérification…';
+    try{await load();if($('#rem').checked)LS.set('nv_admin_token',v);viewList()}catch(e){TOKEN='';viewLogin(e.status===401?'Clé refusée par GitHub. Vérifiez-la et réessayez.':e.status===404?'Cette clé n’a pas accès au dépôt '+REPO+'.':e.message)}};
+}
+async function load(){
+  const f=await gh(`/repos/${OWNER}/${REPO}/contents/store.json?ref=${BRANCH}&t=${Date.now()}`);
+  STORE_SHA=f.sha;S=JSON.parse(b64ToUtf8(f.content));
+}
+
+/* ---------- liste ---------- */
+function viewList(){
+  $('#logout').hidden=false;
+  const cols=S.collections;
+  const L=S.products.filter(p=>(!filter.col||p.col===filter.col)&&(!filter.q||p.title.toLowerCase().includes(filter.q.toLowerCase())));
+  $('#app').innerHTML=`<p class="eyebrow" style="margin-top:28px">Admin boutique</p><h1>Produits <span class="muted" style="font-size:1rem">(${S.products.length})</span></h1>
+  <div id="pub"></div>
+  <div class="bar"><input type="search" id="q" placeholder="Rechercher un produit" value="${esc(filter.q)}"><select id="fc"><option value="">Toutes les collections</option>${cols.map(c=>`<option value="${esc(c.id)}"${filter.col===c.id?' selected':''}>${esc(c.name)}</option>`).join('')}</select><button class="btn" id="new">+ Ajouter un produit</button></div>
+  <div class="list">${L.map(p=>`<button class="row" data-id="${esc(p.id)}">${p.imgs&&p.imgs[0]?`<img src="${esc(thumb(p.imgs[0]))}" alt="" loading="lazy">`:'<span class="noimg"></span>'}<span><b>${esc(p.title)}</b><span class="meta">${esc((cols.find(c=>c.id===p.col)||{}).name||'')}${p.hidden?'<span class="tag off">masqué</span>':''}${p.old>p.price?'<span class="tag promo">promo</span>':''}</span></span><span class="pr">${MAD(p.price)}${p.old>p.price?`<br><s class="muted" style="font-weight:400;font-size:.8rem">${MAD(p.old)}</s>`:''}</span></button>`).join('')||'<p class="muted">Aucun produit trouvé.</p>'}</div><p style="text-align:center;margin:-30px 0 40px"><button class="btn ghost sm" id="logout2">Se déconnecter</button></p>`;
+  $('#logout2').onclick=()=>$('#logout').click();
+  $('#q').oninput=e=>{filter.q=e.target.value;const pos=e.target.selectionStart;viewList();const q=$('#q');q.focus();q.setSelectionRange(pos,pos)};
+  $('#fc').onchange=e=>{filter.col=e.target.value;viewList()};
+  $('#new').onclick=()=>viewEdit(null);
+  document.querySelectorAll('.row').forEach(b=>b.onclick=()=>viewEdit(b.dataset.id));
+  if(lastCommit)showPub();
+}
+
+/* ---------- édition ---------- */
+let D=null; // brouillon : {p, photos:[{path|blob,url,isNew}], isNew}
+function viewEdit(id){
+  const src=id?S.products.find(p=>p.id===id):null;
+  const p=src?JSON.parse(JSON.stringify(src)):{id:'',title:'',price:0,old:0,col:S.collections[0].id,desc:'',imgs:[],hidden:false,star:false};
+  D={p,isNew:!src,photos:(p.imgs||[]).map(path=>({path,url:thumb(path)}))};
+  renderEdit();window.scrollTo(0,0);
+}
+function renderEdit(){
+  const p=D.p;
+  $('#app').innerHTML=`<p class="eyebrow" style="margin-top:28px"><a href="#" id="back" style="color:inherit">← Produits</a></p><h1>${D.isNew?'Nouveau produit':esc(p.title)}</h1>
+  <div class="card">
+    <div class="field"><label for="f-title">Nom du produit</label><input id="f-title" type="text" value="${esc(p.title)}" placeholder="Ex. Table basse Sherman en noyer"></div>
+    <div class="grid2">
+      <div class="field"><label for="f-col">Collection</label><select id="f-col">${S.collections.map(c=>`<option value="${esc(c.id)}"${p.col===c.id?' selected':''}>${esc(c.name)}</option>`).join('')}</select></div>
+      <div class="field"><label for="f-price">Prix (dh)</label><input id="f-price" type="number" inputmode="numeric" min="0" step="10" value="${p.price||''}" placeholder="5500"></div>
+    </div>
+    <div class="field"><label for="f-old">Ancien prix (dh) <span class="muted" style="font-weight:400">— facultatif, pour afficher une promo</span></label><input id="f-old" type="number" inputmode="numeric" min="0" step="10" value="${p.old||''}" placeholder="Laisser vide si pas de promo"></div>
+    <div class="field"><label for="f-desc">Description</label><textarea id="f-desc" placeholder="Matériaux, finition, dimensions, délai…">${esc(p.desc||'')}</textarea><p class="hint">Astuce : indiquez les dimensions (L × P × H) et la finition, c’est ce que les clients demandent le plus.</p></div>
+    <div class="field"><label>Photos <span class="muted" style="font-weight:400">— la première est la photo principale</span></label>
+      <div class="photos" id="photos">${D.photos.map((ph,i)=>`<div class="ph${ph.isNew?' new':''}"><img src="${esc(ph.url)}" alt="">${i===0?'<span class="main">Principale</span>':''}<div class="tools"><button type="button" data-mv="${i}" data-d="-1" aria-label="Avancer"${i===0?' disabled':''}>←</button><button type="button" data-rm="${i}" aria-label="Retirer">✕</button><button type="button" data-mv="${i}" data-d="1" aria-label="Reculer"${i===D.photos.length-1?' disabled':''}>→</button></div></div>`).join('')}
+        <label class="add-ph" for="f-files">+ Ajouter des photos<input id="f-files" type="file" accept="image/*" multiple hidden></label></div>
+      <p class="hint">Les photos sont automatiquement réduites et optimisées avant l’envoi.</p></div>
+    <label class="check"><input type="checkbox" id="f-vis"${p.hidden?'':' checked'}> Visible sur le site</label>
+  </div>
+  <div class="actions">${D.isNew?'':'<button class="btn danger" id="del">Supprimer</button>'}<span class="sp"></span><button class="btn ghost" id="cancel">Annuler</button><button class="btn" id="save">${D.isNew?'Ajouter au site':'Enregistrer'}</button></div>`;
+  const sync=()=>{p.title=$('#f-title').value.trim();p.col=$('#f-col').value;p.price=parseInt($('#f-price').value)||0;p.old=parseInt($('#f-old').value)||0;p.desc=$('#f-desc').value.trim();p.hidden=!$('#f-vis').checked};
+  $('#back').onclick=e=>{e.preventDefault();viewList()};$('#cancel').onclick=()=>viewList();
+  $('#photos').onclick=e=>{const mv=e.target.closest('[data-mv]'),rm=e.target.closest('[data-rm]');if(!mv&&!rm)return;sync();
+    if(mv){const i=+mv.dataset.mv,j=i+(+mv.dataset.d);[D.photos[i],D.photos[j]]=[D.photos[j],D.photos[i]]}
+    if(rm){D.photos.splice(+rm.dataset.rm,1)}renderEdit()};
+  $('#f-files').onchange=async e=>{sync();const files=[...e.target.files];if(!files.length)return;toast('Préparation des photos…');
+    for(const f of files){try{const big=await resize(f,1600,.82),small=await resize(f,640,.8);D.photos.push({isNew:true,big,small,url:URL.createObjectURL(small)})}catch(err){toast('Photo illisible : '+f.name,true)}}
+    renderEdit()};
+  $('#save').onclick=async()=>{sync();
+    if(!p.title)return toast('Donnez un nom au produit.',true);
+    if(!p.price)return toast('Indiquez le prix.',true);
+    if(!D.photos.length)return toast('Ajoutez au moins une photo.',true);
+    if(p.old&&p.old<=p.price)p.old=0;
+    await save('save')};
+  if($('#del'))$('#del').onclick=()=>confirmBox(`Supprimer « ${p.title} » du site ?`,'Supprimer',()=>save('delete'));
+}
+function confirmBox(msg,label,fn){const m=document.createElement('div');m.className='modal';m.innerHTML=`<div class="card"><p style="margin-top:0">${esc(msg)}</p><p class="muted" style="font-size:.85rem">Cette action est publiée sur le site.</p><div style="display:flex;gap:10px;justify-content:flex-end"><button class="btn ghost" data-x>Annuler</button><button class="btn" style="background:var(--bad);border-color:var(--bad)" data-ok>${esc(label)}</button></div></div>`;
+  document.body.appendChild(m);m.onclick=e=>{if(e.target===m||e.target.closest('[data-x]'))m.remove();if(e.target.closest('[data-ok]')){m.remove();fn()}}}
+
+/* photos : redimensionnement dans le navigateur (WebP, sinon JPEG) */
+async function resize(file,max,q){
+  let src;try{src=await createImageBitmap(file,{imageOrientation:'from-image'})}catch(e){src=await new Promise((ok,ko)=>{const i=new Image();i.onload=()=>ok(i);i.onerror=ko;i.src=URL.createObjectURL(file)})}
+  const W=src.width,H=src.height,r=Math.min(1,max/Math.max(W,H));const c=document.createElement('canvas');c.width=Math.round(W*r);c.height=Math.round(H*r);
+  const g=c.getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,c.width,c.height);g.drawImage(src,0,0,c.width,c.height);
+  let b=await new Promise(ok=>c.toBlob(ok,'image/webp',q));if(!b||b.type!=='image/webp')b=await new Promise(ok=>c.toBlob(ok,'image/jpeg',.86));return b;
+}
+
+/* ---------- enregistrement : un seul commit GitHub (photos + store.json) ---------- */
+async function save(mode){
+  const btn=$('#save');if(btn){btn.disabled=true;btn.textContent='Enregistrement…'}
+  try{
+    await load(); // repartir de la dernière version en ligne
+    const p=D.p,files=[];
+    if(mode==='delete'){S.products=S.products.filter(x=>x.id!==p.id)}
+    else{
+      if(D.isNew){let id=slug(p.title),k=2;while(S.products.some(x=>x.id===id))id=slug(p.title)+'-'+k++;p.id=id}
+      const stamp=Date.now().toString(36);let n=0;
+      p.imgs=D.photos.map(ph=>{if(!ph.isNew)return ph.path;n++;const ext=ph.big.type==='image/webp'?'webp':'jpg';const path=`images/${p.id}-${stamp}-${n}.${ext}`;files.push({path,blob:ph.big},{path:path.replace('images/','images/sm/'),blob:ph.small});return path});
+      const i=S.products.findIndex(x=>x.id===p.id);
+      const clean={id:p.id,title:p.title,price:p.price,old:p.old||0,col:p.col,desc:p.desc,imgs:p.imgs,hidden:!!p.hidden,star:!!p.star};
+      if(i>=0)S.products[i]={...S.products[i],...clean};else S.products.push(clean);
+    }
+    const ref=await gh(`/repos/${OWNER}/${REPO}/git/ref/heads/${BRANCH}`);
+    const head=await gh(`/repos/${OWNER}/${REPO}/git/commits/${ref.object.sha}`);
+    const tree=[];
+    for(const f of files){const b=await gh(`/repos/${OWNER}/${REPO}/git/blobs`,{method:'POST',body:JSON.stringify({content:await blobToB64(f.blob),encoding:'base64'})});tree.push({path:f.path,mode:'100644',type:'blob',sha:b.sha})}
+    const sb=await gh(`/repos/${OWNER}/${REPO}/git/blobs`,{method:'POST',body:JSON.stringify({content:utf8ToB64(JSON.stringify(S,null,1)+'\n'),encoding:'base64'})});
+    tree.push({path:'store.json',mode:'100644',type:'blob',sha:sb.sha});
+    const t=await gh(`/repos/${OWNER}/${REPO}/git/trees`,{method:'POST',body:JSON.stringify({base_tree:head.tree.sha,tree})});
+    const msg=(mode==='delete'?'Admin : suppression de « ':D.isNew?'Admin : ajout de « ':'Admin : modification de « ')+p.title+' »';
+    const c=await gh(`/repos/${OWNER}/${REPO}/git/commits`,{method:'POST',body:JSON.stringify({message:msg,tree:t.sha,parents:[ref.object.sha]})});
+    await gh(`/repos/${OWNER}/${REPO}/git/refs/heads/${BRANCH}`,{method:'PATCH',body:JSON.stringify({sha:c.sha})});
+    lastCommit={sha:c.sha,at:Date.now(),label:msg.replace('Admin : ',''),id:mode==='delete'?null:p.id};
+    toast(mode==='delete'?'Produit supprimé.':'Enregistré ✓');viewList();
+  }catch(e){toast('Échec de l’enregistrement : '+e.message,true);if(btn){btn.disabled=false;btn.textContent='Réessayer'}}
+}
+
+/* suivi de la publication (GitHub Actions) */
+async function showPub(){
+  const box=$('#pub');if(!box||!lastCommit)return;
+  const link=lastCommit.id?`<a href="/p/${esc(lastCommit.id)}/" target="_blank" rel="noopener" style="color:inherit">voir la fiche</a>`:'';
+  let state='run',txt=`Publication en cours : ${esc(lastCommit.label)}. Le site sera à jour dans 2 à 3 minutes.`;
+  try{const r=await gh(`/repos/${OWNER}/${REPO}/actions/runs?head_sha=${lastCommit.sha}&per_page=5`);const run=(r.workflow_runs||[])[0];
+    if(run&&run.status==='completed'){if(run.conclusion==='success'){state='ok';txt=`Publié : ${esc(lastCommit.label)}. Mise en ligne dans environ 1 minute. ${link}`}else{state='bad';txt=`La publication a échoué (${esc(run.conclusion)}). Réessayez ou contactez votre développeur.`}}}catch(e){if(Date.now()-lastCommit.at>240000){state='ok';txt=`Enregistré : ${esc(lastCommit.label)}. ${link}`}}
+  box.innerHTML=`<div class="status"><span class="dot ${state==='ok'?'ok':state==='bad'?'bad':''}"></span><span>${txt}</span></div>`;
+  if(state==='run'&&Date.now()-lastCommit.at<600000)setTimeout(showPub,8000);
+}
+
+$('#logout').onclick=()=>{LS.del('nv_admin_token');TOKEN='';S=null;viewLogin()};
+(async()=>{if(!TOKEN)return viewLogin();$('#app').innerHTML='<p class="muted" style="margin-top:40px">Chargement…</p>';try{await load();viewList()}catch(e){TOKEN='';LS.del('nv_admin_token');viewLogin(e.status===401?'Votre clé a expiré ou a été supprimée. Créez-en une nouvelle.':e.message)}})();
+</script>
+</body>
+</html>

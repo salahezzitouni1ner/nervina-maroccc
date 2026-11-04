@@ -134,8 +134,9 @@ def faq_ld(body):
     return {'@context': 'https://schema.org', '@type': 'FAQPage', 'mainEntity': qs} if qs else None
 
 
-def run(repo, g, s):
-    icons(repo); og_home(repo)
+def run(repo, g, s, assets=True):
+    if assets and os.path.exists(LOGO): icons(repo)
+    og_home(repo)
     st = s['settings']
     store = {
         '@context': 'https://schema.org', '@type': 'FurnitureStore', 'name': 'Nervina Maroc', 'url': SITE + '/',
@@ -237,7 +238,7 @@ def run(repo, g, s):
     for u, im in urls:
         sm.append(f'  <url><loc>{u}</loc><lastmod>{today}</lastmod>' + (f'<image:image><image:loc>{SITE}{im}</image:loc></image:image>' if im else '') + '</url>')
     open(repo + '/sitemap.xml', 'w').write('\n'.join(sm + ['</urlset>']) + '\n')
-    open(repo + '/robots.txt', 'w').write(f'User-agent: *\nAllow: /\nDisallow: /carre.html\nDisallow: /source/\n\nSitemap: {SITE}/sitemap.xml\n')
+    open(repo + '/robots.txt', 'w').write(f'User-agent: *\nAllow: /\nDisallow: /carre.html\nDisallow: /source/\nDisallow: /admin/\nDisallow: /tools/\n\nSitemap: {SITE}/sitemap.xml\n')
     json.dump({'name': 'Nervina Maroc', 'short_name': 'Nervina', 'start_url': '/', 'display': 'standalone', 'background_color': '#F3F0E6',
                'theme_color': '#F3F0E6', 'lang': 'fr', 'icons': [{'src': '/icons/icon-192.png', 'sizes': '192x192', 'type': 'image/png'},
                                                                    {'src': '/icons/icon-512.png', 'sizes': '512x512', 'type': 'image/png'}]},
