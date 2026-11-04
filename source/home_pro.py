@@ -43,17 +43,19 @@ HOME = {
     {'t': "Bravo, top, très satisfaite.", 'n': 'Myriam', 'p': 'Meuble TV arrondis', 's': 'Instagram'},
   ],
   'livr': [
-    ('images/home/livraison-1.webp', 'Meuble TV suspendu en noyer, parquet à chevrons'),
-    ('images/home/livraison-2.webp', 'Mur TV en noyer avec niches éclairées'),
-    ('images/home/livraison-3.webp', 'Meuble TV laqué crème, arche lumineuse'),
-    ('images/home/livraison-4.webp', 'Table basse organique en noyer massif'),
-    ('images/home/livraison-5.webp', 'Coiffeuse suspendue en noyer et crème'),
-    ('images/home/livraison-6.webp', 'Meuble TV noyer sous un mur à moulures'),
-    ('images/home/livraison-7.webp', 'Buffet en noyer, portes en verre fumé'),
-    ('images/home/livraison-8.webp', 'Meuble TV noyer et cannage, LED'),
-    ('images/home/livraison-9.webp', 'Salon complet : table organique et meuble TV cannage'),
-    ('images/home/livraison-10.webp', 'Meuble TV suspendu et panneau mural LED'),
+    ('images/home/livraison-1.webp', 'images/home/livraison-1-hd.webp', 'Mur TV en noyer avec niches éclairées', 800, 1067),
+    ('images/home/livraison-2.webp', 'images/home/livraison-2-hd.webp', 'Meuble TV suspendu en noyer, parquet à chevrons', 800, 1067),
+    ('images/home/livraison-3.webp', 'images/home/livraison-3-hd.webp', 'Table basse organique en noyer massif', 800, 1067),
+    ('images/home/livraison-4.webp', 'images/home/livraison-4-hd.webp', 'Buffet en noyer, portes en verre fumé', 800, 736),
+    ('images/home/livraison-5.webp', 'images/home/livraison-5-hd.webp', 'Meuble TV laqué crème, arche lumineuse', 800, 1067),
+    ('images/home/livraison-6.webp', 'images/home/livraison-6-hd.webp', 'Meuble TV noyer et cannage, éclairage LED', 800, 600),
+    ('images/home/livraison-7.webp', 'images/home/livraison-7-hd.webp', 'Coiffeuse suspendue en noyer et crème', 800, 1067),
+    ('images/home/livraison-8.webp', 'images/home/livraison-8-hd.webp', 'Mur TV en noyer, vue de face', 800, 600),
+    ('images/home/livraison-9.webp', 'images/home/livraison-9-hd.webp', 'Meuble TV noyer sous un mur à moulures', 800, 1067),
+    ('images/home/livraison-10.webp', 'images/home/livraison-10-hd.webp', 'Meuble TV suspendu et panneau mural LED', 800, 600),
+    ('images/home/livraison-11.webp', 'images/home/livraison-11-hd.webp', 'Salon complet : table organique et meuble TV cannage', 800, 1067),
   ],
+  'livrCols': {'d': [[0, 5, 6, 9], [2, 3, 8, 7], [4, 1, 10]], 'm': [[0, 5, 2, 7, 3, 6], [4, 1, 8, 9, 10]]},
   'avisUrl': 'https://www.instagram.com/stories/highlights/17938774950381191/',
   'followers': '10,7 k',
 }
@@ -103,7 +105,7 @@ ${rail('r-ch','Collection Chambres','Pour la chambre',byCol('chambres'),'#c-cham
 <section class="sec2 steps-s"><div class="sh rv"><div><p class="eyebrow">Comment commander</p><h2>Simple, depuis chez vous</h2></div></div>
   <ol class="steps">${[['chat','Choisissez','Ajoutez vos pièces au panier ou envoyez-nous votre projet.'],['ruler','Validez sur WhatsApp','Nous confirmons dimensions, teinte, délai et frais de livraison.'],['hand','Fabrication','Après un acompte de 30 %, votre meuble est fabriqué dans notre atelier.'],['box','Livraison','Livraison chez vous partout au Maroc. Vous réglez le solde de 70 %.']].map((s,i)=>`<li class="rv"><span class="st-n">${String(i+1).padStart(2,'0')}</span>${ic(s[0])}<b>${s[1]}</b><p>${s[2]}</p></li>`).join('')}</ol></section>
 <section class="sec2 livr-s" aria-label="Nos livraisons"><div class="sh rv"><div><p class="eyebrow">Nos livraisons</p><h2>Livrés et posés chez nos clients</h2><p class="avis-sub">Nos réalisations, photographiées chez nos clients.</p></div><a class="lnk" href="https://www.instagram.com/${encodeURIComponent(ig||'nervina_maroc')}/" target="_blank" rel="noopener">Plus sur Instagram</a></div>
-<div class="livr">${H.livr.map(l=>`<figure class="lv rv"><img src="${l[0]}" alt="${esc(l[1])}" loading="lazy" decoding="async" width="720" height="900"><figcaption>${esc(l[1])}</figcaption></figure>`).join('')}</div></section>
+${(()=>{const fig=i=>{const l=H.livr[i];return `<figure class="lv rv"><button type="button" class="lv-b" data-lb="${i}" aria-label="Agrandir : ${esc(l[2])}"><img src="${l[0]}" alt="${esc(l[2])}" loading="lazy" decoding="async" width="${l[3]}" height="${l[4]}"><span class="lv-z" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></span></button><figcaption>${esc(l[2])}</figcaption></figure>`};const cols=(k,c)=>`<div class="livr ${k}">${c.map(col=>`<div class="lv-col">${col.map(fig).join('')}</div>`).join('')}</div>`;return cols('livr-d',H.livrCols.d)+cols('livr-m',H.livrCols.m)})()}</section>
 <section class="sec2 avis-s" aria-label="Avis clients"><div class="sh rv"><div><p class="eyebrow">Avis clients</p><h2>Ils nous ont fait confiance</h2><p class="avis-sub">Messages reçus de nos clients sur WhatsApp et Instagram.</p></div><a class="lnk" href="${H.avisUrl}" target="_blank" rel="noopener">Voir tous les avis</a></div>
 <div class="avis">${H.avis.map(a=>`<figure class="av rv"><span class="av-q" aria-hidden="true">“</span><blockquote>${esc(a.t)}</blockquote><figcaption><b>${esc(a.n||(a.s==='WhatsApp'?'Client · WhatsApp':'Client · Instagram'))}</b><span>${esc(a.p)}</span></figcaption></figure>`).join('')}</div>
 <div class="avis-band rv"><div><b>${H.followers}</b><span>abonnés sur Instagram</span></div><div><b>100 %</b><span>fait main au Maroc</span></div><div><b>30 / 70</b><span>acompte, puis solde à la livraison</span></div></div></section>
@@ -180,6 +182,24 @@ function mgInit(){
     });
   }
 }
+
+/* visionneuse photos livraisons */
+(function(){
+  let L=[],k=0,lb=null,x0=null;
+  const sv=d=>`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${d}"/></svg>`;
+  function show(){const it=L[k];lb.querySelector('img').src=it[1];lb.querySelector('img').alt=it[2];lb.querySelector('.lb-t').textContent=it[2];lb.querySelector('.lb-c span').textContent=(k+1)+' / '+L.length}
+  function open(i){L=(__LIVR__);k=i;if(!lb){lb=document.createElement('div');lb.className='lb';lb.setAttribute('role','dialog');lb.setAttribute('aria-modal','true');lb.setAttribute('aria-label','Photos de nos réalisations');
+    lb.innerHTML=`<button class="lb-x" type="button" aria-label="Fermer">${sv('M6 6l12 12M18 6L6 18')}</button><button class="lb-p" type="button" aria-label="Photo précédente">${sv('M15 5l-7 7 7 7')}</button><img alt=""><p class="lb-c"><span></span><b class="lb-t"></b></p><button class="lb-n" type="button" aria-label="Photo suivante">${sv('M9 5l7 7-7 7')}</button>`;
+    document.body.appendChild(lb);
+    lb.addEventListener('click',e=>{if(e.target.closest('.lb-x')||e.target===lb)close();else if(e.target.closest('.lb-p'))go(-1);else if(e.target.closest('.lb-n'))go(1)});
+    lb.addEventListener('touchstart',e=>{x0=e.touches[0].clientX},{passive:true});
+    lb.addEventListener('touchend',e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(dx)>50)go(dx<0?1:-1)});}
+    show();lb.classList.add('on');document.documentElement.style.overflow='hidden';if(LEN)LEN.stop();lb.querySelector('.lb-x').focus()}
+  function close(){lb.classList.remove('on');document.documentElement.style.overflow='';if(LEN)LEN.start()}
+  function go(d){k=(k+d+L.length)%L.length;show()}
+  document.addEventListener('click',e=>{const b=e.target.closest('[data-lb]');if(b){e.preventDefault();open(+b.dataset.lb)}});
+  document.addEventListener('keydown',e=>{if(!lb||!lb.classList.contains('on'))return;if(e.key==='Escape')close();if(e.key==='ArrowRight')go(1);if(e.key==='ArrowLeft')go(-1)});
+})();
 '''
 
 CSS = r'''
@@ -494,16 +514,27 @@ body.has-pdbar #waf{transform:translateY(-80px)}
   .avis-band{grid-template-columns:1fr 1fr 1fr}.avis-band>div{padding:14px 12px}.avis-band b{font-size:1.15rem}.avis-band span{font-size:.7rem}
 }
 
-/* livraisons réelles */
-.livr{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
-.lv{margin:0;position:relative;overflow:hidden;border-radius:2px;background:var(--surface);aspect-ratio:4/5}
-.lv img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
-.lv:hover img{transform:scale(1.04)}
-.lv figcaption{position:absolute;left:0;right:0;bottom:0;padding:28px 12px 10px;font-size:.74rem;line-height:1.35;color:#F3F0E6;background:linear-gradient(0deg,rgba(12,11,10,.72),rgba(12,11,10,0))}
-@media(max-width:900px){
-  .livr{grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:62%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin-inline:-16px;padding-inline:16px;scroll-padding-inline:16px;gap:10px}
-  .livr::-webkit-scrollbar{display:none}.lv{scroll-snap-align:start}
-}
+/* livraisons réelles : mosaïque qui respecte le cadrage de chaque photo + agrandissement */
+.livr{display:flex;gap:14px;align-items:flex-start}.lv-col{flex:1;min-width:0}.livr-m{display:none}
+.lv{margin:0 0 14px;position:relative;overflow:hidden;border-radius:2px;background:var(--surface)}
+.lv-b{display:block;width:100%;padding:0;border:0;background:none;cursor:zoom-in;position:relative}
+.lv img{width:100%;height:auto;display:block;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+@media(hover:hover){.lv:hover img{transform:scale(1.03)}.lv:hover .lv-z{opacity:1}}
+.lv-z{position:absolute;top:10px;right:10px;width:34px;height:34px;display:grid;place-items:center;background:rgba(17,18,19,.55);border-radius:50%;opacity:0;transition:opacity .3s}
+.lv-z svg{width:16px;height:16px;fill:none;stroke:#F3F0E6;stroke-width:1.8}
+.lv figcaption{position:absolute;left:0;right:0;bottom:0;padding:34px 14px 12px;font-size:.78rem;line-height:1.35;color:#F3F0E6;background:linear-gradient(0deg,rgba(12,11,10,.7),rgba(12,11,10,0));pointer-events:none}
+@media(max-width:900px){.livr-d{display:none}.livr-m{display:flex}.livr{gap:8px}.lv{margin-bottom:8px}.lv figcaption{font-size:.68rem;padding:26px 9px 8px}.lv-z{opacity:1;width:28px;height:28px;top:7px;right:7px}.lv-z svg{width:13px;height:13px}}
+/* visionneuse plein écran */
+.lb{position:fixed;inset:0;z-index:2000;background:rgba(10,10,10,.97);display:none;flex-direction:column;align-items:center;justify-content:center;padding:56px 16px 24px;touch-action:pan-y}
+.lb.on{display:flex}
+.lb img{max-width:min(1400px,100%);max-height:calc(100vh - 140px);object-fit:contain;border-radius:2px;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.lb-c{color:#F3F0E6;font-size:.9rem;margin:14px 0 0;text-align:center;display:flex;flex-direction:column;gap:4px;align-items:center;max-width:560px}
+.lb-c b{font-weight:500}
+.lb-c span{color:rgba(243,240,230,.6);font-size:.72rem;letter-spacing:.14em;white-space:nowrap}
+.lb button{position:absolute;background:rgba(243,240,230,.1);border:1px solid rgba(243,240,230,.25);color:#F3F0E6;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;cursor:pointer}
+.lb button svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8}
+.lb .lb-x{top:12px;right:12px}.lb .lb-p{left:16px;top:50%;translate:0 -50%}.lb .lb-n{right:16px;top:50%;translate:0 -50%}
+@media(max-width:760px){.lb .lb-p,.lb .lb-n{top:auto;bottom:18px;translate:none}.lb .lb-p{left:calc(50% - 60px)}.lb .lb-n{right:calc(50% - 60px)}.lb img{max-height:calc(100vh - 170px)}.lb{padding-bottom:84px}}
 '''
 
 
@@ -557,7 +588,7 @@ def patch(m, c, s):
     m2 = re.sub(r'function card\(p\)\{.*?</article>`\}', lambda _: CARD, m, count=1, flags=re.S)
     assert m2 != m; m = m2
     k = m.index('function perks(')
-    m = m[:k] + HELPERS.lstrip('\n') + m[k:]
+    m = m[:k] + HELPERS.lstrip('\n').replace('__LIVR__', json.dumps(HOME['livr'], ensure_ascii=False)) + m[k:]
     a = "$('#ann').textContent=st.banner||'';$('#ann').hidden=!st.banner;"
     assert a in m; m = m.replace(a, 'annSet();')
     m = m.replace("function bind(h){\n", "function bind(h){\n  if(h==='accueil')mgInit();\n", 1)
