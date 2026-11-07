@@ -55,7 +55,7 @@
  "products": [
   {
    "id": "table-basse-amazonica",
-   "title": "Table Basse Amazonica",
+   "title": "Table basse Amazonica",
    "price": 4500,
    "old": 0,
    "col": "tables",
@@ -70,7 +70,7 @@
   },
   {
    "id": "table-basse-london",
-   "title": "Table Basse London",
+   "title": "Tables basses gigognes London",
    "price": 8500,
    "old": 0,
    "col": "tables",
@@ -106,7 +106,7 @@
   },
   {
    "id": "table-de-chevet-design-noyer-blanc-laiton",
-   "title": "Table de Chevet Design - Cadre Noyer, Surface Blanche & Tiroir Laiton",
+   "title": "Table de chevet Laiton",
    "price": 4800,
    "old": 0,
    "col": "chambres",
@@ -123,7 +123,7 @@
   },
   {
    "id": "meuble-tv-sur-pieds-noyer-creme",
-   "title": "Meuble TV sur Pieds Design - Plateau Noyer & Corps Blanc Crème",
+   "title": "Meuble TV sur pieds Noyer & Crème",
    "price": 6000,
    "old": 0,
    "col": "tv",
@@ -140,7 +140,7 @@
   },
   {
    "id": "meuble-tv-suspendu-design",
-   "title": "Meuble TV Suspendu Design",
+   "title": "Meuble TV suspendu Chêne & Blanc",
    "price": 4300,
    "old": 4800,
    "col": "tv",
@@ -156,7 +156,7 @@
   },
   {
    "id": "set-2-tables-basses-organiques",
-   "title": "Set de 2 Tables Basses Organiques - Bois Noyer & Noir Mat sur Pieds Métal",
+   "title": "Tables basses Goutte (set de 2)",
    "price": 3990,
    "old": 4800,
    "col": "tables",
@@ -173,7 +173,7 @@
   },
   {
    "id": "table-basse-ovale-design",
-   "title": "Table Basse Ovale Design",
+   "title": "Table basse ovale effet marbre",
    "price": 4900,
    "old": 0,
    "col": "tables",
@@ -190,7 +190,7 @@
   },
   {
    "id": "table-basse-ronde-luxe",
-   "title": "Table Basse Ronde Luxe",
+   "title": "Table basse ronde Verre fumé",
    "price": 5500,
    "old": 0,
    "col": "tables",
@@ -206,7 +206,7 @@
   },
   {
    "id": "table-basse-ronde-noyer-metal-noir",
-   "title": "Table Basse Ronde Design - Bois de Noyer & Métal Noir",
+   "title": "Table basse ronde Chevrons",
    "price": 6000,
    "old": 0,
    "col": "tables",
@@ -223,7 +223,7 @@
   },
   {
    "id": "table-de-chevet-cloud-noyer",
-   "title": "Table de Chevet Cloud — Édition Noyer",
+   "title": "Table de chevet Cloud",
    "price": 4000,
    "old": 0,
    "col": "chambres",
@@ -240,7 +240,7 @@
   },
   {
    "id": "table-a-manger-ronde-travertin-4-chaises",
-   "title": "Table à Manger Ronde Travertin + 4 Chaises",
+   "title": "Table à manger Travertin + 4 chaises",
    "price": 12000,
    "old": 0,
    "col": "tables",
@@ -257,7 +257,7 @@
   },
   {
    "id": "table-a-manger-ronde-4-chaises-mdf-noyer",
-   "title": "Table à Manger Ronde + 4 Chaises MDF Noyer",
+   "title": "Table à manger Noyer + 4 chaises",
    "price": 13500,
    "old": 0,
    "col": "tables",
@@ -274,7 +274,7 @@
   },
   {
    "id": "table-basse-ovale-noire-mdf",
-   "title": "Table Basse Ovale Noire MDF",
+   "title": "Table basse ovale Noire",
    "price": 4500,
    "old": 0,
    "col": "tables",
@@ -290,7 +290,7 @@
   },
   {
    "id": "table-de-chevet-mdf-arrondie",
-   "title": "Table de Chevet MDF Arrondie - Couleur au Choix",
+   "title": "Table de chevet Bicolore",
    "price": 3500,
    "old": 0,
    "col": "chambres",
@@ -309,7 +309,7 @@
   },
   {
    "id": "console-arche-miroirs-organiques",
-   "title": "Console Design Arche + Miroirs Organiques",
+   "title": "Console Arche & miroirs organiques",
    "price": 7000,
    "old": 0,
    "col": "entree",
@@ -326,7 +326,7 @@
   },
   {
    "id": "table-basse-ronde-marbre-bois",
-   "title": "Table Basse Ronde Marbre & Bois",
+   "title": "Table basse ronde Marbre & bois",
    "price": 5800,
    "old": 0,
    "col": "tables",
@@ -344,7 +344,7 @@
   },
   {
    "id": "table-de-chevet-arrondie-luxe",
-   "title": "Table de Chevet Arrondie Luxe",
+   "title": "Table de chevet Crème arrondie",
    "price": 4000,
    "old": 0,
    "col": "chambres",
@@ -361,30 +361,25 @@
   },
   {
    "id": "meuble-tv-arrondis",
-   "title": "Meuble TV arrondis",
+   "title": "Meuble TV Arrondis",
    "price": 3000,
    "old": 0,
    "col": "tv",
-   "desc": "Meuble TV suspendu finition noyer, aux extrémités arrondies. Couleur personnalisable.",
+   "desc": "Notre pièce signature : meuble TV suspendu aux extrémités arrondies, avec éclairage LED intégré en dessous. Dimensions standard : 200 × 30 × 30 cm (L × H × P). Finitions au choix : noyer naturel, noyer clair, chêne clair, chêne foncé, blanc mat ou noir mat. Échantillons de finition disponibles sur demande.",
    "imgs": [
     "images/meuble-tv-arrondis-client-1.webp",
     "images/meuble-tv-arrondis-client-2.webp",
     "images/meuble-tv-arrondis-1.webp",
-    "images/meuble-tv-arrondis-2.webp",
     "images/meuble-tv-arrondis-3.webp",
-    "images/meuble-tv-arrondis-4.webp",
-    "images/meuble-tv-arrondis-5.webp",
     "images/meuble-tv-arrondis-6.webp",
-    "images/meuble-tv-arrondis-7.webp",
-    "images/meuble-tv-arrondis-9.webp",
-    "images/meuble-tv-arrondis-8.webp"
+    "images/meuble-tv-arrondis-7.webp"
    ],
    "hidden": false,
    "star": false
   },
   {
    "id": "table-de-chevet-duo-curve",
-   "title": "Table de Chevet Duo Curve",
+   "title": "Table de chevet Duo Curve",
    "price": 3500,
    "old": 0,
    "col": "chambres",

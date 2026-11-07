@@ -40,7 +40,7 @@ HOME = {
     {'t': "Toute ma famille a adoré les meubles, et moi aussi je suis ravie.", 'p': 'Meubles sur mesure', 's': 'WhatsApp'},
     {'t': "Un travail soigné et très professionnel. Merci beaucoup, à la prochaine inchallah !", 'p': 'Projet sur mesure', 's': 'Instagram'},
     {'t': "La qualité et la finition, tbarkallah, tout est beau. Merci encore.", 'p': 'Coiffeuse sur mesure', 's': 'WhatsApp'},
-    {'t': "Bravo, top, très satisfaite.", 'n': 'Myriam', 'p': 'Meuble TV arrondis', 's': 'Instagram'},
+    {'t': "Bravo, top, très satisfaite.", 'n': 'Myriam', 'p': 'Meuble TV Arrondis', 's': 'Instagram'},
   ],
   'livr': [
     ('images/home/livraison-1.webp', 'images/home/livraison-1-hd.webp', 'Mur TV en noyer avec niches éclairées', 800, 1067),
