@@ -43,6 +43,7 @@ HOME = {
     {'t': "Bravo, top, très satisfaite.", 'n': 'Myriam', 'p': 'Meuble TV Arrondis', 's': 'Instagram'},
   ],
   'livr': [
+    ('images/home/livraison-12.webp', 'images/home/livraison-12-hd.webp', 'Mur TV en noyer, niches éclairées et salon complet', 800, 1067),
     ('images/home/livraison-1.webp', 'images/home/livraison-1-hd.webp', 'Mur TV en noyer avec niches éclairées', 800, 1067),
     ('images/home/livraison-2.webp', 'images/home/livraison-2-hd.webp', 'Meuble TV suspendu en noyer, parquet à chevrons', 800, 1067),
     ('images/home/livraison-3.webp', 'images/home/livraison-3-hd.webp', 'Table basse organique en noyer massif', 800, 1067),
