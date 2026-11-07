@@ -472,6 +472,11 @@ body.has-pdbar #waf{transform:translateY(-80px)}
 @media(max-width:900px){.uvs{grid-template-columns:1fr 1fr;gap:22px 12px}.uv-cap{padding:10px 36px 0 0}.uv-cap b{font-size:1rem}.uv-cap small{font-size:.76rem}.uv-go{width:30px;height:30px}}
 
 /* ---------- finitions pro ---------- */
+.pd .pd-dim{display:flex;gap:12px;align-items:flex-start;margin:18px 0 0;padding:14px 16px;background:var(--surface);border-left:3px solid var(--accent);color:var(--fg);text-decoration:none;font-size:.86rem;line-height:1.45}
+.pd .pd-dim .ic{width:22px;height:22px;flex:none;color:var(--accent-ink);margin-top:1px}
+.pd .pd-dim b{font-weight:500;display:block}
+.pd .pd-dim:hover{background:#E6DCCB}
+.pd .pd-dim+.pd-trust{margin-top:10px}
 .pd>*{min-width:0}
 @media(max-width:760px){.pd{grid-template-columns:minmax(0,1fr)}}
 .nv-x{display:none}
@@ -648,7 +653,7 @@ def patch(m, c, s):
     a = '<p class="note" style="margin-top:14px">${esc(S.settings.productNote)}</p>'
     assert a in m
     sv = lambda k: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">' + ICONS[k] + '</svg>'
-    m = m.replace(a, '<ul class="pd-trust">'
+    m = m.replace(a, '<a class="pd-dim" href="${WAU(\'Bonjour, je souhaite le produit « \'+p.title+\' » dans d’autres dimensions.\')}" target="_blank" rel="noopener">' + sv('ruler') + '<span><b>Besoin d’autres dimensions ?</b> Contactez-nous sur WhatsApp : nous fabriquons ce meuble à vos mesures.</span></a><ul class="pd-trust">'
         '<li>' + sv('truck') + '<div><b>Livraison partout au Maroc</b><span>3 à 7 jours ouvrables · 7 à 21 jours pour le sur mesure</span></div></li>'
         '<li>' + sv('wallet') + '<div><b>Paiement en deux fois</b><span>Acompte de ${MAD(Math.round(p.price*.3))} à la commande, le reste à la livraison</span></div></li>'
         '<li>' + sv('ruler') + '<div><b>Fait main, sur mesure</b><span>Dimensions et teinte adaptées à votre intérieur</span></div></li></ul>', 1)
