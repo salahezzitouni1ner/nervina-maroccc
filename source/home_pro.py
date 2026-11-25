@@ -30,7 +30,7 @@ HOME = {
     {'img': 'images/home/slide-sur-mesure.webp', 'imgm': 'images/home/slide-sur-mesure-m.webp', 'pos': '50% 65%', 'posm': '50% 75%', 'k': 'Fabrication sur mesure', 't': 'Vos dimensions. Votre teinte.',
      'd': 'Chaque pièce est adaptée à votre espace. Devis gratuit sur WhatsApp.', 'cta': 'Demander un devis', 'href': 'WA', 'alt': 'Table à manger ronde en noyer et quatre chaises'},
   ],
-  'cats': {'tables': 'images/home/col-tables.webp', 'tv': 'images/home/col-tv.webp', 'entree': 'images/home/col-entree.webp', 'chambres': 'images/home/col-chambres.webp'},
+  'cats': {'tables': 'images/home/col2-tables.webp', 'tv': 'images/home/col2-tv.webp', 'entree': 'images/home/col2-entree.webp', 'chambres': 'images/home/col2-chambres.webp'},
   'catd': {'tables': 'Basses, à manger, d’appoint', 'tv': 'Suspendus ou sur pieds', 'entree': 'Consoles et miroirs', 'chambres': 'Tables de chevet'},
   'ig': ['images/home/ig-%d.webp' % i for i in range(1, 7)],
   # avis réels, repris des messages clients publiés dans la story « Avis clients » d'Instagram
@@ -87,7 +87,7 @@ ACCUEIL = r'''accueil(){
 <a class="mban bleed" href="#catalogue" aria-label="Découvrir la collection : meuble TV, tables basses, console d'entrée, table de chevet"><picture><source media="(min-width:761px)" srcset="images/home/banniere-8-ordinateur.webp" width="1920" height="820"><img src="images/home/banniere-8-mobile.webp" width="1080" height="1350" alt="Une pièce pour chaque pièce : meuble TV noyer et crème, table London, console Arche, chevet arrondi, set organique et table ovale en marbre" fetchpriority="high" decoding="async"></picture></a>
 <section class="usp bleed" aria-label="Nos engagements"><div class="usp-in"><div class="usp-track">${[0,1].map(k=>`<div class="usp-set"${k?' aria-hidden="true"':''}>${usp.map(u=>`<div class="usp-i">${ic(u[0])}<div><b>${u[1]}</b><span>${u[2]}</span></div></div>`).join('')}</div>`).join('')}</div></div></section>
 <section class="sec2"><div class="sh rv"><div><p class="eyebrow">Collections</p><h2>Explorez nos univers</h2></div><a class="lnk" href="#catalogue">Tout le catalogue</a></div>
-  <div class="uvs">${S.collections.map(c=>{const im=H.cats[c.id]||(L.find(p=>p.col===c.id)||{}).imgs?.[0];return `<a class="uv rv" href="#c-${esc(c.id)}"><span class="uv-im">${im?`<img src="${im}" alt="${esc(c.name)}" loading="lazy" decoding="async">`:''}</span><span class="uv-cap"><b>${esc(c.name)}</b><small>${esc((H.catd||{})[c.id]||'')}</small></span><span class="uv-go" aria-hidden="true">${ic('arrowr')}</span></a>`}).join('')}</div></section>
+  <div class="uvs">${S.collections.map(c=>{const im=H.cats[c.id]||(L.find(p=>p.col===c.id)||{}).imgs?.[0];return `<a class="uv rv" href="#c-${esc(c.id)}"><span class="uv-im">${im?`<img src="${im}" alt="${esc(c.name)}" loading="lazy" decoding="async">`:''}</span><span class="uv-cap"><b>${esc(c.name)}</b><small>${(n=>n+(n>1?' modèles':' modèle'))(L.filter(p=>p.col===c.id).length)}</small></span><span class="uv-go" aria-hidden="true">${ic('arrowr')}</span></a>`}).join('')}</div></section>
 ${rail('r-best','Les plus demandées','Nos best-sellers',best,'#catalogue')}
 ${sig&&!sig.hidden?`<section class="promo bleed rv-wrap"><div class="promo-in">
   <div class="promo-img rv"><img src="images/home/promo-signature.webp" alt="Meuble TV arrondis en noyer, suspendu, avec éclairage LED" loading="lazy" decoding="async"><span class="promo-badge">Notre signature</span></div>
@@ -457,20 +457,18 @@ body.has-pdbar #waf{transform:translateY(-80px)}
 @media(prefers-reduced-motion:reduce){.usp-track{animation:none}.usp-in{overflow-x:auto;-webkit-mask-image:none;mask-image:none}.usp-set[aria-hidden]{display:none}}
 
 /* collections : 4 univers rangés en grille, produit détouré sur une arche beige (comme la bannière) */
-.uvs{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.uvs{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
 .uv{position:relative;display:flex;flex-direction:column;text-decoration:none;color:var(--fg)}
-.uv-im{position:relative;display:block;aspect-ratio:1/1;background:#ECE6D9;border-radius:2px;overflow:hidden}
-.uv-im::before{content:"";position:absolute;left:14%;right:14%;top:12%;bottom:0;background:#E3D8C3;border-radius:999px 999px 0 0}
-.uv-im::after{content:"";position:absolute;left:18%;right:18%;bottom:13%;height:5%;border-radius:50%;background:radial-gradient(closest-side,rgba(70,45,20,.22),rgba(70,45,20,0))}
-.uv-im img{position:absolute;left:50%;bottom:15%;width:74%;height:58%;object-fit:contain;object-position:50% 100%;translate:-50% 0;z-index:1;transition:transform .7s cubic-bezier(.2,.7,.2,1)}
-.uv:hover .uv-im img{transform:translateY(-6px) scale(1.03)}
-.uv-cap{display:grid;gap:2px;padding:14px 44px 0 0}
-.uv-cap b{font-size:1.12rem;font-weight:500;letter-spacing:-.01em}
-.uv-cap small{font-size:.82rem;color:var(--muted)}
-.uv-go{position:absolute;right:0;bottom:4px;width:34px;height:34px;display:grid;place-items:center;border:1px solid var(--line);border-radius:50%;transition:background .3s,color .3s}
+.uv-im{position:relative;display:block;aspect-ratio:1/1;background:#EBE7D8;overflow:hidden}
+.uv-im img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.uv:hover .uv-im img{transform:scale(1.04)}
+.uv-cap{display:grid;gap:3px;padding:14px 46px 0 0;min-height:58px}
+.uv-cap b{font-size:1.08rem;font-weight:500;letter-spacing:-.01em;line-height:1.2}
+.uv-cap small{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:#85582F;font-weight:500}
+.uv-go{position:absolute;right:0;bottom:2px;width:34px;height:34px;display:grid;place-items:center;border:1px solid var(--line);border-radius:50%;transition:background .3s,color .3s}
 .uv:hover .uv-go{background:var(--fg);color:var(--bg)}
 .uv-go .ic{width:15px;height:15px}
-@media(max-width:900px){.uvs{grid-template-columns:1fr 1fr;gap:22px 12px}.uv-cap{padding:10px 36px 0 0}.uv-cap b{font-size:1rem}.uv-cap small{font-size:.76rem}.uv-go{width:30px;height:30px}}
+@media(max-width:900px){.uvs{grid-template-columns:1fr 1fr;gap:20px 10px}.uv-cap{padding:10px 38px 0 0;min-height:52px}.uv-cap b{font-size:.98rem}.uv-cap small{font-size:.62rem;letter-spacing:.14em}.uv-go{width:30px;height:30px}}
 
 /* ---------- finitions pro ---------- */
 .pd .pd-dim{display:flex;gap:12px;align-items:flex-start;margin:18px 0 0;padding:14px 16px;background:var(--surface);border-left:3px solid var(--accent);color:var(--fg);text-decoration:none;font-size:.86rem;line-height:1.45}
@@ -573,11 +571,7 @@ def make_assets(repo):
         if crop: im = im.crop(crop)
         if im.width > w: im = im.resize((w, round(im.height * w / im.width)), Image.LANCZOS)
         im.save(f'{repo}/images/home/{name}.webp', 'WEBP', quality=80, method=6)
-    # collections : produit détouré (fond transparent), posé sur une arche beige en CSS
-    for k, pid in COLS:
-        im = Image.open(f'{CUTS}/{pid}.png').convert('RGBA')
-        im.thumbnail((720, 720), Image.LANCZOS)
-        im.save(f'{repo}/images/home/col-{k}.webp', 'WEBP', quality=86, method=6)
+    # collections : images col2-*.webp déjà dans le dépôt (produit entier sur fond #EBE7D8), ne pas régénérer
 
 
 SCRIPTS = '<script src="vendor/gsap.min.js"></script>\n<script src="vendor/ScrollTrigger.min.js"></script>\n<script src="vendor/lenis.min.js"></script>\n'
