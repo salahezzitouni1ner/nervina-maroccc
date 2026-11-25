@@ -32,7 +32,7 @@ def icons(repo):
 
 def og_home(repo):
     os.makedirs(repo + '/images/og', exist_ok=True)
-    b = Image.open(repo + '/images/home/banniere-6-ordinateur.webp').convert('RGB')
+    b = Image.open(repo + '/images/home/banniere-7-ordinateur.webp').convert('RGB')
     c = Image.new('RGB', (1200, 630), BEIGE)
     t = b.copy(); t.thumbnail((1200, 630), Image.LANCZOS)
     c.paste(t, ((1200 - t.width) // 2, (630 - t.height) // 2))
