@@ -364,7 +364,7 @@ html,body{overflow-x:clip}
 /* ================= MOBILE D'ABORD ================= */
 .tb{display:none}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.mban{display:block;background:#F3F0E6;line-height:0}.mban img{width:100%;height:auto;display:block}
+.mban{display:block;background:#EBE7D8;line-height:0}.mban img{width:100%;height:auto;display:block}
 @media(max-width:760px){
   /* barre d'onglets en bas, comme une appli */
   .tb{display:grid;grid-template-columns:repeat(4,1fr);position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--bg);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -808,7 +808,7 @@ accueil(){
   const rail=(id,k,t,list,all)=>list.length?`<section class="sec2"><div class="sh rv"><div><p class="eyebrow">${k}</p><h2>${t}</h2></div><div class="sh-r">${all?`<a class="lnk" href="${all}">Tout voir</a>`:''}<div class="rail-nav"><button class="rn" data-rail="${id}" data-d="-1" aria-label="Précédent">${ic('arrowl')}</button><button class="rn" data-rail="${id}" data-d="1" aria-label="Suivant">${ic('arrowr')}</button></div></div></div><div class="rail" id="${id}">${list.map(card).join('')}</div></section>`:'';
   const ig=String(S.settings.instagram||'').replace(/^@/,'');
   return `<h1 class="sr">Nervina Maroc : meubles sur mesure faits main au Maroc, meubles TV, tables basses, consoles et tables de chevet</h1>
-<a class="mban bleed" href="#catalogue" aria-label="Découvrir la collection : meuble TV, tables basses, console d'entrée, table de chevet"><picture><source media="(min-width:761px)" srcset="images/home/banniere-7-ordinateur.webp" width="1920" height="820"><img src="images/home/banniere-7-mobile.webp" width="1080" height="1350" alt="Une pièce pour chaque pièce : meuble TV noyer et crème, table London, console Arche, chevet arrondi, set organique et table ovale en marbre" fetchpriority="high" decoding="async"></picture></a>
+<a class="mban bleed" href="#catalogue" aria-label="Découvrir la collection : meuble TV, tables basses, console d'entrée, table de chevet"><picture><source media="(min-width:761px)" srcset="images/home/banniere-8-ordinateur.webp" width="1920" height="820"><img src="images/home/banniere-8-mobile.webp" width="1080" height="1350" alt="Une pièce pour chaque pièce : meuble TV noyer et crème, table London, console Arche, chevet arrondi, set organique et table ovale en marbre" fetchpriority="high" decoding="async"></picture></a>
 <section class="usp bleed" aria-label="Nos engagements"><div class="usp-in"><div class="usp-track">${[0,1].map(k=>`<div class="usp-set"${k?' aria-hidden="true"':''}>${usp.map(u=>`<div class="usp-i">${ic(u[0])}<div><b>${u[1]}</b><span>${u[2]}</span></div></div>`).join('')}</div>`).join('')}</div></div></section>
 <section class="sec2"><div class="sh rv"><div><p class="eyebrow">Collections</p><h2>Explorez nos univers</h2></div><a class="lnk" href="#catalogue">Tout le catalogue</a></div>
   <div class="uvs">${S.collections.map(c=>{const im=H.cats[c.id]||(L.find(p=>p.col===c.id)||{}).imgs?.[0];return `<a class="uv rv" href="#c-${esc(c.id)}"><span class="uv-im">${im?`<img src="${im}" alt="${esc(c.name)}" loading="lazy" decoding="async">`:''}</span><span class="uv-cap"><b>${esc(c.name)}</b><small>${esc((H.catd||{})[c.id]||'')}</small></span><span class="uv-go" aria-hidden="true">${ic('arrowr')}</span></a>`}).join('')}</div></section>
