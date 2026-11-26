@@ -170,8 +170,10 @@ def run(repo, g, s, assets=True):
                 f'<p>{esc(desc)}</p><h2>Nos collections</h2>{col_links}<h2>Nos meubles</h2>{plinks(vis)}'
                 f'<p><a href="/faq/">Questions fréquentes</a> · <a href="/a-propos/">À propos de Nervina</a></p>')
     index = write(repo + '/index.html', '', head_tags(title, desc, SITE + '/', '/images/og/nervina.jpg', 1200, 630, extra=jsonld(store) + '\n' + jsonld(site_ld)), home_pre)
+    # anciennes adresses Shopify (/products/..., /collections/...) inconnues -> catalogue
+    OLD_SHOPIFY = '<script>(function(){var p=location.pathname;if(/^\\/(products|collections|pages|blogs|cart|account|search)(\\/|$)/.test(p)){location.replace("/#catalogue")}})()</script>'
     # page 404 : la boutique elle-même (adresse inconnue -> accueil), non indexée
-    open(repo + '/404.html', 'w', encoding='utf-8').write(index.replace('<link rel="canonical"', '<meta name="robots" content="noindex">\n<base href="/">\n<link rel="canonical"', 1))
+    open(repo + '/404.html', 'w', encoding='utf-8').write(index.replace('<link rel="canonical"', '<meta name="robots" content="noindex">\n<base href="/">\n' + OLD_SHOPIFY + '\n<link rel="canonical"', 1))
     urls = [(SITE + '/', '/images/og/nervina.jpg')]
     keep = {'p': set(), 'c': set(), 'pg': set()}
     # une page par produit
